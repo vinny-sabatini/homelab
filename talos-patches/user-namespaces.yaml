@@ -1,0 +1,25 @@
+---
+# TODO: This didn't work on new clusters, kube pods never scheduled
+# https://www.talos.dev/v1.9/kubernetes-guides/configuration/usernamespace/
+- op: add
+  path: /cluster/apiServer
+  value: {
+    "extraArgs": {
+      "feature-gates": "UserNamespacesSupport=true,UserNamespacesPodSecurityStandards=true"
+    }
+  }
+- op: replace
+  path: /machine/sysctls
+  value: {
+    user.max_user_namespaces: "11255"
+  }
+- op: replace
+  path: /machine/kubelet
+  value: {
+    "extraConfig": {
+      "featureGates": {
+        "UserNamespacesSupport": true,
+        "UserNamespacesPodSecurityStandards": true
+      }
+    }
+  }
