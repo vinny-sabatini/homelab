@@ -35,20 +35,34 @@ spec:
             keyFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client-key.key"
         prometheus:
           prometheusSpec:
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: local-path
+                  accessModes: ["ReadWriteOnce"]
+                  resources:
+                    requests:
+                      storage: 50Gi
+            initContainers:
+              - name: prometheus-data-permission-fix
+                image: busybox
+                command: ["/bin/chmod","-R","777", "/prometheus"]
+                volumeMounts:
+                - name: prometheus-cluster-kube-prometheus-st-prometheus-db
+                  mountPath: /prometheus
+                  subPath: prometheus-db
             secrets:
               - etcd-client-cert
-            serviceMonitorSelectorNilUsesHelmValues: true
-            serviceMonitorSelector: {}
+            serviceMonitorSelectorNilUsesHelmValues: false
             serviceMonitorNamespaceSelector: {}
-            probeSelectorNilUsesHelmValues: true
-            probeSelector: {}
+            probeSelectorNilUsesHelmValues: false
             probeNamespaceSelector: {}
-            scrapeConfigSelectorNilUsesHelmValues: true
-            scrapeConfigSelector: {}
+            scrapeConfigSelectorNilUsesHelmValues: false
             scrapeConfigNamespaceSelector: {}
-            podMonitorSelectorNilUsesHelmValues: true
-            podMonitorSelector: {}
+            podMonitorSelectorNilUsesHelmValues: false
             podMonitorNamespaceSelector: {}
+            ruleSelectorNilUsesHelmValues: false
+            ruleNamespaceSelector: {}
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
