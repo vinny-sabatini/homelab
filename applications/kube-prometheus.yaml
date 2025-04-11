@@ -49,10 +49,6 @@ spec:
             podMonitorSelectorNilUsesHelmValues: true
             podMonitorSelector: {}
             podMonitorNamespaceSelector: {}
-            scrapeConfigSelectorNilUsesHelmValues: true
-            scrapeConfigSelector: {}
-            scrapeConfigNamespaceSelector: {}
-
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
