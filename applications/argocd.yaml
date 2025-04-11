@@ -18,8 +18,6 @@ spec:
             enabled: true
             serviceMonitor:
               enabled: true
-              additionalLabels:
-                release: cluster
             rules:
               enabled: false
             clusterRoleRules:
@@ -33,8 +31,6 @@ spec:
             enabled: true
             serviceMonitor:
               enabled: true
-              additionalLabels:
-                release: cluster
             rules:
               enabled: false
             clusterRoleRules:
@@ -47,8 +43,6 @@ spec:
             enabled: true
             serviceMonitor:
               enabled: true
-              additionalLabels:
-                release: cluster
             rules:
               enabled: false
             clusterRoleRules:
@@ -58,8 +52,6 @@ spec:
             enabled: true
             serviceMonitor:
               enabled: true
-              additionalLabels:
-                release: cluster
             rules:
               enabled: false
             clusterRoleRules:
@@ -69,8 +61,6 @@ spec:
             enabled: true
             serviceMonitor:
               enabled: true
-              additionalLabels:
-                release: cluster
             rules:
               enabled: false
             clusterRoleRules:
@@ -80,8 +70,6 @@ spec:
             enabled: true
             serviceMonitor:
               enabled: true
-              additionalLabels:
-                release: cluster
             rules:
               enabled: false
             clusterRoleRules:

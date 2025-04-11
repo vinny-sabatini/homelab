@@ -20,8 +20,6 @@ spec:
           enabled: true
         serviceMonitor:
           enabled: true
-          additionalLabels:
-            release: cluster
         args:
           - --kubelet-insecure-tls
         podLabels:

@@ -4,8 +4,6 @@ kind: KubeVirt
 metadata:
   name: kubevirt
   namespace: kubevirt
-  labels:
-    release: cluster
 spec:
   monitorNamespace: monitoring
   monitorAccount: cluster-kube-prometheus-st-operator
