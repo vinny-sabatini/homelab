@@ -1,0 +1,48 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cilium
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: cilium
+    repoURL: https://helm.cilium.io/
+    targetRevision: 1.17.2
+    helm:
+      releaseName: cilium
+      values: |
+        operator:
+          replicas: 1
+        ipam:
+          mode: kubernetes
+        kubeProxyReplacement: true
+        bgpControlPlane:
+          enabled: true
+        l2announcements:
+          enabled: true
+        securityContext:
+          capabilities:
+            ciliumAgent: [CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID]
+            cleanCiliumState: [NET_ADMIN,SYS_ADMIN,SYS_RESOURCE]
+        cgroup:
+          autoMount:
+            enabled: false
+          hostRoot: /sys/fs/cgroup
+        k8sServiceHost: localhost
+        k8sServicePort: 7445
+        gatewayAPI:
+          enabled: true
+          enableAlpn: true
+          enableAppProtocol: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

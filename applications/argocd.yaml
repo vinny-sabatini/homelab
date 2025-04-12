@@ -1,0 +1,84 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: argo-cd
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 7.7.10
+    helm:
+      releaseName: cluster
+      values: |
+        fullnameOverride: argocd
+        controller:
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+            rules:
+              enabled: false
+            clusterRoleRules:
+              enabled: true
+        dex:
+          enabled: false
+        redis:
+          exporter:
+            enabled: true
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+            rules:
+              enabled: false
+            clusterRoleRules:
+              enabled: true
+        server:
+          service:
+            loadBalancerClass: io.cilium/l2-announcer
+            type: LoadBalancer
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+            rules:
+              enabled: false
+            clusterRoleRules:
+              enabled: true
+        repoServer:
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+            rules:
+              enabled: false
+            clusterRoleRules:
+              enabled: true
+        applicationSet:
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+            rules:
+              enabled: false
+            clusterRoleRules:
+              enabled: true
+        notifications:
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+            rules:
+              enabled: false
+            clusterRoleRules:
+              enabled: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
