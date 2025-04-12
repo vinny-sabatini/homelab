@@ -1,0 +1,23 @@
+---
+# This is done so we can install Cilium CNI
+# https://www.talos.dev/v1.9/kubernetes-guides/network/deploying-cilium/
+- op: replace
+  path: /cluster/network/cni
+  value: {
+    "name": none
+  }
+- op: replace
+  path: /cluster/proxy
+  value: {
+    "disabled": true
+  }
+
+# If kube-proxy is already installed and has to be removed - https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/
+# kubectl -n kube-system delete ds kube-proxy
+# $ # Delete the configmap as well to avoid kube-proxy being reinstalled during a Kubeadm upgrade (works only for K8s 1.19 and newer)
+# kubectl -n kube-system delete cm kube-proxy
+# $ # Run on each node with root permissions:
+# iptables-save | grep -v KUBE | iptables-restore
+# kubectl delete daemonset -n kube-system kube-flannel
+# kubectl delete daemonset -n kube-system kube-proxy
+# kubectl delete cm kube-flannel-cfg -n kube-system
