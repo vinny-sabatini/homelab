@@ -1,0 +1,71 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 70.4.1
+    helm:
+      releaseName: cluster
+      values: |
+        fullnameOverride: kube-prom
+        kubeProxy:
+          enabled: false
+        kubeEtcd:
+          service:
+            enabled: true
+            port: 2379
+            targetPort: 2379
+            selector:
+              k8s-app: kube-controller-manager # or any other service like kube-proxy or kube-scheduler
+          # TODO: Handle this better, this secret is currently generated using talosctl
+          # Ref https://github.com/siderolabs/talos/discussions/7214#discussioncomment-11709688
+          serviceMonitor:
+            scheme: https
+            insecureSkipVerify: false
+            caFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-ca.crt"
+            certFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client.crt"
+            keyFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client-key.key"
+        prometheus:
+          prometheusSpec:
+            secrets:
+              - etcd-client-cert
+            serviceMonitorSelectorNilUsesHelmValues: false
+            serviceMonitorNamespaceSelector: {}
+            probeSelectorNilUsesHelmValues: false
+            probeNamespaceSelector: {}
+            scrapeConfigSelectorNilUsesHelmValues: false
+            scrapeConfigNamespaceSelector: {}
+            podMonitorSelectorNilUsesHelmValues: false
+            podMonitorNamespaceSelector: {}
+            ruleSelectorNilUsesHelmValues: false
+            ruleNamespaceSelector: {}
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: local-path
+                  resources:
+                    requests:
+                      storage: 40Gi
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: privileged
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
