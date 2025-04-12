@@ -1,0 +1,51 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  loadBalancerClass: io.cilium/l2-announcer
+  ports:
+  - name: http-web
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app.kubernetes.io/instance: cluster
+    app.kubernetes.io/name: grafana
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager
+  namespace: monitoring
+spec:
+  loadBalancerClass: io.cilium/l2-announcer
+  ports:
+  - name: http-web
+    port: 9093
+    protocol: TCP
+    targetPort: 9093
+  selector:
+    alertmanager: cluster-kube-prometheus-st-alertmanager
+    app.kubernetes.io/name: alertmanager
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  loadBalancerClass: io.cilium/l2-announcer
+  selector:
+    app.kubernetes.io/name: prometheus
+    operator.prometheus.io/name: cluster-kube-prometheus-st-prometheus
+  ports:
+  - name: http-web
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  type: LoadBalancer
