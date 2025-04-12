@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-path-storage
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rancher/local-path-provisioner.git
+    targetRevision: v0.0.31
+    path: ./deploy/chart/local-path-provisioner
+    helm:
+      releaseName: local-path-storage
+      values: |
+        storageClass:
+          defaultClass: true
+        nodePathMap:
+        - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
+          paths:
+          - /var/local-path-provisioner
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: local-path-storage
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: privileged
