@@ -1,6 +1,4 @@
 ---
-- op: replace
-  path: /cluster
-  value: {
-    "allowSchedulingOnControlPlanes": true
-  }
+- op: add
+  path: /cluster/allowSchedulingOnControlPlanes
+  value: true

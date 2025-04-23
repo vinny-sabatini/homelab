@@ -4,27 +4,39 @@
 
 set -euo
 
-CLUSTER_NAME=talos-cluster
-NODE_IP=$1
+export CLUSTER_NAME=talos-cluster
+export NODE_IP=$1
 
 # Generate base configuration files
 talosctl gen config ${CLUSTER_NAME} https://${NODE_IP}:6443 \
+    --force \
     --install-disk /dev/nvme0n1 \
-    --config-patch @talos-patches/disable-cni-and-kube-proxy.yaml \
-    --config-patch @talos-patches/rotate-server-certificates.yaml \
     --config-patch @talos-patches/control-plane-scheduling.yaml \
+    --config-patch @talos-patches/disable-cni-and-kube-proxy.yaml \
     --config-patch @talos-patches/kube-services-bind.yaml \
-    --config-patch @talos-patches/local-path-storage.yaml
+    --config-patch @talos-patches/local-path-storage.yaml \
+    --config-patch @talos-patches/rotate-server-certificates.yaml
 
+mkdir -p $HOME/.talos
+yq '.contexts.talos-cluster.endpoints += [strenv(NODE_IP)]' -i ./talosconfig
+yq '.contexts.talos-cluster.nodes += [strenv(NODE_IP)]' -i ./talosconfig
+cp talosconfig $HOME/.talos/config
+
+echo "Click enter when serial console is looking for configuration file"
+read -p ""
 
 talosctl apply-config --insecure --nodes ${NODE_IP} --file controlplane.yaml
 
-# Once the configs finish applying, bootstrap the cluster
-talosctl bootstrap --nodes ${NODE_IP} --endpoints ${NODE_IP} --talosconfig=./talosconfig
+echo "Click enter when serial console is waiting for bootstrap"
+read -p ""
 
-# Review cluster health
-talosctl --nodes ${NODE_IP} --endpoints ${NODE_IP} --talosconfig=./talosconfig health
-talosctl --nodes ${NODE_IP} --endpoints ${NODE_IP} --talosconfig=./talosconfig dashboard
+# Once the configs finish applying, bootstrap the cluster
+talosctl bootstrap
+
+echo "Click enter when ready to bootstrap CNI (failing to get pods)"
+read -p ""
 
 # Add cluster to kubeconfig
-talosctl --nodes ${NODE_IP} --endpoints ${NODE_IP} --talosconfig=./talosconfig kubeconfig
+talosctl kubeconfig
+
+./scripts/02-install-cilium.sh ${NODE_IP}

@@ -1,12 +1,14 @@
 ---
 # This is done so we can install Cilium CNI
-# https://www.talos.dev/v1.9/kubernetes-guides/network/deploying-cilium/
-- op: replace
-  path: /cluster/network/cni
+# https://www.talos.dev/latest/kubernetes-guides/network/deploying-cilium/
+- op: add
+  path: /cluster/network
   value: {
-    "name": none
+    "cni": {
+      "name": none
+    }
   }
-- op: replace
+- op: add
   path: /cluster/proxy
   value: {
     "disabled": true

@@ -1,6 +1,6 @@
 ---
 # TODO: This didn't work on new clusters, kube pods never scheduled
-# https://www.talos.dev/v1.9/kubernetes-guides/configuration/usernamespace/
+# https://www.talos.dev/latest/kubernetes-guides/configuration/usernamespace/
 - op: add
   path: /cluster/apiServer
   value: {
