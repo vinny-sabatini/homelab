@@ -1,0 +1,148 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vector
+  namespace: argocd
+spec:
+  destination:
+    namespace: vector
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: vector
+    helm:
+      releaseName: vector
+      values: |
+        role: Stateless-Aggregator
+        podMonitor:
+          enabled: true
+        customConfig:
+          sources:
+            k8s_logs:
+              type: kubernetes_logs
+
+            kubernetes_logs:
+              type: kubernetes_logs
+              self_node_name: ""
+
+            talos_kernel_logs:
+              address: 0.0.0.0:6050
+              type: socket
+              mode: udp
+              max_length: 102400
+              decoding:
+                codec: json
+              host_key: __host
+
+            talos_service_logs:
+              address: 0.0.0.0:6051
+              type: socket
+              mode: udp
+              max_length: 102400
+              decoding:
+                codec: json
+              host_key: __host
+
+            vector_metrics:
+              type: internal_metrics
+              scrape_interval_secs: 10
+
+          sinks:
+            kubernetes:
+              type: loki
+              inputs:
+              - kubernetes_logs
+              endpoint: http://loki.loki:3100
+              encoding:
+                codec: json
+                except_fields: []
+              batch:
+                max_bytes: 1048576
+              out_of_order_action: rewrite_timestamp
+              labels:
+                file: |-
+                  {{ print "{{ file }}" }}
+                stream: |-
+                  {{ print "{{ stream }}" }}
+                source_type: |-
+                  {{ print "{{ source_type }}" }}
+                k8s_pod_namespace: |-
+                  {{ print "{{ kubernetes.pod_namespace }}" }}
+                k8s_pod_name: |-
+                  {{ print "{{ kubernetes.pod_name }}" }}
+                k8s_pod_uid: |-
+                  {{ print "{{ kubernetes.pod_uid }}" }}
+
+            k8s_logs_loki:
+              type: loki
+              inputs:
+                - k8s_logs
+              endpoint: http://loki.loki:3100
+              labels:
+                job: k8s
+                host: ${VECTOR_SELF_NODE_NAME}
+                namespace: |-
+                  {{ print "{{ kubernetes.pod_namespace }}" }}
+                pod: |-
+                  {{ print "{{ kubernetes.pod_name }}" }}
+                container: |-
+                  {{ print "{{ kubernetes.container_name }}" }}
+              encoding:
+                codec: json
+              batch:
+                max_bytes: 1048576 # 1 MiB
+
+            talos_kernel:
+              type: loki
+              inputs:
+              - talos_kernel_logs
+              endpoint: http://loki.loki:3100
+              encoding:
+                codec: json
+                except_fields:
+                  - __host
+              batch:
+                max_bytes: 1048576
+              out_of_order_action: rewrite_timestamp
+              labels:
+                hostname: |-
+                  {{ print "{{ __host }}" }}
+                facility: |-
+                  {{ print "{{ facility }}" }}
+
+            talos_service:
+              type: loki
+              inputs:
+              - talos_service_logs
+              endpoint: http://loki.loki:3100
+              encoding:
+                codec: json
+                except_fields:
+                  - __host
+              batch:
+                max_bytes: 400000
+              out_of_order_action: rewrite_timestamp
+              labels:
+                hostname: |-
+                  {{ print "{{ __host }}" }}
+                service: |-
+                  {{ print "{{ talos-service }}" }}
+
+            prom-exporter:
+              type: prometheus_exporter
+              inputs:
+                - vector_metrics
+              address: 0.0.0.0:9598
+
+    repoURL: https://helm.vector.dev
+    targetRevision: 0.42.1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: "privileged"

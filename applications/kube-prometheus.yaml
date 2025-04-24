@@ -55,6 +55,15 @@ spec:
                   resources:
                     requests:
                       storage: 40Gi
+        grafana:
+          additionalDataSources:
+          - name: loki
+            access: proxy
+            editable: false
+            orgId: 1
+            type: loki
+            url: http://loki.loki.svc.cluster.local:3100
+            version: 1
 
   destination:
     server: "https://kubernetes.default.svc"
