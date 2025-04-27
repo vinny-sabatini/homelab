@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: grafana-config
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
@@ -10,20 +10,15 @@ metadata:
 spec:
   project: default
   source:
-    chart: cert-manager
-    repoURL: https://charts.jetstack.io
-    targetRevision: v1.17.0
-    helm:
-      releaseName: cert-manager
-      values: |
-        crds:
-          enabled: true
+    path: additional-deployments/grafana-config
+    repoURL: https://github.com/vinny-sabatini/homelab.git
+    targetRevision: main
   destination:
-    server: "https://kubernetes.default.svc"
-    namespace: cert-manager
+    namespace: monitoring
+    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+    - ServerSideApply=true

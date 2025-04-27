@@ -15,12 +15,7 @@ spec:
     targetRevision: v0.9.0
     helm:
       releaseName: version-checker
-      values: |
-        # dashboards:
-        #   enabled: true
-        #   grafana: cluster-grafana
-        #   labels:
-        #     grafana_dashboard: 1
+      values: ""
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring

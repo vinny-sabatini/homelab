@@ -1,0 +1,19 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  labels:
+    app.kubernetes.io/instance: version-checker
+    app.kubernetes.io/name: version-checker
+    app.kubernetes.io/version: v0.9.0
+  name: version-checker-general
+  namespace: monitoring
+spec:
+  allowCrossNamespaceImport: false
+  configMapRef:
+    key: general-overview.json
+    name: version-checker-dashboards
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  resyncPeriod: 10m0s
