@@ -1,0 +1,30 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: version-checker
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: version-checker
+    repoURL: https://charts.jetstack.io
+    targetRevision: v0.9.0
+    helm:
+      releaseName: version-checker
+      values: |
+        # dashboards:
+        #   enabled: true
+        #   grafana: cluster-grafana
+        #   labels:
+        #     grafana_dashboard: 1
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
