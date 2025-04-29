@@ -16,6 +16,8 @@ spec:
     helm:
       releaseName: cilium
       values: |
+        cni:
+          exclusive: false
         operator:
           replicas: 1
         ipam:
