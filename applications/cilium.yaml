@@ -23,8 +23,6 @@ spec:
         ipam:
           mode: kubernetes
         kubeProxyReplacement: true
-        bgpControlPlane:
-          enabled: true
         l2announcements:
           enabled: true
         securityContext:
