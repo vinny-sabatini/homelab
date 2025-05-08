@@ -1,4 +1,3 @@
 ---
-- op: add
-  path: /cluster/allowSchedulingOnControlPlanes
-  value: true
+cluster:
+  allowSchedulingOnControlPlanes: true

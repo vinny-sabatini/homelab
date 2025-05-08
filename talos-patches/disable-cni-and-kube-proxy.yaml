@@ -1,18 +1,12 @@
 ---
 # This is done so we can install Cilium CNI
 # https://www.talos.dev/latest/kubernetes-guides/network/deploying-cilium/
-- op: add
-  path: /cluster/network
-  value: {
-    "cni": {
-      "name": none
-    }
-  }
-- op: add
-  path: /cluster/proxy
-  value: {
-    "disabled": true
-  }
+cluster:
+  proxy:
+    disabled: true
+  network:
+    cni:
+      name: none
 
 # If kube-proxy is already installed and has to be removed - https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/
 # kubectl -n kube-system delete ds kube-proxy

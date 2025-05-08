@@ -1,16 +1,9 @@
 ---
 # Expose metrics for controller manager, scheduler, and etcd
-- op: add
-  path: /cluster/controllerManager
-  value: {
-    "extraArgs": {
-      "bind-address": "0.0.0.0"
-    }
-  }
-- op: add
-  path: /cluster/scheduler
-  value: {
-    "extraArgs": {
-      "bind-address": "0.0.0.0"
-    }
-  }
+cluster:
+  controllerManager:
+    extraArgs:
+      bind-address: "0.0.0.0"
+  scheduler:
+    extraArgs:
+      bind-address: "0.0.0.0"

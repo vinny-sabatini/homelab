@@ -15,7 +15,8 @@ talosctl gen config ${CLUSTER_NAME} https://${NODE_IP}:6443 \
     --config-patch @talos-patches/disable-cni-and-kube-proxy.yaml \
     --config-patch @talos-patches/kube-services-bind.yaml \
     --config-patch @talos-patches/local-path-storage.yaml \
-    --config-patch @talos-patches/rotate-server-certificates.yaml
+    --config-patch @talos-patches/rotate-server-certificates.yaml \
+    --config-patch @talos-patches/volume-configs.yaml
 
 mkdir -p $HOME/.talos
 yq '.contexts.talos-cluster.endpoints += [strenv(NODE_IP)]' -i ./talosconfig
@@ -37,6 +38,6 @@ echo "Click enter when ready to bootstrap CNI (failing to get pods)"
 read -p ""
 
 # Add cluster to kubeconfig
-talosctl kubeconfig
+talosctl kubeconfig --force
 
 ./scripts/02-install-cilium.sh ${NODE_IP}
