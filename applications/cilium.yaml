@@ -18,7 +18,7 @@ spec:
       values: |
         cni:
           exclusive: false
-        # devices: "{enp86s0}"
+        devices: "{enp86s0,br0}"
         operator:
           replicas: 1
         ipam:

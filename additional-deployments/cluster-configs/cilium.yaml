@@ -14,6 +14,6 @@ metadata:
   name: l2policy
 spec:
   loadBalancerIPs: true
-  # interfaces:
-  # - "br0"
-  # - "enp86s0"
+  interfaces:
+  - "br0"
+  - "enp86s0"
