@@ -18,6 +18,7 @@ spec:
       values: |
         cni:
           exclusive: false
+        devices: "{br0,enp86s0}"
         operator:
           replicas: 1
         ipam:

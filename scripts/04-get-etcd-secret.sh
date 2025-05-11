@@ -27,3 +27,5 @@ data:
   etcd-client-key.key:
     ${etcd_key}
 EOF
+
+./scripts/05-configure-bridge.sh
