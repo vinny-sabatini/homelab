@@ -16,3 +16,4 @@ spec:
   loadBalancerIPs: true
   interfaces:
   - "br0"
+  - "enp86s0"
