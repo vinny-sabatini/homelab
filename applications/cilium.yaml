@@ -18,7 +18,6 @@ spec:
       values: |
         cni:
           exclusive: false
-        devices: "br0"
         operator:
           replicas: 1
         ipam:

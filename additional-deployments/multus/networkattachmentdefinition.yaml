@@ -1,0 +1,39 @@
+# machine:
+#     network:
+#       interfaces:
+#       - interface: br0
+#         addresses:
+#           - 192.168.3.6/24
+#         bridge:
+#           stp:
+#             enabled: true
+#           interfaces:
+#               - enp86s0 # This must be changed to your matching interface name
+#         routes:
+#             - network: 0.0.0.0/0 # The route's network (destination).
+#               gateway: 192.168.3.1 # The route's gateway (if empty, creates link scope route).
+#               metric: 1024 # The optional metric for the route.
+
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: bridge-conf
+# namespace: THIS IS A NAMESPACED RESOURCE
+spec:
+  config: '{
+      "cniVersion": "0.3.0",
+      "type": "bridge",
+      "master": "eth0",
+      "mode": "bridge",
+      "ipam": {
+        "type": "host-local",
+        "subnet": "192.168.4.0/24",
+        "rangeStart": "192.168.4.101",
+        "rangeEnd": "192.168.4.200",
+        "routes": [
+          { "dst": "0.0.0.0/0" }
+        ],
+        "gateway": "192.168.4.1"
+      }
+    }'
