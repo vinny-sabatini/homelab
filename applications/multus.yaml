@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-configs
+  name: multus
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
@@ -10,11 +10,11 @@ metadata:
 spec:
   project: default
   source:
-    path: additional-deployments/cluster-configs
+    path: additional-deployments/multus
     repoURL: https://github.com/vinny-sabatini/homelab.git
-    targetRevision: fix-arp
+    targetRevision: main
   destination:
-    namespace: default
+    namespace: kube-system
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
