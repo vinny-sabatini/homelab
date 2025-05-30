@@ -5685,6 +5685,7 @@ spec:
     metadata:
       annotations:
         openshift.io/required-scc: restricted-v2
+        resolve-sha-to-tags.version-checker.io/cdi-operator: 'true'
       labels:
         cdi.kubevirt.io: cdi-operator
         name: cdi-operator
