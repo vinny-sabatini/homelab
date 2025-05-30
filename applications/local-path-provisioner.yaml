@@ -16,6 +16,8 @@ spec:
     helm:
       releaseName: local-path-storage
       values: |
+        podAnnotations:
+          resolve-sha-to-tags.version-checker.io/local-path-provisioner: 'true'
         storageClass:
           defaultClass: true
         nodePathMap:

@@ -20,6 +20,8 @@ spec:
           enabled: true
         serviceMonitor:
           enabled: true
+        podAnnotations:
+          override-url.version-checker.io/grafana-operator: quay.io/grafana-operator/grafana-operator
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring

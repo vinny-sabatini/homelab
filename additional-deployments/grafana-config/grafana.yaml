@@ -6,6 +6,12 @@ metadata:
   labels:
     dashboards: "grafana"
 spec:
+  deployment:
+    spec:
+      template:
+        metadata:
+          annotations:
+            match-regex.version-checker.io/grafana: '(\d+)\.(\d+)\.(\d+)'
   service:
     spec:
       loadBalancerClass: io.cilium/l2-announcer
