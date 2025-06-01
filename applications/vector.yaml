@@ -1,0 +1,109 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vector
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: vector
+    repoURL: https://helm.vector.dev
+    targetRevision: 0.43.0
+    helm:
+      releaseName: vector
+      values: |
+        role: Stateless-Aggregator
+        service:
+          type: LoadBalancer
+        extraVolumes:
+          - name: pod-logs
+            hostPath:
+              path: /var/log/pods
+        extraVolumeMounts:
+          - mountPath: /var/log/pods
+            name: pod-logs
+            readOnly: true
+        rbac:
+          create: true
+        service:
+          ports:
+            - name: vector
+              port: 6000
+              protocol: TCP
+            - name: prom-exporter
+              port: 9090
+              protocol: TCP
+        containerPorts:
+          - name: vector
+            containerPort: 6000
+            protocol: TCP
+          - name: prom-exporter
+            containerPort: 9090
+            protocol: TCP
+        env:
+          - name: VECTOR_SELF_NODE_NAME
+            value: talos-pb9-jbw
+        podMonitor:
+          enabled: true
+        customConfig:
+          sources:
+            kubernetes_logs:
+              type: kubernetes_logs
+            vector_metrics:
+              type: internal_metrics
+
+          transforms:
+            kubernetes_container_logs:
+              type: remap
+              inputs:
+                - kubernetes_logs
+              source: |-
+                del(.kubernetes.node_labels)
+
+                if exists(.kubernetes.pod_labels."app.kubernetes.io/name") {
+                  .service_name = .kubernetes.pod_labels."app.kubernetes.io/name"
+                } else {
+                  .service_name = "missing_app_name_label"
+                }
+
+          sinks:
+            kubernetes:
+              type: loki
+              inputs:
+                - kubernetes_container_logs
+              endpoint: http://loki.loki.svc.cluster.local:3100
+              encoding:
+                codec: json
+              labels:
+                container: |-
+                  {{ print "{{ kubernetes.container_name }}" }}
+                namespace: |-
+                  {{ print "{{ kubernetes.pod_namespace }}" }}
+                pod: |-
+                  {{ print "{{ kubernetes.pod_name }}" }}
+                service_name: |-
+                  {{ print "{{ service_name }}" }}
+                stream: |-
+                  {{ print "{{ stream }}" }}
+            prom-exporter:
+              type: prometheus_exporter
+              inputs:
+                - vector_metrics
+              address: 0.0.0.0:9090
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: vector
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: privileged
+    syncOptions:
+    - CreateNamespace=true

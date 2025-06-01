@@ -1,0 +1,28 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vector-viewer
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+      - nodes
+      - pods
+    verbs:
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vector-viewer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vector-viewer
+subjects:
+  - kind: ServiceAccount
+    name: vector
+    namespace: vector
