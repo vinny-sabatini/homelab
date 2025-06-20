@@ -1,0 +1,20 @@
+---
+machine:
+  logging:
+    destinations:
+      - endpoint: "tcp://vector.vector.svc.cluster.local:6051/"
+        format: "json_lines"
+  kubelet:
+    extraMounts:
+      - destination: /var/log/pods
+        type: bind
+        source: /var/log/pods
+        options:
+          - bind
+          - rshared
+          - rw
+---
+apiVersion: v1alpha1
+kind: KmsgLogConfig
+name: remote-log
+url: tcp://vector.vector.svc.cluster.local:6050/

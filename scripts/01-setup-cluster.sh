@@ -15,6 +15,7 @@ talosctl gen config ${CLUSTER_NAME} https://${NODE_IP}:6443 \
     --config-patch @talos-patches/disable-cni-and-kube-proxy.yaml \
     --config-patch @talos-patches/kube-services-bind.yaml \
     --config-patch @talos-patches/local-path-storage.yaml \
+    --config-patch @talos-patches/logging-configuration.yaml \
     --config-patch @talos-patches/rotate-server-certificates.yaml \
     --config-patch @talos-patches/volume-configs.yaml
 

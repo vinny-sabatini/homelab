@@ -2,18 +2,19 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDatasource
 metadata:
-  name: prometheus
+  name: loki
   namespace: monitoring
 spec:
   datasource:
     access: proxy
-    type: prometheus
+    type: loki
     jsonData:
       timeInterval: 5s
       tlsSkipVerify: true
-    name: prometheus
-    url: http://kube-prom-prometheus.monitoring:9090
+    name: loki
+    url: http://loki-gateway.loki.svc.cluster.local:80
+    orgId: 1
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  uid: 334e06ed-cbfd-4139-8151-9e7029478d14
+  uid: ef74c9dc-6896-42bc-86af-259e647a462b
