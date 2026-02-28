@@ -41,6 +41,12 @@ If those are not available, or if there are additional configurations required (
 Part of that includes monitoring etcd.
 This script configures the Kubernetes `Secret` to allow Prometheus to scrape etcd metrics.
 
+### 05-setup-external-secrets.sh
+
+[external-secrets operator](https://github.com/external-secrets/external-secrets) is deployed on the cluster to provide secrets to workloads.
+The secrets are stored in Bitwarden Secrets Manager, and a token required to authenticate.
+This script sets up the Kubernetes secret with the token.
+
 ## Extra scripts
 
 There are additional scripts that could be useful post-installation.
