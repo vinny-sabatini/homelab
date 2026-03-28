@@ -18,6 +18,9 @@ spec:
       values: |
         service:
           type: LoadBalancer
+        env:
+        - name: HEADLAMP_CONFIG_METRICS_ENABLED
+          value: "true"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kube-system
