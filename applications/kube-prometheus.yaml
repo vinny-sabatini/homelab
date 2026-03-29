@@ -56,7 +56,7 @@ spec:
                     requests:
                       storage: 40Gi
         grafana:
-          enabled: false
+          enabled: true
 
   destination:
     server: "https://kubernetes.default.svc"
