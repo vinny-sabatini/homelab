@@ -60,25 +60,13 @@ spec:
           forceDeployDashboards: true
         alertmanager:
           alertmanagerSpec:
-            configSecret: alertmanager-discord-receiver
+            alertmanagerConfigSelector:
+              matchLabels:
+                app: kube-prometheus-stack-alertmanager
             secrets:
             - discord-webhook
           useExistingSecret: true
         extraManifests:
-        - |
-          apiVersion: external-secrets.io/v1
-          kind: ExternalSecret
-          metadata:
-            name: alertmanager-discord-receiver
-          spec:
-            refreshInterval: 1h0m0s
-            secretStoreRef:
-              name: bitwarden-secretsmanager
-              kind: ClusterSecretStore
-            data:
-              - secretKey: alertmanager.yaml
-                remoteRef:
-                  key: "discord_am_receiver"
         - |
           apiVersion: external-secrets.io/v1
           kind: ExternalSecret
@@ -93,6 +81,26 @@ spec:
               - secretKey: discord-webhook
                 remoteRef:
                   key: "discord_webhook"
+        - |
+          apiVersion: monitoring.coreos.com/v1alpha1
+          kind: AlertmanagerConfig
+          metadata:
+            name: discord-config
+            labels:
+              app: kube-prometheus-stack-alertmanager
+          spec:
+            route:
+              group_by: ['job']
+              group_wait: 30s
+              group_interval: 5m
+              repeat_interval: 12h
+              receiver: 'discord'
+            receivers:
+            - name: 'discord'
+              discord_configs:
+              - webhook_url_file: /etc/alertmanager/secrets/discord-webhook/discord-webhook
+                username: prometheus
+                avatar_url: https://github.com/NX211/homer-icons/blob/master/png/prometheus.png?raw=true
 
   destination:
     server: "https://kubernetes.default.svc"
