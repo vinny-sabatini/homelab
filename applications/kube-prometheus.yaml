@@ -61,9 +61,9 @@ spec:
         alertmanager:
           alertmanagerSpec:
             configSecret: alertmanager-discord-receiver
+            secrets:
+            - discord-webhook
           useExistingSecret: true
-          secrets:
-          - discord-webhook
         extraManifests:
         - |
           apiVersion: external-secrets.io/v1
