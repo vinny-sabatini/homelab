@@ -58,6 +58,10 @@ spec:
         grafana:
           enabled: false
           forceDeployDashboards: true
+        alertmanager:
+          alertmanagerSpec:
+            secrets:
+            - alertmanager-discord-receiver
         extraManifests:
         - |
           apiVersion: external-secrets.io/v1
