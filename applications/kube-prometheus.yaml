@@ -70,9 +70,9 @@ spec:
               name: bitwarden-secretsmanager
               kind: ClusterSecretStore
             data:
-              - secretKey: alertmanager-discord-receiver
+              - secretKey: alertmanager.yaml
                 remoteRef:
-                  key: "alertmanager.yaml"
+                  key: "discord_am_receiver"
 
   destination:
     server: "https://kubernetes.default.svc"
