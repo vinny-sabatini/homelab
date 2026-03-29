@@ -56,8 +56,8 @@ spec:
                     requests:
                       storage: 40Gi
         grafana:
-          enabled: true
-
+          enabled: false
+          forceDeployDashboards: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring

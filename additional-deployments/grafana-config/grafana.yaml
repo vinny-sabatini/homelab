@@ -12,6 +12,39 @@ spec:
         metadata:
           annotations:
             match-regex.version-checker.io/grafana: '(\d+)\.(\d+)\.(\d+)'
+        spec:
+          # The volumes for dashboards and provisioning config
+          volumes:
+            - name: dashboards
+              emptyDir: { }
+            - name: provisioning-config
+              configMap:
+                name: provisioning-config
+          containers:
+            - name: grafana
+              volumeMounts:
+                - mountPath: /etc/grafana/provisioning/dashboards
+                  name: provisioning-config
+                - mountPath: /var/lib/grafana/dashboards
+                  name: dashboards
+            # This container watches the namespace for configmaps with the `dashboards` label
+            # and creates files for all their keys under `FOLDER`
+            - image: 'ghcr.io/kiwigrid/k8s-sidecar:1.24.5'
+              name: k8s-sidecar
+              env:
+                - name: LABEL
+                  value: "grafana_dashboard"
+                - name: LABEL_VALUE
+                  value: "1"
+                - name: FOLDER
+                  value: /var/lib/grafana/dashboards
+                - name: NAMESPACE
+                  value: ALL
+                - name: RESOURCE
+                  value: configmap
+              volumeMounts:
+                - mountPath: /var/lib/grafana/dashboards
+                  name: dashboards
   service:
     spec:
       loadBalancerClass: io.cilium/l2-announcer
