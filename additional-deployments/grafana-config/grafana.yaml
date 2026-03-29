@@ -19,3 +19,4 @@ spec:
   config:
     log:
       mode: "console"
+  version: 12.4.2
