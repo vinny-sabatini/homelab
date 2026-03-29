@@ -88,7 +88,7 @@ spec:
               app: kube-prometheus-stack-alertmanager
           spec:
             route:
-              groupBy: ['job']
+              groupBy: ['alertname', 'job']
               groupWait: 30s
               groupInterval: 5m
               repeatInterval: 12h
