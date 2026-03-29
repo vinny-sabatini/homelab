@@ -99,7 +99,6 @@ spec:
               - apiURL:
                   key: discord-webhook
                   name: discord-webhook
-                webhook_url_file: /etc/alertmanager/secrets/discord-webhook/discord-webhook
                 username: prometheus
                 avatarURL: https://github.com/NX211/homer-icons/blob/master/png/prometheus.png?raw=true
 
