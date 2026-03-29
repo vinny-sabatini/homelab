@@ -12,7 +12,7 @@ spec:
   source:
     path: additional-deployments/grafana-config
     repoURL: https://github.com/vinny-sabatini/homelab.git
-    targetRevision: main
+    targetRevision: changes
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
