@@ -58,6 +58,46 @@ spec:
         grafana:
           enabled: false
           forceDeployDashboards: true
+        alertmanager:
+          alertmanagerSpec:
+            alertmanagerConfiguration:
+              name: global-alertmanager-configuration
+        extraManifests:
+        - |
+          apiVersion: external-secrets.io/v1
+          kind: ExternalSecret
+          metadata:
+            name: discord-webhook
+          spec:
+            refreshInterval: 1h0m0s
+            secretStoreRef:
+              name: bitwarden-secretsmanager
+              kind: ClusterSecretStore
+            data:
+              - secretKey: discord-webhook
+                remoteRef:
+                  key: "discord_webhook"
+        - |
+          apiVersion: monitoring.coreos.com/v1alpha1
+          kind: AlertmanagerConfig
+          metadata:
+            name: global-alertmanager-configuration
+          spec:
+            route:
+              groupBy: ['alertname']
+              groupWait: 30s
+              groupInterval: 5m
+              repeatInterval: 12h
+              receiver: 'discord'
+            receivers:
+            - name: 'discord'
+              discordConfigs:
+              - apiURL:
+                  key: discord-webhook
+                  name: discord-webhook
+                username: prometheus
+                avatarURL: https://github.com/NX211/homer-icons/blob/master/png/prometheus.png?raw=true
+
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
