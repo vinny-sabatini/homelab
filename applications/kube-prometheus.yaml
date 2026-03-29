@@ -62,6 +62,8 @@ spec:
           alertmanagerSpec:
             configSecret: alertmanager-discord-receiver
           useExistingSecret: true
+          secrets:
+          - discord-webhook
         extraManifests:
         - |
           apiVersion: external-secrets.io/v1
@@ -77,6 +79,20 @@ spec:
               - secretKey: alertmanager.yaml
                 remoteRef:
                   key: "discord_am_receiver"
+        - |
+          apiVersion: external-secrets.io/v1
+          kind: ExternalSecret
+          metadata:
+            name: discord-webhook
+          spec:
+            refreshInterval: 1h0m0s
+            secretStoreRef:
+              name: bitwarden-secretsmanager
+              kind: ClusterSecretStore
+            data:
+              - secretKey: discord-webhook
+                remoteRef:
+                  key: "discord_webhook"
 
   destination:
     server: "https://kubernetes.default.svc"
