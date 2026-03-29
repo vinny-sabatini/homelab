@@ -58,6 +58,22 @@ spec:
         grafana:
           enabled: false
           forceDeployDashboards: true
+        extraManifests:
+        - |
+          apiVersion: external-secrets.io/v1
+          kind: ExternalSecret
+          metadata:
+            name: alertmanager-discord-receiver
+          spec:
+            refreshInterval: 1h0m0s
+            secretStoreRef:
+              name: bitwarden-secretsmanager
+              kind: ClusterSecretStore
+            data:
+              - secretKey: alertmanager-discord-receiver
+                remoteRef:
+                  key: "alertmanager.yaml"
+
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
