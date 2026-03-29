@@ -1,0 +1,22 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubelet-serving-cert-approver
+  namespace: argocd
+spec:
+  project: default
+  source:
+    path: deploy/standalone
+    repoURL: 'https://github.com/alex1989hu/kubelet-serving-cert-approver'
+    targetRevision: v0.10.3
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kubelet-serving-cert-approver
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
