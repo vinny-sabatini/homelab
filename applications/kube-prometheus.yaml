@@ -72,14 +72,7 @@ spec:
               group_interval: 5m
               repeat_interval: 12h
               receiver: 'discord'
-              routes:
-              - receiver: 'null'
-                matchers:
-                  - alertname = "Watchdog"
-              - receiver: 'discord'
-                continue: true
             receivers:
-            - name: 'null'
             - name: 'discord'
               discord_configs:
                 avatar_url: https://github.com/NX211/homer-icons/blob/master/png/prometheus.png?raw=true
