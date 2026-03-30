@@ -93,7 +93,6 @@ spec:
               groupInterval: 5m
               repeatInterval: 12h
               receiver: 'discord'
-              routes:
             receivers:
             - name: 'null'
             - name: 'discord'
