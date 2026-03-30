@@ -61,7 +61,7 @@ spec:
         alertmanager:
           alertmanagerSpec:
             secrets:
-              discord-webhook
+            - discord-webhook
           config:
             global:
               resolve_timeout: 5m
