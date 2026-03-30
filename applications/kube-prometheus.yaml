@@ -98,7 +98,7 @@ spec:
                   alertname: Watchdog
                 receiver: 'null'
               - match:
-                receiver: 'discord'
+                  receiver: 'discord'
                 continue: true
             receivers:
             - name: 'null'
