@@ -75,7 +75,7 @@ spec:
             receivers:
             - name: 'null'
             - name: 'discord'
-              discord_configs:
+              discord_config:
                 avatar_url: https://github.com/NX211/homer-icons/blob/master/png/prometheus.png?raw=true
                 username: prometheus
                 webhook_url_file: /etc/alertmanager/secrets/discord-webhook/discord-webhook
