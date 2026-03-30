@@ -87,7 +87,6 @@ spec:
                 webhook_url_file: /etc/alertmanager/secrets/discord-webhook/discord-webhook
             templates:
             - '/etc/alertmanager/config/*.tmpl'
-          useExistingSecret: true
         extraManifests:
         - |
           apiVersion: external-secrets.io/v1
