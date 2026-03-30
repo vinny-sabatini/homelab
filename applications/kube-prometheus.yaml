@@ -88,12 +88,20 @@ spec:
               app: kube-prometheus-stack-alertmanager
           spec:
             route:
-              groupBy: ['alertname', 'job']
+              groupBy: ['alertname']
               groupWait: 30s
               groupInterval: 5m
               repeatInterval: 12h
               receiver: 'discord'
+              routes:
+              - match:
+                  alertname: Watchdog
+                receiver: 'null'
+              - match:
+                receiver: 'discord'
+                continue: true
             receivers:
+            - name: 'null'
             - name: 'discord'
               discordConfigs:
               - apiURL:
