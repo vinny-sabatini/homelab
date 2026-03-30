@@ -87,6 +87,7 @@ spec:
             labels:
               app: kube-prometheus-stack-alertmanager
           spec:
+            inhibitRules: []
             route:
               groupBy: ['alertname']
               groupWait: 30s
@@ -94,7 +95,6 @@ spec:
               repeatInterval: 12h
               receiver: 'discord'
             receivers:
-            - name: 'null'
             - name: 'discord'
               discordConfigs:
               - apiURL:
