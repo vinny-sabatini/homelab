@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: version-checker
+  name: prometheus-blackbox-exporter
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
@@ -10,15 +10,16 @@ metadata:
 spec:
   project: default
   source:
-    chart: version-checker
-    repoURL: https://charts.jetstack.io
-    targetRevision: v0.10.0
+    chart: prometheus-blackbox-exporter
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 11.9.1
     helm:
-      releaseName: version-checker
+      releaseName: cluster
       values: |
-        dashboards:
+        serviceMonitor:
           enabled: true
-          grafana: grafana
+          selfMonitor:
+            enabled: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
@@ -26,3 +27,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
