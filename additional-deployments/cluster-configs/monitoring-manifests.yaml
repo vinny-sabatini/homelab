@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: alertmanager
   namespace: monitoring
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: alertmanager.vinnysabatini.me
 spec:
   loadBalancerClass: io.cilium/l2-announcer
   ports:
@@ -20,6 +22,8 @@ kind: Service
 metadata:
   name: prometheus
   namespace: monitoring
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: prometheus.vinnysabatini.me
 spec:
   loadBalancerClass: io.cilium/l2-announcer
   selector:
