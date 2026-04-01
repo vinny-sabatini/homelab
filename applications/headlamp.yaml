@@ -18,6 +18,8 @@ spec:
       values: |
         service:
           type: LoadBalancer
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: headlamp.vinnysabatini.me
         env:
         - name: HEADLAMP_CONFIG_METRICS_ENABLED
           value: "true"

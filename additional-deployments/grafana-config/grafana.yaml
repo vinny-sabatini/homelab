@@ -49,6 +49,8 @@ spec:
     spec:
       loadBalancerClass: io.cilium/l2-announcer
       type: LoadBalancer
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: grafana.vinnysabatini.me
   config:
     log:
       mode: "console"
