@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-dns-config
+  name: external-dns-configs
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    path: additional-deployments/external-dns-config
+    path: additional-deployments/external-dns-configs
     repoURL: https://github.com/vinny-sabatini/homelab.git
     targetRevision: main
   destination:
