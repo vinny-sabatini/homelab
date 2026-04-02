@@ -77,6 +77,9 @@ spec:
               - secretKey: discord-webhook
                 remoteRef:
                   key: "discord_webhook"
+                  metadataPolicy: None
+                  decodingStrategy: None
+                  conversionStrategy: Default
         - |
           apiVersion: monitoring.coreos.com/v1alpha1
           kind: AlertmanagerConfig
