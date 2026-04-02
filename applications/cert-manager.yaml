@@ -16,6 +16,8 @@ spec:
     helm:
       releaseName: cert-manager
       values: |
+        config:
+          enableGatewayAPI: true
         crds:
           enabled: true
         podAnnotations:
