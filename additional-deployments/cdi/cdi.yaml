@@ -4,6 +4,9 @@ metadata:
   name: cdi
 spec:
   config:
+    featureGates:
+    - HonorWaitForFirstConsumer
+    - WebhookPvcRendering
     scratchSpaceStorageClass: local-path
     podResourceRequirements:
       requests:
