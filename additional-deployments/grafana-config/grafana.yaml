@@ -47,8 +47,8 @@ spec:
                   name: dashboards
   service:
     metadata:
-      annotations: {}
-      labels: {}
+      annotations:
+      labels:
   httpRoute:
     metadata:
       annotations:
