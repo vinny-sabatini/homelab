@@ -45,13 +45,33 @@ spec:
               volumeMounts:
                 - mountPath: /var/lib/grafana/dashboards
                   name: dashboards
-  service:
-    spec:
-      loadBalancerClass: io.cilium/l2-announcer
-      type: LoadBalancer
+  httpRoute:
     metadata:
       annotations:
         external-dns.alpha.kubernetes.io/hostname: grafana.vinnysabatini.me
+    spec:
+      hostnames:
+      - "grafana.vinnysabatini.me"
+      parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: cluster-gateway
+        namespace: kube-system
+      rules:
+      - matches:
+        - path:
+            type: PathPrefix
+            value: /
+        backendRefs:
+        - group: ''
+          kind: Service
+          name: grafana-service
+          port: 3000
+          weight: 1
+  service:
+    metadata:
+      annotations: {}
+      labels: {}
   config:
     log:
       mode: "console"

@@ -37,11 +37,27 @@ spec:
             clusterRoleRules:
               enabled: true
         server:
-          service:
-            loadBalancerClass: io.cilium/l2-announcer
-            type: LoadBalancer
+          extraArgs:
+          - --insecure # Allow gateway to terminate TLS instead of ArgoCD
+          httproute:
+            enabled: true
             annotations:
               external-dns.alpha.kubernetes.io/hostname: argocd.vinnysabatini.me
+            hostnames:
+            - "argocd.vinnysabatini.me"
+            parentRefs:
+            - group: gateway.networking.k8s.io
+              kind: Gateway
+              name: cluster-gateway
+              namespace: kube-system
+            rules:
+            - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+              backendRefs:
+              - name: argocd-server
+                port: 443
           metrics:
             enabled: true
             serviceMonitor:

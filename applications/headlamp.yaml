@@ -16,10 +16,25 @@ spec:
     helm:
       releaseName: headlamp
       values: |
-        service:
-          type: LoadBalancer
+        httpRoute:
+          enabled: true
           annotations:
             external-dns.alpha.kubernetes.io/hostname: headlamp.vinnysabatini.me
+          hostnames:
+          - headlamp.vinnysabatini.me
+          parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: Gateway
+            name: cluster-gateway
+            namespace: kube-system
+          rules:
+          - matches:
+            - path:
+                type: PathPrefix
+                value: /
+            backendRefs:
+            - name: headlamp
+              port: 80
         env:
         - name: HEADLAMP_CONFIG_METRICS_ENABLED
           value: "true"
