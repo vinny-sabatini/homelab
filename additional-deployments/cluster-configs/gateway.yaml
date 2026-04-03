@@ -67,7 +67,8 @@ spec:
     hostname: "*.vinnysabatini.me"
     tls:
       certificateRefs:
-      - kind: Secret
+      - group: ''
+        kind: Secret
         name: cluster-gateway-cert
   - protocol: HTTPS
     port: 443
@@ -78,5 +79,6 @@ spec:
     hostname: "vinnysabatini.me"
     tls:
       certificateRefs:
-      - kind: Secret
+      - group: ''
+        kind: Secret
         name: cluster-gateway-cert
