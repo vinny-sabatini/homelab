@@ -46,7 +46,9 @@ spec:
                 - mountPath: /var/lib/grafana/dashboards
                   name: dashboards
   service:
-    metadata: {}
+    metadata:
+      annotations: {}
+      labels: {}
   httpRoute:
     metadata:
       annotations:
