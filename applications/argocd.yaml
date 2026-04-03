@@ -36,12 +36,23 @@ spec:
               enabled: false
             clusterRoleRules:
               enabled: true
-        server:
-          service:
-            loadBalancerClass: io.cilium/l2-announcer
-            type: LoadBalancer
-            annotations:
-              external-dns.alpha.kubernetes.io/hostname: argocd.vinnysabatini.me
+        httproute:
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: argocd.vinnysabatini.me
+          hostnames:
+          - "argocd.vinnysabatini.me"
+          parentRefs:
+          - name: cluster-gateway
+            namespace: kube-system
+          rules:
+          - matches:
+            - path:
+                type: PathPrefix
+                value: /
+            backendRefs:
+            - name: argocd-server
+              port: 443
           metrics:
             enabled: true
             serviceMonitor:

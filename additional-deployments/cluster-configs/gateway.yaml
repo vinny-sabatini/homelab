@@ -1,0 +1,82 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: lets-encrypt-cloudflare-issuer
+spec:
+  acme:
+    email: vincent.sabatini@gmail.com
+    profile: tlsserver
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: lets-encrypt-cloudflare-issuer-key
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token
+            key: token
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: cloudflare-api-token
+  namespace: cert-manager
+spec:
+  refreshInterval: 1h0m0s
+  secretStoreRef:
+    name: bitwarden-secretsmanager
+    kind: ClusterSecretStore
+  data:
+    - secretKey: token
+      remoteRef:
+        key: "cloudflare_api_token"
+        metadataPolicy: None
+        decodingStrategy: None
+        conversionStrategy: Default
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cluster-gateway-cert
+  namespace: kube-system
+spec:
+  dnsNames:
+    - "*.vinnysabatini.me"
+    - vinnysabatini.me
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: lets-encrypt-cloudflare-issuer
+  secretName: cluster-gateway-cert
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: cluster-gateway
+  namespace: kube-system
+spec:
+  gatewayClassName: cilium
+  listeners:
+  - protocol: HTTPS
+    port: 443
+    name: https-gw
+    allowedRoutes:
+      namespaces:
+        from: All
+    hostname: "*.vinnysabatini.me"
+    tls:
+      certificateRefs:
+      - kind: Secret
+        name: cluster-gateway-cert
+  - protocol: HTTPS
+    port: 443
+    name: https-domain-gw
+    allowedRoutes:
+      namespaces:
+        from: All
+    hostname: "vinnysabatini.me"
+    tls:
+      certificateRefs:
+      - kind: Secret
+        name: cluster-gateway-cert

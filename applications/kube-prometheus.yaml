@@ -35,6 +35,24 @@ spec:
             certFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client.crt"
             keyFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client-key.key"
         prometheus:
+          route:
+            main:
+              enabled: true
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: prometheus.vinnysabatini.me
+              hostnames:
+              - "prometheus.vinnysabatini.me"
+              parentRefs:
+              - name: cluster-gateway
+                namespace: kube-system
+              rules:
+              - matches:
+                - path:
+                    type: PathPrefix
+                    value: /
+                backendRefs:
+                - name: prometheus-operated
+                  port: 9090
           prometheusSpec:
             secrets:
               - etcd-client-cert
@@ -59,6 +77,24 @@ spec:
           enabled: false
           forceDeployDashboards: true
         alertmanager:
+          route:
+            main:
+              enabled: true
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: alertmanager.vinnysabatini.me
+              hostnames:
+              - "alertmanager.vinnysabatini.me"
+              parentRefs:
+              - name: cluster-gateway
+                namespace: kube-system
+              rules:
+              - matches:
+                - path:
+                    type: PathPrefix
+                    value: /
+                backendRefs:
+                - name: alertmanager-operated
+                  port: 9093
           alertmanagerSpec:
             alertmanagerConfiguration:
               name: global-alertmanager-configuration
