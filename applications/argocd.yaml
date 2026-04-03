@@ -37,6 +37,8 @@ spec:
             clusterRoleRules:
               enabled: true
         server:
+          extraArgs:
+          - --insecure # Allow gateway to terminate TLS instead of ArgoCD
           httproute:
             enabled: true
             annotations:
