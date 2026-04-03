@@ -43,7 +43,9 @@ spec:
               hostnames:
               - "prometheus.vinnysabatini.me"
               parentRefs:
-              - name: cluster-gateway
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                name: cluster-gateway
                 namespace: kube-system
               rules:
               - matches:
@@ -85,7 +87,9 @@ spec:
               hostnames:
               - "alertmanager.vinnysabatini.me"
               parentRefs:
-              - name: cluster-gateway
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                name: cluster-gateway
                 namespace: kube-system
               rules:
               - matches:

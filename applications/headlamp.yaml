@@ -23,7 +23,9 @@ spec:
           hostnames:
           - headlamp.vinnysabatini.me
           parentRefs:
-          - name: cluster-gateway
+          - group: gateway.networking.k8s.io
+            kind: Gateway
+            name: cluster-gateway
             namespace: kube-system
           rules:
           - matches:
