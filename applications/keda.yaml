@@ -1,0 +1,46 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keda
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: keda
+    repoURL: https://kedacore.github.io/charts
+    targetRevision: 2.19.0
+    helm:
+      releaseName: keda
+      values: |
+        prometheus:
+          metricServer:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+          operator:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+          webhooks:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+        certificates:
+          certManager:
+            enabled: true
+            issuer:
+              generate: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: keda
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
