@@ -63,8 +63,10 @@ spec:
                 app.kubernetes.io/name: headlamp
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: kube-system
+    namespace: headlamp
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
