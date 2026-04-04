@@ -23,7 +23,7 @@ spec:
         verticalPodAutoscaler:
           enabled: true
           updatePolicy:
-            updateMode: Off
+            updateMode: "Off"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring

@@ -38,7 +38,7 @@ spec:
           verticalPodAutoscaler:
             enabled: true
             updatePolicy:
-              updateMode: Off
+              updateMode: "Off"
         prometheus:
           route:
             main:
@@ -63,7 +63,7 @@ spec:
           verticalPodAutoscaler:
             enabled: true
             updatePolicy:
-              updateMode: Off
+              updateMode: "Off"
           prometheusSpec:
             secrets:
               - etcd-client-cert
@@ -111,7 +111,7 @@ spec:
           verticalPodAutoscaler:
             enabled: true
             updatePolicy:
-              updateMode: Off
+              updateMode: "Off"
           alertmanagerSpec:
             alertmanagerConfiguration:
               name: global-alertmanager-configuration
