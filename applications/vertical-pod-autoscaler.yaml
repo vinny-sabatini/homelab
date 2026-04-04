@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vertical-pod-autoscaler
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: vertical-pod-autoscaler
+    repoURL: https://kubernetes.github.io/autoscaler
+    targetRevision: 0.8.1
+    helm:
+      releaseName: vertical-pod-autoscaler
+      values: |
+        admissionController:
+          replicas: 1
+          podDisruptionBudget:
+            enabled: false
+        recommender:
+          replicas: 1
+          podDisruptionBudget:
+            enabled: false
+        updater:
+          replicas: 1
+          podDisruptionBudget:
+            enabled: false
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: vertical-pod-autoscaler
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
