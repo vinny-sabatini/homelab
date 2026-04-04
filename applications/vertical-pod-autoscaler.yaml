@@ -15,7 +15,19 @@ spec:
     targetRevision: 0.8.1
     helm:
       releaseName: vertical-pod-autoscaler
-      values: ""
+      values: |
+        admissionController:
+          replicas: 1
+          podDisruptionBudget:
+            enabled: false
+        recommender:
+          replicas: 1
+          podDisruptionBudget:
+            enabled: false
+        updater:
+          replicas: 1
+          podDisruptionBudget:
+            enabled: false
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vertical-pod-autoscaler
