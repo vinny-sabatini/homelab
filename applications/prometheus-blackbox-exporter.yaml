@@ -20,6 +20,10 @@ spec:
           enabled: true
           selfMonitor:
             enabled: true
+        verticalPodAutoscaler:
+          enabled: true
+          updatePolicy:
+            updateMode: Off
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring

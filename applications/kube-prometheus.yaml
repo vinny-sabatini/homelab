@@ -34,6 +34,11 @@ spec:
             caFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-ca.crt"
             certFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client.crt"
             keyFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client-key.key"
+        prometheusOperator:
+          verticalPodAutoscaler:
+            enabled: true
+            updatePolicy:
+              updateMode: Off
         prometheus:
           route:
             main:
@@ -55,6 +60,10 @@ spec:
                 backendRefs:
                 - name: prometheus-operated
                   port: 9090
+          verticalPodAutoscaler:
+            enabled: true
+            updatePolicy:
+              updateMode: Off
           prometheusSpec:
             secrets:
               - etcd-client-cert
@@ -99,6 +108,10 @@ spec:
                 backendRefs:
                 - name: alertmanager-operated
                   port: 9093
+          verticalPodAutoscaler:
+            enabled: true
+            updatePolicy:
+              updateMode: Off
           alertmanagerSpec:
             alertmanagerConfiguration:
               name: global-alertmanager-configuration
@@ -140,7 +153,6 @@ spec:
                   name: discord-webhook
                 username: prometheus
                 avatarURL: https://github.com/NX211/homer-icons/blob/master/png/prometheus.png?raw=true
-
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
