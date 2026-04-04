@@ -29,6 +29,7 @@ spec:
     namespace: local-path-storage
   syncPolicy:
     automated:
+      enabled: true
       prune: true
       selfHeal: true
     syncOptions:

@@ -71,6 +71,7 @@ spec:
     namespace: loki
   syncPolicy:
     automated:
+      enabled: true
       prune: true
       selfHeal: true
     syncOptions:

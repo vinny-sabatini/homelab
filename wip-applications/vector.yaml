@@ -138,6 +138,7 @@ spec:
     targetRevision: 0.42.1
   syncPolicy:
     automated:
+      enabled: true
       prune: true
       selfHeal: true
     syncOptions:
