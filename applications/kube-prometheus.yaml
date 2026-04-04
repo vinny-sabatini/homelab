@@ -60,10 +60,12 @@ spec:
                 backendRefs:
                 - name: prometheus-operated
                   port: 9090
-          verticalPodAutoscaler:
-            enabled: true
-            updatePolicy:
-              updateMode: "Off"
+          # Pending fix in the upstream chart
+          # https://github.com/prometheus-community/helm-charts/pull/6811
+          # verticalPodAutoscaler:
+          #   enabled: true
+          #   updatePolicy:
+          #     updateMode: "Off"
           prometheusSpec:
             secrets:
               - etcd-client-cert
@@ -108,10 +110,12 @@ spec:
                 backendRefs:
                 - name: alertmanager-operated
                   port: 9093
-          verticalPodAutoscaler:
-            enabled: true
-            updatePolicy:
-              updateMode: "Off"
+          # Pending fix in the upstream chart
+          # https://github.com/prometheus-community/helm-charts/pull/6811
+          # verticalPodAutoscaler:
+          #   enabled: true
+          #   updatePolicy:
+          #     updateMode: "Off"
           alertmanagerSpec:
             alertmanagerConfiguration:
               name: global-alertmanager-configuration
