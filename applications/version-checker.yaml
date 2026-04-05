@@ -19,6 +19,17 @@ spec:
         dashboards:
           enabled: true
           grafana: grafana
+        env:
+          - name: VERSION_CHECKER_GHCR_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: version-checker
+                key: ghcr-token
+          - name: VERSION_CHECKER_DOCKER_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: version-checker
+                key: docker-token
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
