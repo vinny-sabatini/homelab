@@ -11,13 +11,12 @@ spec:
   project: default
   source:
     chart: loki
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 6.29.0
+    repoURL: ghcr.io/grafana/helm-charts
+    targetRevision: 6.55.0
     helm:
       releaseName: loki
       values: |
         loki:
-          # TODO: setup auth
           auth_enabled: false
           commonConfig:
             replication_factor: 1
@@ -37,15 +36,11 @@ spec:
             volume_enabled: true
           ruler:
             enable_api: true
-
         minio:
           enabled: true
-
         deploymentMode: SingleBinary
-
         singleBinary:
           replicas: 1
-
         # Zero out replica counts of other deployment modes
         backend:
           replicas: 0
@@ -53,7 +48,6 @@ spec:
           replicas: 0
         write:
           replicas: 0
-
         ingester:
           replicas: 0
         querier:
@@ -77,8 +71,8 @@ spec:
     namespace: loki
   syncPolicy:
     automated:
+      enabled: true
       prune: true
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-    - ServerSideApply=true

@@ -15,6 +15,7 @@ spec:
     namespace: kubelet-serving-cert-approver
   syncPolicy:
     automated:
+      enabled: true
       prune: true
       selfHeal: true
     syncOptions:

@@ -1,148 +1,110 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: vector
   namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
 spec:
-  destination:
-    namespace: vector
-    server: https://kubernetes.default.svc
   project: default
   source:
     chart: vector
+    repoURL: https://helm.vector.dev
+    targetRevision: 0.51.0
     helm:
       releaseName: vector
       values: |
         role: Stateless-Aggregator
+        service:
+          type: LoadBalancer
+        extraVolumes:
+          - name: pod-logs
+            hostPath:
+              path: /var/log/pods
+        extraVolumeMounts:
+          - mountPath: /var/log/pods
+            name: pod-logs
+            readOnly: true
+        rbac:
+          create: true
+        service:
+          ports:
+            - name: vector
+              port: 6000
+              protocol: TCP
+            - name: prom-exporter
+              port: 9090
+              protocol: TCP
+        containerPorts:
+          - name: vector
+            containerPort: 6000
+            protocol: TCP
+          - name: prom-exporter
+            containerPort: 9090
+            protocol: TCP
+        env:
+          - name: VECTOR_SELF_NODE_NAME
+            value: talos-pb9-jbw
         podMonitor:
           enabled: true
         customConfig:
           sources:
-            k8s_logs:
-              type: kubernetes_logs
-
             kubernetes_logs:
               type: kubernetes_logs
-              self_node_name: ""
-
-            talos_kernel_logs:
-              address: 0.0.0.0:6050
-              type: socket
-              mode: udp
-              max_length: 102400
-              decoding:
-                codec: json
-              host_key: __host
-
-            talos_service_logs:
-              address: 0.0.0.0:6051
-              type: socket
-              mode: udp
-              max_length: 102400
-              decoding:
-                codec: json
-              host_key: __host
-
             vector_metrics:
               type: internal_metrics
-              scrape_interval_secs: 10
+
+          transforms:
+            kubernetes_container_logs:
+              type: remap
+              inputs:
+                - kubernetes_logs
+              source: |-
+                del(.kubernetes.node_labels)
+
+                if exists(.kubernetes.pod_labels."app.kubernetes.io/name") {
+                  .service_name = .kubernetes.pod_labels."app.kubernetes.io/name"
+                } else {
+                  .service_name = "missing_app_name_label"
+                }
 
           sinks:
             kubernetes:
               type: loki
               inputs:
-              - kubernetes_logs
-              endpoint: http://loki.loki:3100
+                - kubernetes_container_logs
+              endpoint: http://loki.loki.svc.cluster.local:3100
               encoding:
                 codec: json
-                except_fields: []
-              batch:
-                max_bytes: 1048576
-              out_of_order_action: rewrite_timestamp
               labels:
-                file: |-
-                  {{ print "{{ file }}" }}
-                stream: |-
-                  {{ print "{{ stream }}" }}
-                source_type: |-
-                  {{ print "{{ source_type }}" }}
-                k8s_pod_namespace: |-
-                  {{ print "{{ kubernetes.pod_namespace }}" }}
-                k8s_pod_name: |-
-                  {{ print "{{ kubernetes.pod_name }}" }}
-                k8s_pod_uid: |-
-                  {{ print "{{ kubernetes.pod_uid }}" }}
-
-            k8s_logs_loki:
-              type: loki
-              inputs:
-                - k8s_logs
-              endpoint: http://loki.loki:3100
-              labels:
-                job: k8s
-                host: ${VECTOR_SELF_NODE_NAME}
+                container: |-
+                  {{ print "{{ kubernetes.container_name }}" }}
                 namespace: |-
                   {{ print "{{ kubernetes.pod_namespace }}" }}
                 pod: |-
                   {{ print "{{ kubernetes.pod_name }}" }}
-                container: |-
-                  {{ print "{{ kubernetes.container_name }}" }}
-              encoding:
-                codec: json
-              batch:
-                max_bytes: 1048576 # 1 MiB
-
-            talos_kernel:
-              type: loki
-              inputs:
-              - talos_kernel_logs
-              endpoint: http://loki.loki:3100
-              encoding:
-                codec: json
-                except_fields:
-                  - __host
-              batch:
-                max_bytes: 1048576
-              out_of_order_action: rewrite_timestamp
-              labels:
-                hostname: |-
-                  {{ print "{{ __host }}" }}
-                facility: |-
-                  {{ print "{{ facility }}" }}
-
-            talos_service:
-              type: loki
-              inputs:
-              - talos_service_logs
-              endpoint: http://loki.loki:3100
-              encoding:
-                codec: json
-                except_fields:
-                  - __host
-              batch:
-                max_bytes: 400000
-              out_of_order_action: rewrite_timestamp
-              labels:
-                hostname: |-
-                  {{ print "{{ __host }}" }}
-                service: |-
-                  {{ print "{{ talos-service }}" }}
-
+                service_name: |-
+                  {{ print "{{ service_name }}" }}
+                stream: |-
+                  {{ print "{{ stream }}" }}
             prom-exporter:
               type: prometheus_exporter
               inputs:
                 - vector_metrics
-              address: 0.0.0.0:9598
+              address: 0.0.0.0:9090
 
-    repoURL: https://helm.vector.dev
-    targetRevision: 0.42.1
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: vector
   syncPolicy:
     automated:
+      enabled: true
       prune: true
       selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ServerSideApply=true
     managedNamespaceMetadata:
       labels:
-        pod-security.kubernetes.io/enforce: "privileged"
+        pod-security.kubernetes.io/enforce: privileged
+    syncOptions:
+    - CreateNamespace=true

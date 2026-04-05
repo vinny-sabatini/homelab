@@ -22,20 +22,18 @@ spec:
           enabled: true
         podAnnotations:
           match-regex.version-checker.io/cert-manager-controller: 'v(\d+)\.(\d+)\.(\d+)'
-          resolve-sha-to-tags.version-checker.io/cert-manager-controller: 'true'
         cainjector:
           podAnnotations:
             match-regex.version-checker.io/cert-manager-cainjector: 'v(\d+)\.(\d+)\.(\d+)'
-            resolve-sha-to-tags.version-checker.io/cert-manager-cainjector: 'true'
         webhook:
           podAnnotations:
             match-regex.version-checker.io/cert-manager-webhook: 'v(\d+)\.(\d+)\.(\d+)'
-            resolve-sha-to-tags.version-checker.io/cert-manager-webhook: 'true'
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cert-manager
   syncPolicy:
     automated:
+      enabled: true
       prune: true
       selfHeal: true
     syncOptions:

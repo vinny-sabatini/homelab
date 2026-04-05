@@ -1,0 +1,95 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oauth2-proxy
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: oauth2-proxy
+    repoURL: https://oauth2-proxy.github.io/manifests
+    targetRevision: 10.4.2
+    helm:
+      releaseName: oauth2-proxy
+      values: |
+        config:
+          existingSecret: oauth2-proxy
+          upstreams:
+          - http://headlamp.headlamp.svc.cluster.local
+          # - http://kube-prom-prometheus.monitoring.svc.cluster.local
+          # - http://alertmanager-operated.monitoring.svc.cluster.local
+          # - http://grafana-service.monitoring.svc.cluster.local
+          # - http://argocd-server.argocd.svc.cluster.local
+        authenticatedEmailsFile:
+          enabled: true
+          restricted_access: |-
+            vincent.sabatini@gmail.com
+        gatewayApi:
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: oauth2-proxy.vinnysabatini.me
+          hostnames:
+          - oauth2-proxy.vinnysabatini.me
+          gatewayRef:
+            group: gateway.networking.k8s.io
+            kind: Gateway
+            name: cluster-gateway
+            namespace: kube-system
+          rules:
+          - matches:
+            - path:
+                type: PathPrefix
+                value: /
+            backendRefs:
+            - group: ''
+              kind: Service
+              name: oauth2-proxy
+              port: 80
+              weight: 1
+        metrics:
+          serviceMonitor:
+            enabled: true
+        extraObjects:
+        - apiVersion: external-secrets.io/v1
+          kind: ExternalSecret
+          metadata:
+            name: oauth2-proxy
+          spec:
+            refreshInterval: 1h0m0s
+            secretStoreRef:
+              name: bitwarden-secretsmanager
+              kind: ClusterSecretStore
+            data:
+              - secretKey: client-id
+                remoteRef:
+                  key: "oauth2_proxy_client_id"
+                  metadataPolicy: None
+                  decodingStrategy: None
+                  conversionStrategy: Default
+              - secretKey: client-secret
+                remoteRef:
+                  key: "oauth2_proxy_client_secret"
+                  metadataPolicy: None
+                  decodingStrategy: None
+                  conversionStrategy: Default
+              - secretKey: cookie-secret
+                remoteRef:
+                  key: "oauth2_proxy_cookie_secret"
+                  metadataPolicy: None
+                  decodingStrategy: None
+                  conversionStrategy: Default
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: oauth2-proxy
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true

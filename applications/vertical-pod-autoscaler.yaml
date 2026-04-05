@@ -33,6 +33,7 @@ spec:
     namespace: vertical-pod-autoscaler
   syncPolicy:
     automated:
+      enabled: true
       prune: true
       selfHeal: true
     syncOptions:
