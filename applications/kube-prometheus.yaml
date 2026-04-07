@@ -145,7 +145,14 @@ spec:
               groupInterval: 5m
               repeatInterval: 12h
               receiver: 'discord'
+              routes:
+              - receiver: 'null'
+                matchers:
+                  - name: 'alertname'
+                    matchType: "="
+                    value: "Watchdog"
             receivers:
+            - name: 'null'
             - name: 'discord'
               discordConfigs:
               - apiURL:
