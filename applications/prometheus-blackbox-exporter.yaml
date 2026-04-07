@@ -24,6 +24,24 @@ spec:
           enabled: true
           updatePolicy:
             updateMode: "Off"
+        extraManifests:
+        - kind: Probe
+          apiVersion: monitoring.coreos.com/v1
+          metadata:
+            name: cluster-probes
+          spec:
+            interval: 60s
+            module: http_2xx
+            prober:
+              url: cluster-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
+            targets:
+              staticConfig:
+                static:
+                - https://alertmanager.vinnysabatini.me/-/healthy
+                - https://argocd.vinnysabatini.me/healthz
+                - https://prometheus.vinnysabatini.me/-/healthy
+                - https://headlamp.vinnysabatini.me/
+                - https://grafana.vinnysabatini.me/api/health
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
