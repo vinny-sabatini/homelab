@@ -32,11 +32,9 @@ spec:
                 key: docker-token
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: version-checker
+    namespace: monitoring
   syncPolicy:
     automated:
       enabled: true
       prune: true
       selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
