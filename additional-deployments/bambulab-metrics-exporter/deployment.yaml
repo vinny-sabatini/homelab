@@ -66,13 +66,13 @@ spec:
           privileged: true
           readOnlyRootFilesystem: true
           runAsGroup: 0
-          runAsNonRoot: true
+          runAsRoot: true
           runAsUser: 0
       serviceAccount: bambulab-metrics-exporter
       serviceAccountName: bambulab-metrics-exporter
       securityContext:
         fsGroup: 65534
-        runAsNonRoot: true
+        runAsRoot: true
         seccompProfile:
           type: RuntimeDefault
       volumes:
