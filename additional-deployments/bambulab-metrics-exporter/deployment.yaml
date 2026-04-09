@@ -35,7 +35,7 @@ spec:
           name: config
           subPath: config
         - mountPath: /app
-          name: app
+          name: config
           subPath: app
         image: ghcr.io/theblackbush/bambulab_metrics_exporter:0.1.40
         name: bambulab-metrics-exporter
