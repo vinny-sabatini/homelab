@@ -2,12 +2,10 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: bambu-exporter
+  name: bambulab-metrics-exporter
 spec:
   allowCrossNamespaceImport: true
+  url: https://grafana.com/grafana/dashboards/25033-bambulab-metrics/
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  configMapRef:
-    key: dashboard.json
-    name: bambu-exporter-dashboard

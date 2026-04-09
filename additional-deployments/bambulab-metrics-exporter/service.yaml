@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: bambulab-metrics-exporter
+    app.kubernetes.io/name: bambulab-metrics-exporter
+    app.kubernetes.io/version: 0.1.40
+  name: bambulab-metrics-exporter
+spec:
+  ports:
+  - name: http
+    port: 9109
+    protocol: TCP
+    targetPort: http
+  selector:
+    app.kubernetes.io/instance: bambulab-metrics-exporter
+    app.kubernetes.io/name: bambulab-metrics-exporter
+  sessionAffinity: None
+  type: ClusterIP

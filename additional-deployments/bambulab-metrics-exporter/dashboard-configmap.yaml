@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: bambu-exporter-dashboard
+  name: bambulab-metrics-exporter-dashboard
 data:
   dashboard.json: |-
     {
