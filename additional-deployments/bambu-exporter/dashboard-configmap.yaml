@@ -1,0 +1,1474 @@
+# Based on https://github.com/halkeye/Bambulabs-Exporter/blob/main/examples/grafana_dashboard.json
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bambu-exporter-dashboard
+data:
+  dashboard.json: |-
+    {
+    "annotations": {
+        "list": [
+        {
+            "builtIn": 1,
+            "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+            },
+            "type": "dashboard"
+        }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "links": [],
+    "panels": [
+        {
+        "collapsed": false,
+        "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+        },
+        "id": 26,
+        "panels": [],
+        "title": "Instant Stats",
+        "type": "row"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "color": {
+                "mode": "continuous-GrYlRd"
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "red",
+                    "value": 80
+                }
+                ]
+            },
+            "unit": "m"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 0,
+            "y": 1
+        },
+        "id": 29,
+        "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(mc_remaining_time)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            }
+        ],
+        "title": "Remaining Time on Print",
+        "type": "stat"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "orange",
+                    "value": 70
+                },
+                {
+                    "color": "red",
+                    "value": 85
+                }
+                ]
+            },
+            "unit": "celsius"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 6,
+            "w": 7,
+            "x": 4,
+            "y": 1
+        },
+        "id": 30,
+        "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+            "calcs": [
+                "last"
+            ],
+            "fields": "",
+            "limit": 1,
+            "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(bed_temper)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(bed_target_temper)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "B"
+            }
+        ],
+        "title": "Hotbed Temperature",
+        "type": "gauge"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "mappings": [],
+            "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                }
+                ]
+            },
+            "unit": "celsius"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 11,
+            "y": 1
+        },
+        "id": 31,
+        "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "limit": 1,
+            "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(abs(chamber_temper))",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "expr": "",
+            "instant": false,
+            "range": true,
+            "refId": "B"
+            }
+        ],
+        "title": "Chamber Temp",
+        "type": "gauge"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "mappings": [],
+            "max": 100,
+            "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                {
+                    "color": "red",
+                    "value": 0
+                },
+                {
+                    "color": "#EAB839",
+                    "value": 20
+                },
+                {
+                    "color": "green",
+                    "value": 80
+                }
+                ]
+            },
+            "unit": "percent"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 0,
+            "y": 7
+        },
+        "id": 14,
+        "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "limit": 1,
+            "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(mc_percent)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            }
+        ],
+        "title": "Print Percentage Remaining",
+        "type": "gauge"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "orange",
+                    "value": 70
+                },
+                {
+                    "color": "red",
+                    "value": 85
+                }
+                ]
+            },
+            "unit": "celsius"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 6,
+            "w": 7,
+            "x": 4,
+            "y": 7
+        },
+        "id": 21,
+        "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+            "calcs": [
+                "last"
+            ],
+            "fields": "",
+            "limit": 1,
+            "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(nozzle_temper)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(nozzle_target_temper)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "B"
+            }
+        ],
+        "title": "Nozzle Temperature",
+        "type": "gauge"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "mappings": [],
+            "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                }
+                ]
+            },
+            "unit": "celsius"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 11,
+            "y": 7
+        },
+        "id": 28,
+        "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "limit": 1,
+            "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(abs(ams_temp))",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "expr": "",
+            "instant": false,
+            "range": true,
+            "refId": "B"
+            }
+        ],
+        "title": "AMS Temp",
+        "type": "gauge"
+        },
+        {
+        "collapsed": false,
+        "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 13
+        },
+        "id": 33,
+        "panels": [],
+        "title": "Print Stats",
+        "type": "row"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "color": {
+                "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "scheme",
+                "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 3,
+                "pointSize": 5,
+                "scaleDistribution": {
+                "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                "group": "A",
+                "mode": "none"
+                },
+                "thresholdsStyle": {
+                "mode": "off"
+                }
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "red",
+                    "value": 80
+                }
+                ]
+            },
+            "unit": "m"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 0,
+            "y": 14
+        },
+        "id": 18,
+        "options": {
+            "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+            },
+            "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+            }
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(mc_remaining_time)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            }
+        ],
+        "title": "Remaining Time on Print",
+        "type": "timeseries"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "color": {
+                "mode": "palette-classic"
+            },
+            "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                "group": "A",
+                "mode": "none"
+                },
+                "thresholdsStyle": {
+                "mode": "off"
+                }
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "red",
+                    "value": 80
+                }
+                ]
+            }
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 14
+        },
+        "id": 9,
+        "options": {
+            "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+            },
+            "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+            }
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(print_error)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(fail_reason)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "B"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(mc_print_error_code)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "C"
+            }
+        ],
+        "title": "Print Errors",
+        "type": "timeseries"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "color": {
+                "mode": "palette-classic"
+            },
+            "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                "group": "A",
+                "mode": "none"
+                },
+                "thresholdsStyle": {
+                "mode": "off"
+                }
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "red",
+                    "value": 80
+                }
+                ]
+            }
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 0,
+            "y": 22
+        },
+        "id": 17,
+        "options": {
+            "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+            },
+            "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+            }
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(mc_print_sub_stage)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(mc_print_stage)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "B"
+            }
+        ],
+        "title": "MC Print Stage",
+        "type": "timeseries"
+        },
+        {
+        "collapsed": false,
+        "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 30
+        },
+        "id": 32,
+        "panels": [],
+        "title": "System Stats",
+        "type": "row"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "color": {
+                "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "scheme",
+                "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 3,
+                "pointSize": 5,
+                "scaleDistribution": {
+                "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                "group": "A",
+                "mode": "none"
+                },
+                "thresholdsStyle": {
+                "mode": "off"
+                }
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "red",
+                    "value": 80
+                }
+                ]
+            },
+            "unit": "celsius"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 0,
+            "y": 31
+        },
+        "id": 20,
+        "options": {
+            "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+            },
+            "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+            }
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(nozzle_temper)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(nozzle_target_temper)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "B"
+            }
+        ],
+        "title": "Nozzle Temperature",
+        "type": "timeseries"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "color": {
+                "mode": "palette-classic"
+            },
+            "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                "group": "A",
+                "mode": "none"
+                },
+                "thresholdsStyle": {
+                "mode": "off"
+                }
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "red",
+                    "value": 80
+                }
+                ]
+            },
+            "unit": "celsius"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 31
+        },
+        "id": 4,
+        "options": {
+            "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+            },
+            "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+            }
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(ams_temp)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(bed_temper)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "B"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(chamber_temper)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "C"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(nozzle_temper)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "D"
+            }
+        ],
+        "title": "AMS, Bed, & Chamber Temp",
+        "type": "timeseries"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "color": {
+                "mode": "palette-classic"
+            },
+            "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                "group": "A",
+                "mode": "none"
+                },
+                "thresholdsStyle": {
+                "mode": "off"
+                }
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "red",
+                    "value": 80
+                }
+                ]
+            },
+            "unit": "rotrpm"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 0,
+            "y": 39
+        },
+        "id": 5,
+        "options": {
+            "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+            },
+            "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+            }
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(big_fan1_speed)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(big_fan2_speed)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "B"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "expr": "",
+            "instant": false,
+            "range": true,
+            "refId": "D"
+            },
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(cooling_fan_speed)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "C"
+            }
+        ],
+        "title": "Fan Speeds",
+        "type": "timeseries"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "color": {
+                "mode": "palette-classic"
+            },
+            "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                "group": "A",
+                "mode": "none"
+                },
+                "thresholdsStyle": {
+                "mode": "off"
+                }
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "red",
+                    "value": 80
+                }
+                ]
+            },
+            "unit": "rotrpm"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 39
+        },
+        "id": 13,
+        "options": {
+            "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+            },
+            "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+            }
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(fan_gear)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            }
+        ],
+        "title": "Fan Gear Metric",
+        "type": "timeseries"
+        },
+        {
+        "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+        },
+        "fieldConfig": {
+            "defaults": {
+            "color": {
+                "mode": "palette-classic"
+            },
+            "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                "group": "A",
+                "mode": "none"
+                },
+                "thresholdsStyle": {
+                "mode": "off"
+                }
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "green",
+                    "value": 0
+                },
+                {
+                    "color": "red",
+                    "value": 80
+                }
+                ]
+            },
+            "unit": "dBm"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 0,
+            "y": 47
+        },
+        "id": 10,
+        "options": {
+            "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+            },
+            "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+            }
+        },
+        "pluginVersion": "12.4.2",
+        "targets": [
+            {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+            },
+            "editorMode": "builder",
+            "expr": "max(wifi_signal)",
+            "instant": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+            }
+        ],
+        "title": "WiFi SIgnal",
+        "type": "timeseries"
+        }
+    ],
+    "preload": false,
+    "refresh": "5s",
+    "schemaVersion": 42,
+    "tags": [],
+    "templating": {
+        "list": [
+        {
+            "current": {
+            "text": "prometheus",
+            "value": "334e06ed-cbfd-4139-8151-9e7029478d14"
+            },
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "type": "datasource"
+        }
+        ]
+    },
+    "time": {
+        "from": "now-12h",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "bambulabs-exporter",
+    "uid": "30Dv92b4k",
+    "version": 2,
+    "weekStart": ""
+    }
