@@ -33,10 +33,10 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: config
-          defaultMode: 0744
+          defaultMode: 0777
         - mountPath: /app
           name: app
-          defaultMode: 0744
+          defaultMode: 0777
         image: ghcr.io/theblackbush/bambulab_metrics_exporter:0.1.40
         name: bambulab-metrics-exporter
         ports:
