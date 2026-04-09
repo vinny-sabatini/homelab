@@ -5,7 +5,7 @@ metadata:
   name: bambulab-metrics-exporter
 spec:
   allowCrossNamespaceImport: true
-  url: https://grafana.com/grafana/dashboards/25033-bambulab-metrics/
+  url: https://grafana.com/api/dashboards/25033/revisions/2/download
   instanceSelector:
     matchLabels:
       dashboards: grafana
