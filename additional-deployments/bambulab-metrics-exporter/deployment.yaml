@@ -33,10 +33,10 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: config
-          defaultMode: 0777
+          subPath: config
         - mountPath: /app
           name: app
-          defaultMode: 0777
+          subPath: app
         image: ghcr.io/theblackbush/bambulab_metrics_exporter:0.1.40
         name: bambulab-metrics-exporter
         ports:
@@ -71,8 +71,5 @@ spec:
           type: RuntimeDefault
       volumes:
       - name: config
-        emptyDir:
-          sizeLimit: 500Mi
-      - name: app
-        emptyDir:
-          sizeLimit: 500Mi
+        persistentVolumeClaim:
+          claimName: bambulab-metrics-explorer-config
