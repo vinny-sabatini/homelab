@@ -59,7 +59,7 @@ spec:
           successThreshold: 1
           timeoutSeconds: 1
         securityContext:
-          allowPrivilegeEscalation: false
+          allowPrivilegeEscalation: true
           capabilities:
             drop:
             - ALL
