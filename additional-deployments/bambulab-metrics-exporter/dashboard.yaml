@@ -10,5 +10,5 @@ spec:
     matchLabels:
       dashboards: grafana
   datasources:
-    datasourceName: prometheus
+  - datasourceName: prometheus
     inputName: DS_PROMETHEUS
