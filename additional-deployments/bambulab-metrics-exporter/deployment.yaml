@@ -30,6 +30,9 @@ spec:
             secretKeyRef:
               name: bambu-token
               key: token
+        volumeMounts:
+        - mountPath: /config
+          name: config
         image: ghcr.io/theblackbush/bambulab_metrics_exporter:0.1.40
         name: bambulab-metrics-exporter
         ports:
@@ -62,3 +65,8 @@ spec:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
+      volumes:
+      - name: config
+        emptyDir:
+          sizeLimit: 500Mi
+          medium: Memory
