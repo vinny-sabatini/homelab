@@ -21,21 +21,19 @@ spec:
     spec:
       containers:
       - env:
+        - name: PRINTER_NAME
+          value: "vinny-p2s"
         - name: BAMBULAB_HOST
           value: "192.168.1.244"
         - name: BAMBULAB_SERIAL
           value: "22E8AJ5A1000413"
-        - name: PUID
-          value: "65532"
-        - name: PGID
-          value: "65532"
-        - name: UMASK
-          value: "65532"
         - name: BAMBULAB_ACCESS_CODE
           valueFrom:
             secretKeyRef:
               name: bambu-token
               key: token
+        command: ["bambulab-exporter"]
+        args: []
         volumeMounts:
         - mountPath: /config
           name: config
@@ -59,20 +57,19 @@ spec:
           successThreshold: 1
           timeoutSeconds: 1
         securityContext:
-          allowPrivilegeEscalation: true
+          allowPrivilegeEscalation: false
           capabilities:
             drop:
             - ALL
-          privileged: true
           readOnlyRootFilesystem: true
-          runAsGroup: 0
-          runAsRoot: true
-          runAsUser: 0
+          runAsGroup: 65532
+          runAsNonRoot: true
+          runAsUser: 65532
       serviceAccount: bambulab-metrics-exporter
       serviceAccountName: bambulab-metrics-exporter
       securityContext:
         fsGroup: 65534
-        runAsRoot: true
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
       volumes:
