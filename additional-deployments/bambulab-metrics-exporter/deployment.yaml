@@ -1,0 +1,76 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: bambulab-metrics-exporter
+    app.kubernetes.io/name: bambulab-metrics-exporter
+    app.kubernetes.io/version: 0.1.40
+  name: bambulab-metrics-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bambulab-metrics-exporter
+      app.kubernetes.io/name: bambulab-metrics-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: bambulab-metrics-exporter
+        app.kubernetes.io/name: bambulab-metrics-exporter
+    spec:
+      containers:
+      - env:
+        - name: BAMBULAB_HOST
+          value: "192.168.1.244"
+        - name: BAMBULAB_SERIAL
+          value: "22E8AJ5A1000413"
+        - name: BAMBULAB_ACCESS_CODE
+          valueFrom:
+            secretKeyRef:
+              name: bambu-token
+              key: token
+        command: ["bambulab-exporter"]
+        args: []
+        volumeMounts:
+        - mountPath: /config
+          name: config
+          subPath: config
+        - mountPath: /app
+          name: config
+          subPath: app
+        image: ghcr.io/theblackbush/bambulab_metrics_exporter:0.1.40
+        name: bambulab-metrics-exporter
+        ports:
+        - containerPort: 9109
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 65532
+          runAsNonRoot: true
+          runAsUser: 65532
+      serviceAccount: bambulab-metrics-exporter
+      serviceAccountName: bambulab-metrics-exporter
+      securityContext:
+        fsGroup: 65534
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: bambulab-metrics-explorer-config
