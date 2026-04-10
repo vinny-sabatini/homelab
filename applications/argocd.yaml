@@ -9,7 +9,7 @@ spec:
   source:
     chart: argo-cd
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 9.4.17
+    targetRevision: 9.5.0
     helm:
       releaseName: cluster
       values: |
@@ -29,6 +29,9 @@ spec:
         dex:
           enabled: false
         redis:
+          vpa:
+            enabled: true
+            updateMode: "Off"
           exporter:
             enabled: true
           metrics:
@@ -40,6 +43,9 @@ spec:
             clusterRoleRules:
               enabled: true
         server:
+          vpa:
+            enabled: true
+            updateMode: "Off"
           extraArgs:
           - --insecure # Allow gateway to terminate TLS instead of ArgoCD
           httproute:
@@ -70,6 +76,9 @@ spec:
             clusterRoleRules:
               enabled: true
         repoServer:
+          vpa:
+            enabled: true
+            updateMode: "Off"
           metrics:
             enabled: true
             serviceMonitor:
@@ -79,6 +88,9 @@ spec:
             clusterRoleRules:
               enabled: true
         applicationSet:
+          vpa:
+            enabled: true
+            updateMode: "Off"
           metrics:
             enabled: true
             serviceMonitor:
@@ -88,6 +100,9 @@ spec:
             clusterRoleRules:
               enabled: true
         notifications:
+          vpa:
+            enabled: true
+            updateMode: "Off"
           metrics:
             enabled: true
             serviceMonitor:
