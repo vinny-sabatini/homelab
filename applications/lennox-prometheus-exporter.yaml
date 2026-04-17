@@ -1,0 +1,32 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lennox-prometheus-exporter
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: lennox-prometheus-exporter
+    repoURL: https://vinny-sabatini.github.io/lennox-prometheus-exporter/
+    targetRevision: 0.0.2
+    helm:
+      releaseName: lennox-prometheus-exporter
+      values: |
+        app_id: prometheusexporter
+        ip_address: 192.168.1.249
+        service:
+          port: "8000"
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: lennox-prometheus-exporter
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
