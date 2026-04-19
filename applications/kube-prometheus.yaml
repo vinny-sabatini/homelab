@@ -87,6 +87,13 @@ spec:
         grafana:
           enabled: false
           forceDeployDashboards: true
+        sidecar:
+          dashboards:
+            annotations:
+              grafana_folder: "kube-prometheus"
+            folderAnnotation: "grafana_folder"
+          provider:
+            foldersFromFilesStructure: true
         alertmanager:
           route:
             main:
