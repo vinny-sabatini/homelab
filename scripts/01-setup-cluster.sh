@@ -11,6 +11,7 @@ export NODE_IP=$1
 talosctl gen config ${CLUSTER_NAME} https://${NODE_IP}:6443 \
     --force \
     --install-disk /dev/nvme0n1 \
+    --config-patch @talos-patches/bridge-interface.yaml \
     --config-patch @talos-patches/control-plane-scheduling.yaml \
     --config-patch @talos-patches/disable-cni-and-kube-proxy.yaml \
     --config-patch @talos-patches/kube-services-bind.yaml \

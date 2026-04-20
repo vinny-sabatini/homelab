@@ -8,5 +8,9 @@ metadata:
 spec:
   containers:
   - name: samplepod
-    command: ["/bin/ash", "-c", "trap : TERM INT; sleep infinity & wait"]
-    image: nicolaka/netshoot
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    - containerPort: 8443
+      protocol: TCP
+    image: ghcr.io/mendhak/http-https-echo:36
