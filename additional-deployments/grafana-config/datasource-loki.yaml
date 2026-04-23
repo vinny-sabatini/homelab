@@ -17,4 +17,3 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  uid: ef74c9dc-6896-42bc-86af-259e647a462b

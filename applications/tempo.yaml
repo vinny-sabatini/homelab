@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tempo
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: tempo-distributed
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 1.61.3
+    helm:
+      releaseName: tempo
+      values: |
+        metaMonitoring:
+          serviceMonitor:
+            enabled: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: tempo
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

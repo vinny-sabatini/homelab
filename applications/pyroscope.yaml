@@ -1,0 +1,39 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pyroscope
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: pyroscope
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 2.0.0
+    helm:
+      releaseName: pyroscope
+      values: |
+        serviceMonitor:
+          enabled: true
+        httpRoute:
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: pyroscope.vinnysabatini.me
+          hostnames:
+          - "pyroscope.vinnysabatini.me"
+          gateway:
+            name: cluster-gateway
+            namespace: kube-system
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: pyroscope
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
