@@ -2,17 +2,18 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDatasource
 metadata:
-  name: prometheus
+  name: pyroscope
   namespace: monitoring
 spec:
   datasource:
     access: proxy
-    type: prometheus
+    type: phlare
     jsonData:
       timeInterval: 5s
       tlsSkipVerify: true
-    name: prometheus
-    url: http://kube-prom-prometheus.monitoring:9090
+    name: pyroscope
+    url: http://pyroscope.pyroscope.svc.cluster.local:4040
+    orgId: 1
   instanceSelector:
     matchLabels:
       dashboards: grafana

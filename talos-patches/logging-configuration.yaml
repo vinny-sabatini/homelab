@@ -2,7 +2,7 @@
 machine:
   logging:
     destinations:
-      - endpoint: "tcp://vector.vector.svc.cluster.local:6051/"
+      - endpoint: tcp://alloy.alloy.svc:12346/
         format: "json_lines"
   kubelet:
     extraMounts:
@@ -17,4 +17,4 @@ machine:
 apiVersion: v1alpha1
 kind: KmsgLogConfig
 name: remote-log
-url: tcp://vector.vector.svc.cluster.local:6050/
+url: tcp://alloy.alloy.svc:12347/
