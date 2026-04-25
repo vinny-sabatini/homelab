@@ -1,0 +1,18 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name:  kepler-power-consumption
+  namespace: kepler
+  labels:
+    app.kubernetes.io/instance: kepler
+    app.kubernetes.io/name: kepler
+spec:
+  allowCrossNamespaceImport: true
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: "https://raw.githubusercontent.com/sustainable-computing-io/kepler/refs/heads/main/compose/default/grafana/dashboards/latest/dashboard.json"
+  datasources:
+    - inputName: "datasource"
+      datasourceName: "prometheus"
