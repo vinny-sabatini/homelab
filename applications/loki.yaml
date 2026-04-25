@@ -18,6 +18,8 @@ spec:
       values: |
         loki:
           auth_enabled: false
+          commonConfig:
+            replication_factor: 1
           schemaConfig:
             configs:
               - from: "2024-04-01"
@@ -27,21 +29,13 @@ spec:
                 index:
                   prefix: loki_index_
                   period: 24h
-          ingester:
-            chunk_encoding: snappy
-          querier:
-            # Default is 4, if you have enough memory and CPU you can increase, reduce if OOMing
-            max_concurrent: 4
           pattern_ingester:
             enabled: true
           limits_config:
             allow_structured_metadata: true
             volume_enabled: true
-        deploymentMode: Distributed
-        ingester:
-          replicas: 1
-          zoneAwareReplication:
-            enabled: false
+          ruler:
+            enable_api: true
         monitoring:
           dashboards:
             enabled: true
@@ -49,36 +43,40 @@ spec:
             enabled: true
           serviceMonitor:
             enabled: true
-        querier:
+        minio:
+          enabled: true
+        deploymentMode: SingleBinary
+        singleBinary:
           replicas: 1
-        queryFrontend:
-          replicas: 1
-        queryScheduler:
-          replicas: 1
-        distributor:
-          replicas: 1
-        compactor:
-          replicas: 1
-        indexGateway:
-          replicas: 1
-        bloomPlanner:
-          replicas: 0
-        bloomBuilder:
-          replicas: 0
-        bloomGateway:
-          replicas: 0
+        gateway:
+          affinity: {}
+        # Zero out replica counts of other deployment modes
         backend:
           replicas: 0
         read:
           replicas: 0
         write:
           replicas: 0
-        singleBinary:
+        ingester:
           replicas: 0
-        gateway:
-          enabled: true
-        minio:
-          enabled: true
+        querier:
+          replicas: 0
+        queryFrontend:
+          replicas: 0
+        queryScheduler:
+          replicas: 0
+        distributor:
+          replicas: 0
+        compactor:
+          replicas: 0
+        indexGateway:
+          replicas: 0
+        bloomPlanner:
+          replicas: 0
+        bloomBuilder:
+          replicas: 0
+        bloomGateway:
+          replicas: 0
   destination:
     server: "https://kubernetes.default.svc"
     namespace: loki

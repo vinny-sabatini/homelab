@@ -48,28 +48,15 @@ spec:
                   value: /
         alloy:
           configMap:
-            content: |-
+            content: |
               logging {
-                level = "info"
+                level  = "info"
                 format = "logfmt"
               }
-              loki.write "default" {
-                endpoint {
-                  url = "https://loki-gateway.loki.svc.cluster.local/loki/api/v1/push"
-                }
+              livedebugging {
+                enabled = true
               }
-              local.file_match "node_logs" {
-                path_targets = [{
-                  __path__ = "/var/log/syslog",
-                  job = "node/syslog",
-                  node_name = sys.env("HOSTNAME"),
-                  cluster = "homelab",
-                }]
-              }
-              loki.source.file "node_logs" {
-                targets = local.file_match.node_logs.targets
-                forward_to = [loki.write.default.receiver]
-              }
+
               discovery.kubernetes "pod" {
                 role = "pod"
               }
@@ -117,24 +104,34 @@ spec:
                   replacement = "$1"
                 }
               }
+
+              loki.write "default" {
+                endpoint {
+                  url = "http://loki-gateway.loki.svc.cluster.local:80/loki/api/v1/push"
+                  tenant_id = "local"
+                }
+              }
+
               loki.source.kubernetes "pod_logs" {
                 targets = discovery.relabel.pod_logs.output
                 forward_to = [loki.process.pod_logs.receiver]
               }
-              loki.process "pod_logs" {
-                stage.static_labels {
-                  values = {
-                    cluster = "homelab",
-                  }
-                }
-                forward_to = [loki.write.default.receiver]
-              }
               loki.source.kubernetes_events "cluster_events" {
-                job_name   = "integrations/kubernetes/eventhandler"
+                job_name   = "kubernetes_events"
                 log_format = "logfmt"
                 forward_to = [
                   loki.process.cluster_events.receiver,
                 ]
+              }
+
+              loki.process "pod_logs" {
+                stage.static_labels {
+                  values = {
+                    cluster = "homelab",
+                    source = "pod_logs",
+                  }
+                }
+                forward_to = [loki.write.default.receiver]
               }
               loki.process "cluster_events" {
                 forward_to = [loki.write.default.receiver]
@@ -142,15 +139,11 @@ spec:
                 stage.static_labels {
                   values = {
                     cluster = "homelab",
-                  }
-                }
-
-                stage.labels {
-                  values = {
-                    kubernetes_cluster_events = "job",
+                    source  = "kubernetes_events",
                   }
                 }
               }
+
   destination:
     server: "https://kubernetes.default.svc"
     namespace: alloy
@@ -161,6 +154,3 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-    managedNamespaceMetadata:
-      labels:
-        pod-security.kubernetes.io/enforce: privileged
