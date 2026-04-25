@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kepler
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: kepler
+    repoURL: oci://quay.io/sustainable_computing_io/charts/kepler
+    targetRevision: 0.11.4
+    helm:
+      releaseName: kepler
+      values: |
+        config:
+          log:
+            level: info
+        serviceMonitor:
+          enabled: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kepler
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: "privileged"
