@@ -73,4 +73,4 @@ spec:
       volumes:
       - name: config
         persistentVolumeClaim:
-          claimName: bambulab-metrics-explorer-config
+          claimName: bambulab-metrics-exporter-config
