@@ -11,10 +11,14 @@ spec:
     jsonData:
       timeInterval: 5s
       tlsSkipVerify: true
-      lokiSearch:
-        datasourceUid: 'loki'
-      serviceMap:
+      tracesToMetrics:
         datasourceUid: 'prometheus'
+        queries:
+          - name: 'Request Rate'
+            query: 'sum(rate(http_server_requests_total{$$__tags}[5m]))'
+      tracesToLogs:
+        datasourceUid: 'loki'
+        tags: ['job', 'instance', 'pod', 'service.name']
       tracesToProfiles:
         datasourceUid: 'pyroscope'
       nodeGraph:
