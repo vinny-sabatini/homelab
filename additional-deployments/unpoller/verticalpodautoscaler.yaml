@@ -12,7 +12,7 @@ spec:
     - containerName: unpoller
   targetRef:
     apiVersion: apps/v1
-    kind: DaemonSet
+    kind: Deployment
     name: unpoller
   updatePolicy:
     updateMode: "Off"
