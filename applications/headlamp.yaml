@@ -61,6 +61,24 @@ spec:
               matchLabels:
                 app.kubernetes.io/instance: headlamp
                 app.kubernetes.io/name: headlamp
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: headlamp
+              app.kubernetes.io/name: headlamp
+            name: headlamp
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: headlamp
+            targetRef:
+              apiVersion: apps/v1
+              kind: Deployment
+              name: headlamp
+            updatePolicy:
+              updateMode: "Off"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: headlamp

@@ -28,6 +28,64 @@ spec:
         webhook:
           podAnnotations:
             match-regex.version-checker.io/cert-manager-webhook: 'v(\d+)\.(\d+)\.(\d+)'
+        extraObjects:
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: cert-manager
+              app.kubernetes.io/name: cert-manager
+              app.kubernetes.io/part-of: cert-manager
+            name: cert-manager
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: cert-manager-controller
+            targetRef:
+              apiVersion: apps/v1
+              kind: Deployment
+              name: cert-manager
+            updatePolicy:
+              updateMode: "Off"
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: cert-manager-cainjector
+              app.kubernetes.io/name: cert-manager-cainjector
+              app.kubernetes.io/part-of: cert-manager
+            name: cert-manager
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: cert-manager-cainjector
+            targetRef:
+              apiVersion: apps/v1
+              kind: Deployment
+              name: cert-manager
+            updatePolicy:
+              updateMode: "Off"
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: cert-manager-webhook
+              app.kubernetes.io/name: cert-manager-webhook
+              app.kubernetes.io/part-of: cert-manager
+            name: cert-manager-webhook
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: cert-manager-webhook
+            targetRef:
+              apiVersion: apps/v1
+              kind: Deployment
+              name: cert-manager-webhook
+            updatePolicy:
+              updateMode: "Off"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cert-manager

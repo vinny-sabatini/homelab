@@ -16,6 +16,12 @@ spec:
     helm:
       releaseName: alloy
       values: |
+        controller:
+          autoscaling:
+            vertical:
+              enabled: true
+              updatePolicy:
+                updateMode: "Off"
         serviceMonitor:
           enabled: true
         extraObjects:
