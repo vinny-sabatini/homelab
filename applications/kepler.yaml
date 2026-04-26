@@ -21,6 +21,8 @@ spec:
             level: info
         serviceMonitor:
           enabled: true
+        daemonset:
+          livenessProbe: null
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kepler
