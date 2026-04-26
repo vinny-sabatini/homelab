@@ -1,0 +1,19 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/instance: bambulab-metrics-exporter
+    app.kubernetes.io/name: bambulab-metrics-exporter
+    app.kubernetes.io/version: 0.1.40
+  name: bambulab-metrics-exporter
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: bambulab-metrics-exporter
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: bambulab-metrics-exporter
+  updatePolicy:
+    updateMode: "Off"

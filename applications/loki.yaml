@@ -77,6 +77,121 @@ spec:
           replicas: 0
         bloomGateway:
           replicas: 0
+        extraObjects:
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: loki-gateway
+              app.kubernetes.io/name: loki-gateway
+              app.kubernetes.io/part-of: loki
+            name: loki-gateway
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: nginx
+            targetRef:
+              apiVersion: apps/v1
+              kind: Deployment
+              name: loki-gateway
+            updatePolicy:
+              updateMode: "Off"
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: loki-canary
+              app.kubernetes.io/name: loki-canary
+              app.kubernetes.io/part-of: loki
+            name: loki-canary
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: canary
+            targetRef:
+              apiVersion: apps/v1
+              kind: DaemonSet
+              name: loki-canary
+            updatePolicy:
+              updateMode: "Off"
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: loki
+              app.kubernetes.io/name: loki
+              app.kubernetes.io/part-of: loki
+            name: loki
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: loki
+            targetRef:
+              apiVersion: apps/v1
+              kind: StatefulSet
+              name: loki
+            updatePolicy:
+              updateMode: "Off"
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: loki-minio
+              app.kubernetes.io/name: loki-minio
+              app.kubernetes.io/part-of: loki
+            name: loki-minio
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: minio
+            targetRef:
+              apiVersion: apps/v1
+              kind: StatefulSet
+              name: loki-minio
+            updatePolicy:
+              updateMode: "Off"
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: loki-chunks-cache
+              app.kubernetes.io/name: loki-chunks-cache
+              app.kubernetes.io/part-of: loki
+            name: loki-chunks-cache
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: memcached
+            targetRef:
+              apiVersion: apps/v1
+              kind: StatefulSet
+              name: loki-chunks-cache
+            updatePolicy:
+              updateMode: "Off"
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: loki-results-cache
+              app.kubernetes.io/name: loki-results-cache
+              app.kubernetes.io/part-of: loki
+            name: loki-results-cache
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: memcached
+            targetRef:
+              apiVersion: apps/v1
+              kind: StatefulSet
+              name: loki-results-cache
+            updatePolicy:
+              updateMode: "Off"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: loki

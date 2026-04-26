@@ -34,6 +34,61 @@ spec:
             enabled: true
             issuer:
               generate: true
+        extraObjects:
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: keda-operator
+              app.kubernetes.io/name: keda-operator
+            name: keda-operator
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: keda-operator
+            targetRef:
+              apiVersion: apps/v1
+              kind: Deployment
+              name: keda-operator
+            updatePolicy:
+              updateMode: "Off"
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: keda-admission-webhooks
+              app.kubernetes.io/name: keda-admission-webhooks
+            name: keda-admission-webhooks
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: keda-admission-webhooks
+            targetRef:
+              apiVersion: apps/v1
+              kind: Deployment
+              name: keda-admission-webhooks
+            updatePolicy:
+              updateMode: "Off"
+        - |
+          apiVersion: autoscaling.k8s.io/v1
+          kind: VerticalPodAutoscaler
+          metadata:
+            labels:
+              app.kubernetes.io/instance: keda-operator-metrics-apiserver
+              app.kubernetes.io/name: keda-operator-metrics-apiserver
+            name: keda-operator-metrics-apiserver
+          spec:
+            resourcePolicy:
+              containerPolicies:
+              - containerName: keda-operator-metrics-apiserver
+            targetRef:
+              apiVersion: apps/v1
+              kind: Deployment
+              name: keda-operator-metrics-apiserver
+            updatePolicy:
+              updateMode: "Off"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: keda
