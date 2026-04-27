@@ -133,6 +133,7 @@ spec:
                   metadataPolicy: None
                   decodingStrategy: None
                   conversionStrategy: Default
+                  nullBytePolicy: Ignore
         - |
           apiVersion: monitoring.coreos.com/v1alpha1
           kind: AlertmanagerConfig

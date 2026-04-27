@@ -34,6 +34,7 @@ spec:
         metadataPolicy: None
         decodingStrategy: None
         conversionStrategy: Default
+        nullBytePolicy: Ignore
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
