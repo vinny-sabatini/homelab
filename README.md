@@ -60,3 +60,12 @@ This requires the node to have the Talos ISO available to boot.
 
 This will apply or delete some manifests to test out the software installed on the cluster.
 Validation of those test manifests are manual.
+
+## Remaining VPA
+
+kepler
+kube-system (cilium, coredns, metrics-server)
+kubelet-serving-cert-approver
+lennox-prometheus-exporter
+local-path-storage
+vertical-pod-autoscaler
