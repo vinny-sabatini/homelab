@@ -49,6 +49,9 @@ spec:
         singleBinary:
           replicas: 1
         gateway:
+          metrics:
+            image:
+              tag: 0.3.11
           affinity: {}
         # Zero out replica counts of other deployment modes
         backend:

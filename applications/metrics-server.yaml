@@ -16,6 +16,8 @@ spec:
     helm:
       releaseName: metrics-server
       values: |
+        image:
+          tag: v0.8.1
         metrics:
           enabled: true
         serviceMonitor:

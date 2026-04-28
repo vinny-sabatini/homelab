@@ -65,6 +65,8 @@ spec:
             updatePolicy:
               updateMode: "Off"
           prometheusSpec:
+            image:
+              tag: v3.11.3
             secrets:
               - etcd-client-cert
             serviceMonitorSelectorNilUsesHelmValues: false
@@ -133,6 +135,7 @@ spec:
                   metadataPolicy: None
                   decodingStrategy: None
                   conversionStrategy: Default
+                  nullBytePolicy: Ignore
         - |
           apiVersion: monitoring.coreos.com/v1alpha1
           kind: AlertmanagerConfig

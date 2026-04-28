@@ -70,18 +70,21 @@ spec:
                   metadataPolicy: None
                   decodingStrategy: None
                   conversionStrategy: Default
+                  nullBytePolicy: Ignore
               - secretKey: client-secret
                 remoteRef:
                   key: "oauth2_proxy_client_secret"
                   metadataPolicy: None
                   decodingStrategy: None
                   conversionStrategy: Default
+                  nullBytePolicy: Ignore
               - secretKey: cookie-secret
                 remoteRef:
                   key: "oauth2_proxy_cookie_secret"
                   metadataPolicy: None
                   decodingStrategy: None
                   conversionStrategy: Default
+                  nullBytePolicy: Ignore
   destination:
     server: "https://kubernetes.default.svc"
     namespace: oauth2-proxy

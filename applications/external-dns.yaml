@@ -16,6 +16,8 @@ spec:
     helm:
       releaseName: external-dns
       values: |
+        image:
+          tag: v0.21.0
         provider:
           name: cloudflare
         policy: sync
