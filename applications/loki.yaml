@@ -52,7 +52,7 @@ spec:
           metrics:
             image:
               tag: 0.3.11
-          affinity: {}
+          affinity: null
         # Zero out replica counts of other deployment modes
         backend:
           replicas: 0
