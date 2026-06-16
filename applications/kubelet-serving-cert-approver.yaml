@@ -9,7 +9,7 @@ spec:
   source:
     path: deploy/standalone
     repoURL: 'https://github.com/alex1989hu/kubelet-serving-cert-approver'
-    targetRevision: v0.10.3
+    targetRevision: v0.11.0
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kubelet-serving-cert-approver

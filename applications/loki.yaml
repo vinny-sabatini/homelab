@@ -12,7 +12,7 @@ spec:
   source:
     chart: loki
     repoURL: https://grafana-community.github.io/helm-charts
-    targetRevision: 13.2.2
+    targetRevision: 17.4.3
     helm:
       releaseName: loki
       values: |
@@ -45,6 +45,7 @@ spec:
             enabled: true
         minio:
           enabled: true
+        ignoreMinioDeprecation: true
         deploymentMode: SingleBinary
         singleBinary:
           replicas: 1
