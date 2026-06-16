@@ -18,7 +18,7 @@ spec:
       values: |
         configReloader:
           image:
-            tag: v0.90.1
+            tag: v0.91.0
         controller:
           autoscaling:
             vertical:

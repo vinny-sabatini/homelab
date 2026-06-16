@@ -52,7 +52,7 @@ spec:
         gateway:
           metrics:
             image:
-              tag: 0.3.11
+              tag: 0.4.0
           affinity: null
         # Zero out replica counts of other deployment modes
         backend:
