@@ -30,7 +30,7 @@ spec:
             secretKeyRef:
               name: unifi-token
               key: token
-        image: ghcr.io/unpoller/unpoller:v2.39.0
+        image: ghcr.io/unpoller/unpoller:v3.3.0
         name: unpoller
         ports:
         - containerPort: 9130
