@@ -1,0 +1,22 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  annotations:
+  labels:
+    app.kubernetes.io/instance: bambulabs
+    app.kubernetes.io/name: bambulabs
+    app.kubernetes.io/version: 0.1.40
+  name: bambulabs-rules
+spec:
+  groups:
+  - name: bambulabs_rules
+    rules:
+    - alert: BambulabsAMSHumidityHigh
+      annotations:
+        message: |
+          {{ $labels.printer_name }} has high humidity levels
+      expr: bambulab_ams_unit_humidity > 10
+      for: 30m
+      labels:
+        severity: warning
