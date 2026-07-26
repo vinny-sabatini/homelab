@@ -17,6 +17,7 @@ talosctl gen config ${CLUSTER_NAME} https://${NODE_IP}:6443 \
     --config-patch @talos-patches/local-path-storage.yaml \
     --config-patch @talos-patches/logging-configuration.yaml \
     --config-patch @talos-patches/rotate-server-certificates.yaml \
+    --config-patch @talos-patches/tuppr-kube-api-access.yaml \
     --config-patch @talos-patches/volume-configs.yaml
 
 mkdir -p $HOME/.talos

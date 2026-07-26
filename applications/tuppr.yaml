@@ -1,0 +1,50 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tuppr
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: tuppr
+    repoURL: oci://ghcr.io/home-operations/charts/tuppr
+    targetRevision: 0.4.1
+    helm:
+      releaseName: tuppr
+      values: |
+        resources:
+          limits:
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        notification:
+          enabled: true
+          secretName: "tuppr-discord-webhook"
+          secretKey: tuppr-discord-webhook
+        monitoring:
+          serviceMonitor:
+            enabled: true
+          prometheusRule:
+            enabled: true
+          dashboards:
+            enabled: true
+            grafanaOperator:
+              enabled: true
+              allowCrossNamespaceImport: true
+              matchLabels:
+                dashboards: grafana
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: system-upgrade
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
