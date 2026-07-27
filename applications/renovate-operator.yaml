@@ -1,0 +1,130 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: renovate-operator
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: renovate-operator
+    repoURL: oci://ghcr.io/mogenius/helm-charts/renovate-operator
+    targetRevision: 5.4.0
+    helm:
+      releaseName: cluster
+      values: |
+        route:
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: renovate.vinnysabatini.me
+          hostnames:
+          - renovate.vinnysabatini.me
+          parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: Gateway
+            name: cluster-gateway
+            namespace: kube-system
+        metrics:
+          enabled: true
+          serviceMonitor:
+            enabled: true
+          dashboard:
+            enabled: true
+            labels:
+              grafana_dashboard: "1"
+            grafanaDashboard:
+              allowCrossNamespaceImport: true
+              instanceSelector:
+                matchLabels:
+                  dashboards: grafana
+        telemetry:
+          enabled: false
+        extraManifests:
+        - |
+          apiVersion: renovate-operator.mogenius.com/v1alpha1
+          kind: RenovateJob
+          metadata:
+            name: renovate-github
+            namespace: renovate-operator
+          spec:
+            discoveryFilters:
+              - vinny-sabatini/*
+            provider:
+              name: github
+            extraEnv: []
+            image: renovate/renovate:43.104.1
+            parallelism: 5
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            schedule: 0 1 * * *
+            secretRef: renovate-secret
+        - |
+          apiVersion: external-secrets.io/v1
+          kind: ExternalSecret
+          metadata:
+            name: github-app-pem
+          spec:
+            refreshInterval: 1h0m0s
+            secretStoreRef:
+              name: bitwarden-secretsmanager
+              kind: ClusterSecretStore
+            target:
+              name: github-app-pem
+            data:
+              - secretKey: private_key_pem
+                remoteRef:
+                  key: "renovate_github_app_pem"
+                  metadataPolicy: None
+                  decodingStrategy: None
+                  conversionStrategy: Default
+                  nullBytePolicy: Ignore
+        - |
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: GithubAccessToken
+          metadata:
+            name: github-auth-token
+          spec:
+            appID: "4401623"
+            installID: "149238804"
+            auth:
+              privateKey:
+                secretRef:
+                  name: github-app-pem
+                  key: private_key_pem
+        - |
+          apiVersion: external-secrets.io/v1
+          kind: ExternalSecret
+          metadata:
+            name: github-auth-token
+          spec:
+            refreshInterval: "30m0s"
+            target:
+              name: renovate-secret
+              template:
+                type: Opaque
+                engineVersion: v2
+                data:
+                  GITHUB_COM_TOKEN:  "{{ `{{ .token }}` }}"
+                  GITHUB_COM_USER: vinny-sabatini
+                  RENOVATE_TOKEN: "{{ `{{ .token }}` }}"
+            dataFrom:
+              - sourceRef:
+                  generatorRef:
+                    apiVersion: generators.external-secrets.io/v1alpha1
+                    kind: GithubAccessToken
+                    name: github-auth-token
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: renovate-operator
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
