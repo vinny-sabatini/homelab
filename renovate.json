@@ -1,0 +1,37 @@
+
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "repositories": [
+    "vinny-sabatini/homelab"
+  ],
+  "platform": "github",
+  "autodiscover": "false",
+  "enabledManagers": [
+    "argocd"
+  ],
+  "argocd": {
+    "managerFilePatterns": [
+      "applications/*"
+    ]
+  },
+  "packageRules": [
+    {
+      "matchManagers": [
+        "argocd"
+      ],
+      "matchFileNames": [
+        "applications/tuppr.yaml"
+      ],
+      "overridePackageName": "ghcr.io/home-operations/charts/tuppr"
+    },
+    {
+      "matchManagers": [
+        "argocd"
+      ],
+      "matchFileNames": [
+        "applications/kepler.yaml"
+      ],
+      "overridePackageName": "quay.io/sustainable_computing_io/charts/kepler"
+    }
+  ]
+}
