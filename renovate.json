@@ -37,5 +37,6 @@
       ],
       "overridePackageName": "ghcr.io/mogenius/helm-charts/renovate-operator"
     }
-  ]
+  ],
+  "dependencyDashboard": true
 }
