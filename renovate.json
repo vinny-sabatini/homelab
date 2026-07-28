@@ -1,11 +1,6 @@
 
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "repositories": [
-    "vinny-sabatini/homelab"
-  ],
-  "platform": "github",
-  "autodiscover": "false",
   "enabledManagers": [
     "argocd"
   ],
@@ -32,6 +27,15 @@
         "applications/kepler.yaml"
       ],
       "overridePackageName": "quay.io/sustainable_computing_io/charts/kepler"
+    },
+    {
+      "matchManagers": [
+        "argocd"
+      ],
+      "matchFileNames": [
+        "applications/renovate-operator.yaml"
+      ],
+      "overridePackageName": "ghcr.io/mogenius/helm-charts/renovate-operator"
     }
   ]
 }
