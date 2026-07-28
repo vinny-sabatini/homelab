@@ -33,8 +33,7 @@ spec:
             enabled: true
           dashboard:
             enabled: true
-            labels:
-              grafana_dashboard: "1"
+            labels: {}
             grafanaDashboard:
               allowCrossNamespaceImport: true
               instanceSelector:
