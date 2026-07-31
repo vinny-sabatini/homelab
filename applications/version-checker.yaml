@@ -12,7 +12,7 @@ spec:
   source:
     chart: version-checker
     repoURL: https://charts.jetstack.io
-    targetRevision: v0.10.0
+    targetRevision: v0.11.0
     helm:
       releaseName: version-checker
       values: |
