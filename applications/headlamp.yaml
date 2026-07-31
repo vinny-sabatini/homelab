@@ -16,8 +16,6 @@ spec:
     helm:
       releaseName: headlamp
       values: |
-        image:
-          tag: v0.43.0
         httpRoute:
           enabled: true
           annotations:
