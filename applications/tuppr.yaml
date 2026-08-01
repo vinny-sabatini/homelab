@@ -12,7 +12,7 @@ spec:
   source:
     chart: tuppr
     repoURL: oci://ghcr.io/home-operations/charts/tuppr
-    targetRevision: 0.4.4
+    targetRevision: 0.4.6
     helm:
       releaseName: tuppr
       values: |
