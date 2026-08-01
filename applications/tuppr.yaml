@@ -16,6 +16,8 @@ spec:
     helm:
       releaseName: tuppr
       values: |
+        podAnnotations:
+          use-sha.version-checker.io/manager: "true"
         resources:
           limits:
             memory: 128Mi

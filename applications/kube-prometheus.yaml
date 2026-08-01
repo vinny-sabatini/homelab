@@ -65,6 +65,9 @@ spec:
             updatePolicy:
               updateMode: "Off"
           prometheusSpec:
+            podMetadata
+              annotations:
+                match-regex.version-checker.io/prometheus='v(\d+)\.(\d+)\.(\d+)'
             secrets:
               - etcd-client-cert
             serviceMonitorSelectorNilUsesHelmValues: false
