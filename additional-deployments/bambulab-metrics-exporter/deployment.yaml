@@ -22,7 +22,7 @@ spec:
       containers:
       - env:
         - name: BAMBULAB_HOST
-          value: "192.168.1.244"
+          value: "192.168.3.8"
         - name: BAMBULAB_SERIAL
           value: "22E8AJ5A1000413"
         - name: BAMBULAB_ACCESS_CODE
