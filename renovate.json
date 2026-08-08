@@ -4,6 +4,10 @@
   "extends":[
     "config:best-practices"
   ],
+  "dependencyDashboard": true,
+  "major": {
+    "enabled": true
+  },
   "enabledManagers": [
     "argocd", "custom.regex"
   ],
@@ -23,10 +27,7 @@
   ],
   "packageRules": [
     {
-      "matchManagers": [
-        "argocd"
-      ],
-      "matchUpdateTypes": ["major", "minor", "patch"],
+      "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
       "automergeType": "branch"
     },
@@ -72,9 +73,5 @@
       "separateMajorMinor": true,
       "separateMinorPatch": true
     }
-  ],
-  "dependencyDashboard": true,
-  "major": {
-    "enabled": true
-  }
+  ]
 }
