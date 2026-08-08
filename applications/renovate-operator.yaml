@@ -60,7 +60,7 @@ spec:
               requests:
                 cpu: 100m
                 memory: 128Mi
-            schedule: */15 * * * *
+            schedule: "*/15 * * * *"
             secretRef: renovate-secret
         - |
           apiVersion: external-secrets.io/v1
