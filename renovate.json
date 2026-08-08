@@ -27,11 +27,6 @@
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true,
-      "automergeType": "branch"
-    },
-    {
       "matchManagers": [
         "argocd"
       ],
