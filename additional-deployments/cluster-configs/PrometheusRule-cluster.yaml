@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: generic-alerts
+  namespace: monitoring
+spec:
+  groups:
+    - name: generic-alerts
+      rules:
+        # Greater than 1 because watchdog is always firing
+        - alert: AlertFiring
+          expr: sum(ALERTS{alertstate="firing"}) > 1
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Alerts Firing"
+            description: "One or more alerts are firing. Notifies when all alerts are clear."
