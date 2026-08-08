@@ -100,6 +100,54 @@ spec:
             clusterRoleRules:
               enabled: true
         notifications:
+          argocdUrl: https://argocd.vinnysabatini.me
+          notifiers:
+            service.webhook.discord: |
+              url: $discord-homelab-events-webhook
+              headers:
+              - name: Content-Type
+                value: application/json
+          subscriptions:
+          - recipients:
+            - discord
+            triggers:
+            - on-deployed
+          templates:
+            template.app-deployed: |
+              webhook:
+                discord:
+                  method: POST
+                  body: >
+                    {
+                      "embeds": [
+                        {
+                          "title": "🚀 Application {{.app.metadata.name}} successfully deployed",
+                          "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+                          "color": 65280,
+                          "fields": [
+                            {
+                              "name": "Repository",
+                              "value": "{{.app.spec.source.repoURL}}"
+                            },
+                            {
+                              "name": "Revision",
+                              "value": "{{.app.status.sync.revision}}"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+          triggers:
+            trigger.on-deployed: |
+              - description: Application is synced and healthy. Triggered once per commit.
+                oncePer: app.status.operationState?.syncResult?.revision
+                send:
+                - app-deployed
+                when: app.status.operationState != nil and app.status.operationState.phase in ['Succeeded']
+                  and app.status.health.status == 'Healthy' and (!time.Parse(app.status.health.lastTransitionTime).Add(1
+                  * time.Minute).Before(time.Parse(app.status.operationState.finishedAt)) or time.Parse(app.status.health.lastTransitionTime).Before(time.Parse(app.status.operationState.startedAt)))
+          secret:
+            create: false
           vpa:
             enabled: true
             updateMode: "Off"
@@ -111,6 +159,26 @@ spec:
               enabled: false
             clusterRoleRules:
               enabled: true
+        extraObjects:
+        - |
+          apiVersion: external-secrets.io/v1
+          kind: ExternalSecret
+          metadata:
+            name: argocd-notifications-secret
+          spec:
+            refreshInterval: 1h0m0s
+            secretStoreRef:
+              name: bitwarden-secretsmanager
+              kind: ClusterSecretStore
+            data:
+              - secretKey: discord-homelab-events-webhook
+                remoteRef:
+                  key: "discord_homelab_events_webhook"
+                  metadataPolicy: None
+                  decodingStrategy: None
+                  conversionStrategy: Default
+                  nullBytePolicy: Ignore
+
   destination:
     server: "https://kubernetes.default.svc"
     namespace: argocd
