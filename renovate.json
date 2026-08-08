@@ -15,7 +15,8 @@
         "argocd"
       ],
       "matchUpdateTypes": ["major", "minor", "patch"],
-      "automerge": true
+      "automerge": true,
+      "automergeType": "branch"
     },
     {
       "matchManagers": [
