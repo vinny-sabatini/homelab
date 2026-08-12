@@ -3,33 +3,33 @@ kind: Kustomization
 
 resources:
 - alloy/project.yaml
-# - argocd/project.yaml
-# - bambuddy/project.yaml
-# - bambulab-metrics-explorer/project.yaml
-# - cert-manager/project.yaml
-# - cilium/project.yaml
-# - cluster-configs/project.yaml
-# - external-dns-configs/project.yaml
-# - external-dns/project.yaml
-# - external-secrets/project.yaml
-# - gateway-crds/project.yaml
-# - grafana-config/project.yaml
-# - grafana-operator/project.yaml
-# - headlamp/project.yaml
-# - keda/project.yaml
-# - kepler/project.yaml
-# - kubelet-serving-cert-approver/project.yaml
-# - kube-prometheus/project.yaml
-# - kube-state-metrics/project.yaml
-# - kustomization/project.yaml
-# - lennox-prometheus-exporter/project.yaml
-# - local-path-provisioner/project.yaml
-# - loki/project.yaml
-# - metrics-server/project.yaml
-# - obico/project.yaml
-# - prometheus-blackbox-exporter/project.yaml
-# - renovate-operator/project.yaml
-# - tuppr/project.yaml
-# - unpoller/project.yaml
-# - version-checker/project.yaml
-# - vertical-pod-autoscaler/project.yaml
+- argocd.yaml
+- bambuddy.yaml
+- bambulab-metrics-explorer.yaml
+- cert-manager.yaml
+- cilium.yaml
+- cluster-configs.yaml
+- external-dns-configs.yaml
+- external-dns.yaml
+- external-secrets.yaml
+- gateway-crds.yaml
+- grafana-config.yaml
+- grafana-operator.yaml
+- headlamp.yaml
+- keda.yaml
+- kepler.yaml
+- kubelet-serving-cert-approver.yaml
+- kube-prometheus.yaml
+- kube-state-metrics.yaml
+- kustomization.yaml
+- lennox-prometheus-exporter.yaml
+- local-path-provisioner.yaml
+- loki.yaml
+- metrics-server/project.yaml
+- obico.yaml
+- prometheus-blackbox-exporter.yaml
+- renovate-operator.yaml
+- tuppr.yaml
+- unpoller.yaml
+- version-checker.yaml
+- vertical-pod-autoscaler.yaml
