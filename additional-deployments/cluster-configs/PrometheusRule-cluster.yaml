@@ -10,7 +10,7 @@ spec:
       rules:
         # Greater than 1 because watchdog is always firing
         - alert: AlertFiring
-          expr: sum(ALERTS{alertstate="firing"}) > 1
+          expr: sum(ALERTS{alertstate="firing", alertname!~"AlertFiring|Watchdog"}) > 0
           for: 10m
           labels:
             severity: warning
