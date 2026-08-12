@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- alloy/project.yaml
+# - argocd/project.yaml
+# - bambuddy/project.yaml
+# - bambulab-metrics-explorer/project.yaml
+# - cert-manager/project.yaml
+# - cilium/project.yaml
+# - cluster-configs/project.yaml
+# - external-dns-configs/project.yaml
+# - external-dns/project.yaml
+# - external-secrets/project.yaml
+# - gateway-crds/project.yaml
+# - grafana-config/project.yaml
+# - grafana-operator/project.yaml
+# - headlamp/project.yaml
+# - keda/project.yaml
+# - kepler/project.yaml
+# - kubelet-serving-cert-approver/project.yaml
+# - kube-prometheus/project.yaml
+# - kube-state-metrics/project.yaml
+# - kustomization/project.yaml
+# - lennox-prometheus-exporter/project.yaml
+# - local-path-provisioner/project.yaml
+# - loki/project.yaml
+# - metrics-server/project.yaml
+# - obico/project.yaml
+# - prometheus-blackbox-exporter/project.yaml
+# - renovate-operator/project.yaml
+# - tuppr/project.yaml
+# - unpoller/project.yaml
+# - version-checker/project.yaml
+# - vertical-pod-autoscaler/project.yaml
