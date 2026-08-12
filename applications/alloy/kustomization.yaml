@@ -10,3 +10,4 @@ helmCharts:
     valuesFile: values.yaml
     releaseName: alloy
     namespace: alloy
+    includeCRDs: true
