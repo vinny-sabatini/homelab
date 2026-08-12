@@ -13,6 +13,9 @@ spec:
     helm:
       releaseName: cluster
       values: |
+        configs:
+          cm:
+            kustomize.buildOptions: --enable-helm
         fullnameOverride: argocd
         controller:
           vpa:
