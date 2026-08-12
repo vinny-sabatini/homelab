@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kepler
+  name: keda
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
