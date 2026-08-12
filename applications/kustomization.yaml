@@ -15,7 +15,7 @@ resources:
 - gateway-crds.yaml
 - grafana-config.yaml
 - grafana-operator.yaml
-- headlamp.yaml
+- headlamp/project.yaml
 - keda.yaml
 - kepler.yaml
 - kubelet-serving-cert-approver.yaml

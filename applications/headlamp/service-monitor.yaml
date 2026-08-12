@@ -1,0 +1,22 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: headlamp
+    app.kubernetes.io/instance: headlamp
+  name: headlamp
+spec:
+  endpoints:
+  - honorLabels: false
+    interval: 30s
+    path: /metrics
+    port: http
+  namespaceSelector:
+    matchNames:
+    - headlamp
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: headlamp
+      app.kubernetes.io/name: headlamp
