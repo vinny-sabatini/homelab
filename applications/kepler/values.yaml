@@ -1,0 +1,7 @@
+config:
+  log:
+    level: info
+serviceMonitor:
+  enabled: true
+daemonset:
+  livenessProbe: null

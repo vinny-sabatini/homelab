@@ -17,7 +17,7 @@ resources:
 - grafana-operator.yaml
 - headlamp/project.yaml
 - keda.yaml
-- kepler.yaml
+- kepler/project.yaml
 - kubelet-serving-cert-approver.yaml
 - kube-prometheus.yaml
 - kube-state-metrics.yaml

@@ -10,19 +10,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: kepler
-    repoURL: oci://quay.io/sustainable_computing_io/charts/kepler
-    targetRevision: 0.11.4
-    helm:
-      releaseName: kepler
-      values: |
-        config:
-          log:
-            level: info
-        serviceMonitor:
-          enabled: true
-        daemonset:
-          livenessProbe: null
+    path: applications/kepler
+    repoURL: 'https://github.com/vinny-sabatini/homelab.git'
+    targetRevision: kustomize-refactor
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kepler
