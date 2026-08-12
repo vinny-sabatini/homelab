@@ -3,7 +3,7 @@ kind: Kustomization
 
 helmCharts:
   - name: metrics-server
-    repo: https://kubernetes-sigs.github.io/metrics-server/
+    repo: https://kubernetes-sigs.github.io/metrics-server
     version: 3.13.1
     valuesFile: values.yaml
     releaseName: metrics-server
