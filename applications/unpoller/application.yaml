@@ -10,12 +10,12 @@ metadata:
 spec:
   project: default
   source:
-    path: additional-deployments/unpoller
-    repoURL: https://github.com/vinny-sabatini/homelab.git
-    targetRevision: main
+    path: applications/unpoller
+    repoURL: 'https://github.com/vinny-sabatini/homelab.git'
+    targetRevision: kustomize-refactor
   destination:
+    server: "https://kubernetes.default.svc"
     namespace: unpoller
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       enabled: true
