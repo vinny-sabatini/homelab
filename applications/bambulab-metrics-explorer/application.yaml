@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bambulab-metrics-exporter
+  name: bambulab-metrics-explorer
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
@@ -10,12 +10,12 @@ metadata:
 spec:
   project: default
   source:
-    path: additional-deployments/bambulab-metrics-exporter
-    repoURL: https://github.com/vinny-sabatini/homelab.git
-    targetRevision: main
+    path: applications/bambulab-metrics-explorer
+    repoURL: 'https://github.com/vinny-sabatini/homelab.git'
+    targetRevision: kustomize-refactor
   destination:
-    namespace: bambulab-metrics-exporter
-    server: https://kubernetes.default.svc
+    server: "https://kubernetes.default.svc"
+    namespace: bambulab-metrics-explorer
   syncPolicy:
     automated:
       enabled: true
