@@ -12,3 +12,4 @@ helmCharts:
     version: v1.21.1
     valuesFile: values.yaml
     releaseName: cert-manager
+    includeCRDs: true

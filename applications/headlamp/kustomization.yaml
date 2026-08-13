@@ -11,4 +11,3 @@ helmCharts:
     version: 0.44.0
     valuesFile: values.yaml
     releaseName: headlamp
-    namespace: headlamp

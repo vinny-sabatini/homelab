@@ -7,4 +7,3 @@ helmCharts:
     version: 3.13.1
     valuesFile: values.yaml
     releaseName: metrics-server
-    namespace: kube-system
