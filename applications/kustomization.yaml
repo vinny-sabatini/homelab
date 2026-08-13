@@ -28,7 +28,7 @@ resources:
 - obico.yaml
 - prometheus-blackbox-exporter.yaml
 - renovate-operator.yaml
-- tuppr.yaml
+- tuppr/application.yaml
 - unpoller/application.yaml
 - version-checker/application.yaml
 - vertical-pod-autoscaler.yaml
