@@ -30,5 +30,5 @@ resources:
 - renovate-operator.yaml
 - tuppr.yaml
 - unpoller/application.yaml
-- version-checker.yaml
+- version-checker/application.yaml
 - vertical-pod-autoscaler.yaml
