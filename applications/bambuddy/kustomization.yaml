@@ -11,3 +11,4 @@ helmCharts:
     version: 0.1.2
     valuesFile: values.yaml
     releaseName: bambuddy
+    namespace: bambuddy

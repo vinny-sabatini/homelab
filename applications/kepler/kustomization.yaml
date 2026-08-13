@@ -6,4 +6,5 @@ helmCharts:
     repo: https://sustainable-computing-io.github.io/kepler-helm-chart
     version: 0.6.1
     valuesFile: values.yaml
+    namespace: kepler
     releaseName: kepler
