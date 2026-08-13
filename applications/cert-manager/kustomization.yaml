@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- vpa-controller.yaml
+- vpa-webhook-cainjector.yaml
+- vpa-webhook.yaml
+
+helmCharts:
+  - name: cert-manager
+    repo: https://charts.jetstack.io
+    version: v1.21.1
+    valuesFile: values.yaml
+    releaseName: cert-manager

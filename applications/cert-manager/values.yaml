@@ -1,0 +1,12 @@
+config:
+  enableGatewayAPI: true
+crds:
+  enabled: true
+podAnnotations:
+  match-regex.version-checker.io/cert-manager-controller: 'v(\d+)\.(\d+)\.(\d+)'
+cainjector:
+  podAnnotations:
+    match-regex.version-checker.io/cert-manager-cainjector: 'v(\d+)\.(\d+)\.(\d+)'
+webhook:
+  podAnnotations:
+    match-regex.version-checker.io/cert-manager-webhook: 'v(\d+)\.(\d+)\.(\d+)'

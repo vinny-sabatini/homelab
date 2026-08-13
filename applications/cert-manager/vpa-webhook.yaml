@@ -1,0 +1,19 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/instance: cert-manager-webhook
+    app.kubernetes.io/name: cert-manager-webhook
+    app.kubernetes.io/part-of: cert-manager
+  name: cert-manager-webhook
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: cert-manager-webhook
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cert-manager-webhook
+  updatePolicy:
+    updateMode: "Off"

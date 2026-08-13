@@ -6,7 +6,7 @@ resources:
 - argocd.yaml
 - bambuddy/application.yaml
 - bambulab-metrics-explorer.yaml
-- cert-manager.yaml
+- cert-manager/application.yaml
 - cilium.yaml
 - cluster-configs.yaml
 - external-dns-configs.yaml

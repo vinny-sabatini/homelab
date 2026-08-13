@@ -1,0 +1,19 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/instance: cert-manager-cainjector
+    app.kubernetes.io/name: cert-manager-cainjector
+    app.kubernetes.io/part-of: cert-manager
+  name: cert-manager-cainjector
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: cert-manager-cainjector
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cert-manager
+  updatePolicy:
+    updateMode: "Off"
