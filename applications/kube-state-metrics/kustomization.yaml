@@ -6,5 +6,4 @@ helmCharts:
     repo: https://prometheus-community.github.io/helm-charts
     version: 8.2.0
     valuesFile: values.yaml
-    namespace: monitoring
     releaseName: crd

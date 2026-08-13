@@ -11,5 +11,4 @@ helmCharts:
     version: 2.20.2
     valuesFile: values.yaml
     releaseName: keda
-    namespace: keda
     includeCRDs: true

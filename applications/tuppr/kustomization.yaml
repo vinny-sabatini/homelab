@@ -7,5 +7,4 @@ helmCharts:
     version: 0.4.7
     valuesFile: values.yaml
     releaseName: tuppr
-    namespace: system-upgrade
     includeCRDs: true

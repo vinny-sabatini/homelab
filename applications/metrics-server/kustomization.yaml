@@ -6,5 +6,4 @@ helmCharts:
     repo: https://kubernetes-sigs.github.io/metrics-server/
     version: 3.13.1
     valuesFile: values.yaml
-    namespace: kube-system
     releaseName: metrics-server

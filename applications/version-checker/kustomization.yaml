@@ -6,5 +6,4 @@ helmCharts:
     repo: https://charts.jetstack.io
     version: v0.11.0
     valuesFile: values.yaml
-    namespace: monitoring
-    releaseName: version-checker
+    releaseName: monitoring
