@@ -29,6 +29,6 @@ resources:
 - prometheus-blackbox-exporter.yaml
 - renovate-operator.yaml
 - tuppr.yaml
-- unpoller.yaml
+- unpoller/application.yaml
 - version-checker.yaml
 - vertical-pod-autoscaler.yaml
