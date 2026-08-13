@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
 - alloy/application.yaml
 - argocd.yaml
-- bambuddy.yaml
+- bambuddy/application.yaml
 - bambulab-metrics-explorer.yaml
 - cert-manager.yaml
 - cilium.yaml
