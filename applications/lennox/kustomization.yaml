@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+  - name: lennox-prometheus-exporter
+    repo: https://vinny-sabatini.github.io/lennox-prometheus-exporter/
+    version: 0.0.2
+    valuesFile: values.yaml
+    namespace: lennox-prometheus-exporter
+    releaseName: lennox-prometheus-exporter

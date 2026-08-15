@@ -21,7 +21,7 @@ resources:
 - kubelet-serving-cert-approver.yaml
 - kube-prometheus.yaml
 - kube-state-metrics/application.yaml
-- lennox-prometheus-exporter.yaml
+- lennox-prometheus-exporter/application.yaml
 - local-path-provisioner.yaml
 - loki.yaml
 - metrics-server/application.yaml
