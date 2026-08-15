@@ -10,7 +10,7 @@ resources:
 - cilium.yaml
 - cluster-configs.yaml
 - external-dns/application.yaml
-- external-secrets.yaml
+- external-secrets/application.yaml
 - gateway-crds.yaml
 - grafana/application.yaml
 - headlamp/application.yaml
