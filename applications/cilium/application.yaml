@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
+  name: cilium
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
@@ -10,12 +10,12 @@ metadata:
 spec:
   project: default
   source:
-    path: applications/argocd
+    path: applications/cilium
     repoURL: 'https://github.com/vinny-sabatini/homelab.git'
     targetRevision: kustomize-refactor
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: argocd
+    namespace: kube-system
   syncPolicy:
     automated:
       enabled: true
