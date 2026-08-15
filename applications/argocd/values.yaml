@@ -123,7 +123,7 @@ notifications:
                     },
                     {
                       "name": "Version",
-                      "value": "{{ (index (call .repo.GetAppDetails).Kustomize.HelmCharts 0).Version }}"
+                      "value": "{{ call .repo.GetAppDetails }}"
                     }
                   ]
                 }
