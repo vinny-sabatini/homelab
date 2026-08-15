@@ -1,0 +1,16 @@
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cluster-gateway-cert
+  namespace: kube-system
+spec:
+  dnsNames:
+    - "*.vinnysabatini.me"
+    - vinnysabatini.me
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: lets-encrypt-cloudflare-issuer
+  secretName: cluster-gateway-cert

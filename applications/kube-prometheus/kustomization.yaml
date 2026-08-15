@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - alertmanager-config.yaml
   - external-secret-discord.yaml
+  - prometheusrule-cluster.yaml
 
 helmCharts:
   - name: kube-prometheus-stack

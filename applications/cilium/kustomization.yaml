@@ -1,6 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+resources:
+  - certificate-gateway.yaml
+  - clusterissuer-lets-encrypt-cloudflare.yaml
+  - externalsecret-cloudflare.yaml
+  - gateway-cluster.yaml
+  - l2-announcement-policy.yaml
+  - loadbalancer-ip-pool.yaml
+
 helmCharts:
   - name: cilium
     repo: https://helm.cilium.io/
