@@ -1,0 +1,12 @@
+admissionController:
+  replicas: 1
+  podDisruptionBudget:
+    enabled: false
+recommender:
+  replicas: 1
+  podDisruptionBudget:
+    enabled: false
+updater:
+  replicas: 1
+  podDisruptionBudget:
+    enabled: false

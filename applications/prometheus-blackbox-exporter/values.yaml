@@ -1,0 +1,29 @@
+serviceMonitor:
+  enabled: true
+  selfMonitor:
+    enabled: true
+verticalPodAutoscaler:
+  enabled: true
+  updatePolicy:
+    updateMode: "Off"
+extraManifests:
+- kind: Probe
+  apiVersion: monitoring.coreos.com/v1
+  metadata:
+    name: cluster-probes
+  spec:
+    interval: 60s
+    module: http_2xx
+    prober:
+      url: cluster-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
+    targets:
+      staticConfig:
+        static:
+        - https://alertmanager.vinnysabatini.me/-/healthy
+        - https://alloy.vinnysabatini.me/-/ready
+        - https://argocd.vinnysabatini.me/healthz
+        - https://bambuddy.vinnysabatini.me/health
+        - https://grafana.vinnysabatini.me/api/health
+        - https://headlamp.vinnysabatini.me/
+        - https://prometheus.vinnysabatini.me/-/healthy
+        - https://renovate.vinnysabatini.me/health

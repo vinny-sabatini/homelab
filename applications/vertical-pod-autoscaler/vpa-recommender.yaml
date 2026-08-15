@@ -1,0 +1,25 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/name: vertical-pod-autoscaler
+  name: vertical-pod-autoscaler-recommender
+  namespace: vertical-pod-autoscaler
+spec:
+  jobLabel: app.kubernetes.io/name
+  namespaceSelector:
+    matchNames:
+    - vertical-pod-autoscaler
+  podMetricsEndpoints:
+  - honorLabels: false
+    honorTimestamps: true
+    path: /metrics
+    port: prometheus
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: recommender
+      app.kubernetes.io/instance: vertical-pod-autoscaler
+      app.kubernetes.io/name: vertical-pod-autoscaler

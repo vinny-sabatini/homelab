@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - vpa-admission-controller.yaml
+  - vpa-recommender.yaml
+  - vpa-updater.yaml
+
+helmCharts:
+  - name: vertical-pod-autoscaler
+    repo: https://kubernetes.github.io/autoscaler
+    version: 0.11.0
+    valuesFile: values.yaml
+    namespace: vertical-pod-autoscaler
+    releaseName: vertical-pod-autoscaler
+    includeCRDs: true

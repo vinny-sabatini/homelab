@@ -1,0 +1,6 @@
+hostNetwork: true
+persistence:
+  data:
+    storageClass: "local-path"
+  logs:
+    storageClass: "local-path"

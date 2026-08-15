@@ -1,0 +1,28 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: alloy.vinnysabatini.me
+  labels:
+    app.kubernetes.io/name: alloy
+  name: alloy
+spec:
+  hostnames:
+  - alloy.vinnysabatini.me
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: cluster-gateway
+    namespace: kube-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: alloy
+      port: 12345
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /

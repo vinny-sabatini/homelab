@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- clusterrolebinding-sidecar.yaml
+- clusterrole-sidecar.yaml
+- configmap-provisioning-config.yaml
+- dashboard-kepler.yaml
+- datasource-loki.yaml
+- datasource-prometheus.yaml
+- grafana.yaml
+
+helmCharts:
+  - name: grafana-operator
+    repo: https://grafana.github.io/helm-charts
+    version: 5.24.0
+    valuesFile: values.yaml
+    releaseName: grafana-operator
+    namespace: grafana
+    includeCRDs: true

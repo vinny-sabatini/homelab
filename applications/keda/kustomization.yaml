@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- vpa-operator.yaml
+- vpa-metrics-apiserver.yaml
+
+helmCharts:
+  - name: keda
+    repo: https://kedacore.github.io/charts
+    version: 2.20.2
+    valuesFile: values.yaml
+    releaseName: keda
+    namespace: keda
+    includeCRDs: true

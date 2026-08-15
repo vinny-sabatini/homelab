@@ -1,0 +1,18 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/instance: keda-operator-metrics-apiserver
+    app.kubernetes.io/name: keda-operator-metrics-apiserver
+  name: keda-operator-metrics-apiserver
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: keda-operator-metrics-apiserver
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: keda-operator-metrics-apiserver
+  updatePolicy:
+    updateMode: "Off"

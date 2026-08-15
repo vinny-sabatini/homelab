@@ -1,0 +1,33 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: cluster-gateway
+  namespace: kube-system
+spec:
+  gatewayClassName: cilium
+  listeners:
+  - protocol: HTTPS
+    port: 443
+    name: https-gw
+    allowedRoutes:
+      namespaces:
+        from: All
+    hostname: "*.vinnysabatini.me"
+    tls:
+      certificateRefs:
+      - group: ''
+        kind: Secret
+        name: cluster-gateway-cert
+  - protocol: HTTPS
+    port: 443
+    name: https-domain-gw
+    allowedRoutes:
+      namespaces:
+        from: All
+    hostname: "vinnysabatini.me"
+    tls:
+      certificateRefs:
+      - group: ''
+        kind: Secret
+        name: cluster-gateway-cert

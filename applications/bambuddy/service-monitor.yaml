@@ -1,0 +1,22 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: bambuddy
+    app.kubernetes.io/instance: bambuddy
+  name: bambuddy
+spec:
+  endpoints:
+  - honorLabels: false
+    interval: 30s
+    path: /api/v1/metrics
+    port: web
+  namespaceSelector:
+    matchNames:
+    - bambuddy
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bambuddy
+      app.kubernetes.io/name: bambuddy
