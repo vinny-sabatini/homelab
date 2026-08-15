@@ -1,0 +1,149 @@
+configs:
+  cm:
+    kustomize.buildOptions: --enable-helm
+fullnameOverride: argocd
+controller:
+  vpa:
+    enabled: true
+    updateMode: "Off"
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    rules:
+      enabled: false
+    clusterRoleRules:
+      enabled: true
+dex:
+  enabled: false
+redis:
+  vpa:
+    enabled: true
+    updateMode: "Off"
+  exporter:
+    enabled: true
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    rules:
+      enabled: false
+    clusterRoleRules:
+      enabled: true
+server:
+  vpa:
+    enabled: true
+    updateMode: "Off"
+  extraArgs:
+  - --insecure # Allow gateway to terminate TLS instead of ArgoCD
+  httproute:
+    enabled: true
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: argocd.vinnysabatini.me
+    hostnames:
+    - "argocd.vinnysabatini.me"
+    parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: cluster-gateway
+      namespace: kube-system
+    rules:
+    - matches:
+      - path:
+          type: PathPrefix
+          value: /
+      backendRefs:
+      - name: argocd-server
+        port: 443
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    rules:
+      enabled: false
+    clusterRoleRules:
+      enabled: true
+repoServer:
+  vpa:
+    enabled: true
+    updateMode: "Off"
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    rules:
+      enabled: false
+    clusterRoleRules:
+      enabled: true
+applicationSet:
+  vpa:
+    enabled: true
+    updateMode: "Off"
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    rules:
+      enabled: false
+    clusterRoleRules:
+      enabled: true
+notifications:
+  argocdUrl: https://argocd.vinnysabatini.me
+  notifiers:
+    service.webhook.discord: |
+      url: $discord-homelab-events-webhook
+      headers:
+      - name: Content-Type
+        value: application/json
+  subscriptions:
+  - recipients:
+    - discord
+    triggers:
+    - on-deployed
+  templates:
+    template.app-deployed: |
+      webhook:
+        discord:
+          method: POST
+          body: >
+            {
+              "embeds": [
+                {
+                  "title": "🚀 Application {{.app.metadata.name}} successfully deployed",
+                  "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+                  "color": 65280,
+                  "fields": [
+                    {
+                      "name": "Repository",
+                      "value": "{{.app.spec.source.repoURL}}"
+                    },
+                    {
+                      "name": "Revision",
+                      "value": "{{.app.status.sync.revision}}"
+                    }
+                  ]
+                }
+              ]
+            }
+  triggers:
+    trigger.on-deployed: |
+      - description: Application is synced and healthy. Triggered once per commit.
+        oncePer: app.status.operationState?.syncResult?.revision
+        send:
+        - app-deployed
+        when: app.status.operationState != nil and app.status.operationState.phase in ['Succeeded']
+          and app.status.health.status == 'Healthy' and (!time.Parse(app.status.health.lastTransitionTime).Add(1
+          * time.Minute).Before(time.Parse(app.status.operationState.finishedAt)) or time.Parse(app.status.health.lastTransitionTime).Before(time.Parse(app.status.operationState.startedAt)))
+  secret:
+    create: false
+  vpa:
+    enabled: true
+    updateMode: "Off"
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    rules:
+      enabled: false
+    clusterRoleRules:
+      enabled: true

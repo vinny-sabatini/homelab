@@ -1,0 +1,96 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: argocd-alerts
+spec:
+  groups:
+    - name: argocd.critical
+      rules:
+        # ArgoCD components down
+        - alert: ArgocdControllerDown
+          expr: absent(up{job="argocd-application-controller-metrics"} == 1)
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "ArgoCD Application Controller is down"
+            description: "No ArgoCD Application Controller instance is running. Syncs will not occur."
+
+        - alert: ArgocdServerDown
+          expr: absent(up{job="argocd-server-metrics"} == 1)
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "ArgoCD API Server is down"
+            description: "ArgoCD API Server is not responding. UI and CLI access is unavailable."
+
+        - alert: ArgocdRepoServerDown
+          expr: absent(up{job="argocd-repo-server-metrics"} == 1)
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "ArgoCD Repo Server is down"
+            description: "Repo Server is not responding. Manifest generation will fail."
+
+        # Production application failures
+        - alert: ArgocdProductionAppDegraded
+          expr: |
+            argocd_app_info{health_status="Degraded"} == 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Production application {{ ` {{ $labels.name }} ` }} is degraded"
+            description: "Application {{ ` {{ $labels.name }} ` }} in {{ ` {{ $labels.dest_namespace }} ` }} has been degraded for 5 minutes."
+    - name: argocd.warning
+      rules:
+        # Applications out of sync
+        - alert: ArgocdAppOutOfSync
+          expr: |
+            argocd_app_info{sync_status=~"OutOfSync|Unknown"} == 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Application {{ ` {{ $labels.name }} ` }} is out of sync for 30 minutes"
+
+        # Sync failures
+        - alert: ArgocdSyncFailed
+          expr: |
+            increase(argocd_app_sync_total{phase=~"Error|Failed"}[1h]) > 3
+          labels:
+            severity: warning
+          annotations:
+            summary: "Application {{ ` {{ $labels.name }} ` }} has failed to sync 3+ times in the last hour"
+
+        # Git fetch errors
+        - alert: ArgocdGitFetchErrors
+          expr: |
+            increase(argocd_git_fetch_fail_total[15m]) > 5
+          labels:
+            severity: warning
+          annotations:
+            summary: "ArgoCD is experiencing Git fetch errors"
+
+        # High reconciliation time
+        - alert: ArgocdSlowReconciliation
+          expr: |
+            histogram_quantile(0.95, sum(rate(argocd_app_reconcile_bucket[5m])) by (le)) > 120
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: "ArgoCD reconciliation P95 latency is above 2 minutes"
+
+        # Redis connection issues
+        - alert: ArgocdRedisConnectionErrors
+          expr: |
+            increase(argocd_redis_request_total{failed="true"}[5m]) > 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "ArgoCD is experiencing Redis connection errors"
