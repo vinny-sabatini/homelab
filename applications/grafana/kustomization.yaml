@@ -16,5 +16,5 @@ helmCharts:
     version: 5.24.0
     valuesFile: values.yaml
     releaseName: grafana-operator
-    namespace: grafana-operator
+    namespace: grafana
     includeCRDs: true
