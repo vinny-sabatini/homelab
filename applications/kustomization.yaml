@@ -23,7 +23,7 @@ resources:
 - local-path-provisioner.yaml
 - loki/application.yaml
 - metrics-server/application.yaml
-- obico.yaml
+- obico/application.yaml
 - prometheus-blackbox-exporter/application.yaml
 - renovate-operator.yaml
 - tuppr.yaml

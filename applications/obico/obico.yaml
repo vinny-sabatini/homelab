@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     chart: obico
-    repoURL: oci://ghcr.io/gabe565/charts/obico
+    repoURL: https://charts.gabe565.com
     targetRevision: 0.6.0
     helm:
       releaseName: obico
