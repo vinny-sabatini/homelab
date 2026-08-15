@@ -11,4 +11,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: grafana-sa
-    namespace: monitoring # TODO: replace with the namespace where Grafana is deployed
+    namespace: grafana
