@@ -12,7 +12,7 @@ spec:
   source:
     path: applications/lennox-prometheus-exporter
     repoURL: 'https://github.com/vinny-sabatini/homelab.git'
-    targetRevision: kustomize-refactor
+    targetRevision: main
   destination:
     server: "https://kubernetes.default.svc"
     namespace: lennox-prometheus-exporter
