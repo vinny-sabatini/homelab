@@ -123,7 +123,7 @@ notifications:
                     },
                     {
                       "name": "Commit",
-                      "value": "{{ (call .repo.GetCommitMetadata(.app.status.sync.revision)).Message }}"
+                      "value": "{{ (call .repo.GetCommitMetadata).Message }}"
                     }
                   ]
                 }
