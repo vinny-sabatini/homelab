@@ -1,0 +1,11 @@
+bitwarden-sdk-server:
+  enabled: true
+webhook:
+  lookaheadInterval: "210h"
+  certManager:
+    enabled: true
+    cert:
+      issuerRef:
+        group: cert-manager.io
+        kind: Issuer
+        name: bitwarden-certificate-issuer

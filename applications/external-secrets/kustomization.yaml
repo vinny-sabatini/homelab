@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- certificate-bitwarden-bootstrap.yaml
+- clustersecretstore-bitwarden.yaml
+- issuer-bitwarden-bootstrap.yaml
+- issuer-bitwarden-certificate.yaml
+- vpa-bitwarden.yaml
+- vpa-webhook.yaml
+- vpa.yaml
+
+helmCharts:
+  - name: external-secrets
+    repo: https://charts.external-secrets.io
+    version: 2.9.0
+    valuesFile: values.yaml
+    releaseName: external-secrets
+    namespace: external-secrets
+    includeCRDs: true

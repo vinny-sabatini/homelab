@@ -9,6 +9,7 @@ resources:
 - cert-manager/application.yaml
 - cilium.yaml
 - cluster-configs.yaml
+- external-dns-configs.yaml
 - external-dns/application.yaml
 - external-secrets.yaml
 - gateway-crds.yaml
