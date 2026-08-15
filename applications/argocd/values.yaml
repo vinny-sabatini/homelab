@@ -120,12 +120,17 @@ notifications:
                     {
                       "name": "Revision",
                       "value": "{{.app.status.sync.revision}}"
+                    },
+                    {
+                      "name": "Version",
+                      "value": "{{ (index (call .repo.GetAppDetails).Kustomize.HelmCharts 0).Version }}"
                     }
                   ]
                 }
               ]
             }
   triggers:
+  # (index (call .repo.GetAppDetails).Kustomize.HelmCharts 0).Version
     trigger.on-deployed: |
       - description: Application is synced and healthy. Triggered once per commit.
         oncePer: app.status.operationState?.syncResult?.revision
