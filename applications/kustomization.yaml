@@ -13,8 +13,7 @@ resources:
 - external-dns.yaml
 - external-secrets.yaml
 - gateway-crds.yaml
-- grafana-config.yaml
-- grafana-operator.yaml
+- grafana/application.yaml
 - headlamp/application.yaml
 - keda/application.yaml
 - kepler/application.yaml

@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana-operator
+  name: grafana
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
@@ -10,21 +10,12 @@ metadata:
 spec:
   project: default
   source:
-    chart: grafana-operator
-    repoURL: ghcr.io/grafana/helm-charts
-    targetRevision: 5.24.0
-    helm:
-      releaseName: grafana-operator
-      values: |
-        dashboard:
-          enabled: true
-        serviceMonitor:
-          enabled: true
-        podAnnotations:
-          override-url.version-checker.io/grafana-operator: quay.io/grafana-operator/grafana-operator
+    path: applications/grafana
+    repoURL: 'https://github.com/vinny-sabatini/homelab.git'
+    targetRevision: kustomize-refactor
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: monitoring
+    namespace: grafana
   syncPolicy:
     automated:
       enabled: true
