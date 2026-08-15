@@ -122,8 +122,8 @@ notifications:
                       "value": "{{.app.status.sync.revision}}"
                     },
                     {
-                      "name": "Version",
-                      "value": "{{ (call .repo.GetAppDetails).Kustomize }}"
+                      "name": "Commit",
+                      "value": "{{ (call .repo.GetCommitMetadata(.app.status.sync.revision)).Message }}"
                     }
                   ]
                 }
