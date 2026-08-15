@@ -31,4 +31,4 @@ resources:
 - tuppr.yaml
 - unpoller/application.yaml
 - version-checker/application.yaml
-- vertical-pod-autoscaler.yaml
+- vertical-pod-autoscaler/application.yaml

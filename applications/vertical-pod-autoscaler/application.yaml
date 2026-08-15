@@ -10,24 +10,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: vertical-pod-autoscaler
-    repoURL: https://kubernetes.github.io/autoscaler
-    targetRevision: 0.11.0
-    helm:
-      releaseName: vertical-pod-autoscaler
-      values: |
-        admissionController:
-          replicas: 1
-          podDisruptionBudget:
-            enabled: false
-        recommender:
-          replicas: 1
-          podDisruptionBudget:
-            enabled: false
-        updater:
-          replicas: 1
-          podDisruptionBudget:
-            enabled: false
+    path: applications/vertical-pod-autoscaler
+    repoURL: 'https://github.com/vinny-sabatini/homelab.git'
+    targetRevision: kustomize-refactor
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vertical-pod-autoscaler
