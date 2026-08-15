@@ -17,7 +17,7 @@ resources:
 - keda/application.yaml
 - kepler/application.yaml
 - kubelet-serving-cert-approver.yaml
-- kube-prometheus.yaml
+- kube-prometheus/application.yaml
 - kube-state-metrics/application.yaml
 - lennox-prometheus-exporter/application.yaml
 - local-path-provisioner.yaml
