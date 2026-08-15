@@ -1,0 +1,19 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/part-of: loki
+  name: loki
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: loki
+  targetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: loki
+  updatePolicy:
+    updateMode: "Off"

@@ -23,7 +23,7 @@ resources:
 - kube-state-metrics/application.yaml
 - lennox-prometheus-exporter/application.yaml
 - local-path-provisioner.yaml
-- loki.yaml
+- loki/application.yaml
 - metrics-server/application.yaml
 - obico.yaml
 - prometheus-blackbox-exporter/application.yaml

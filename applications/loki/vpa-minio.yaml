@@ -1,0 +1,19 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/instance: loki-minio
+    app.kubernetes.io/name: loki-minio
+    app.kubernetes.io/part-of: loki
+  name: loki-minio
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: minio
+  targetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: loki-minio
+  updatePolicy:
+    updateMode: "Off"

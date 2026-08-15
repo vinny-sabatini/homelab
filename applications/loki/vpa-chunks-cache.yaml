@@ -1,0 +1,19 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/instance: loki-chunks-cache
+    app.kubernetes.io/name: loki-chunks-cache
+    app.kubernetes.io/part-of: loki
+  name: loki-chunks-cache
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: memcached
+  targetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: loki-chunks-cache
+  updatePolicy:
+    updateMode: "Off"

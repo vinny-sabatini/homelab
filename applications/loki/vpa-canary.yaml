@@ -1,0 +1,19 @@
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/instance: loki-canary
+    app.kubernetes.io/name: loki-canary
+    app.kubernetes.io/part-of: loki
+  name: loki-canary
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: canary
+  targetRef:
+    apiVersion: apps/v1
+    kind: DaemonSet
+    name: loki-canary
+  updatePolicy:
+    updateMode: "Off"
