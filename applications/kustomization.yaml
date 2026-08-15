@@ -26,7 +26,7 @@ resources:
 - loki.yaml
 - metrics-server/application.yaml
 - obico.yaml
-- prometheus-blackbox-exporter.yaml
+- prometheus-blackbox-exporter/application.yaml
 - renovate-operator.yaml
 - tuppr.yaml
 - unpoller/application.yaml
