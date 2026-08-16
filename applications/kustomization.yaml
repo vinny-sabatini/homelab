@@ -8,10 +8,9 @@ resources:
 - bambulab-metrics-explorer/application.yaml
 - cert-manager/application.yaml
 - cilium/application.yaml
-- cluster-configs.yaml
 - external-dns/application.yaml
 - external-secrets/application.yaml
-- gateway-crds.yaml
+- gateway-crds/application.yaml
 - grafana/application.yaml
 - headlamp/application.yaml
 - keda/application.yaml

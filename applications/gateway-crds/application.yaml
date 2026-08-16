@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-configs
+  name: gateway-crds
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
@@ -10,16 +10,17 @@ metadata:
 spec:
   project: default
   source:
-    path: additional-deployments/cluster-configs
-    repoURL: https://github.com/vinny-sabatini/homelab.git
+    path: applications/gateway-crds
+    repoURL: 'https://github.com/vinny-sabatini/homelab.git'
     targetRevision: main
   destination:
+    server: "https://kubernetes.default.svc"
     namespace: default
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       enabled: true
       prune: true
       selfHeal: true
     syncOptions:
+    - CreateNamespace=true
     - ServerSideApply=true

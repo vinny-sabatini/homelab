@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # renovate
+  - https://github.com/kubernetes-sigs/gateway-api//config/crd/experimental/?ref=v1.6.1
+  # TODO: move these to tuppr
+  - ExternalSecret-tuppr-discord-webhook.yaml
+  - KubernetesUpgrade.yaml
+  - TalosUpgrade.yaml

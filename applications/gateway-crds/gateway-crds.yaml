@@ -12,6 +12,7 @@ spec:
   source:
     path: config/crd/experimental
     repoURL: https://github.com/kubernetes-sigs/gateway-api.git
+    https://github.com/kubernetes-sigs/kustomize//examples/multibases/dev/?timeout=120&ref=v3.3.1
     targetRevision: v1.6.1
   destination:
     namespace: default
