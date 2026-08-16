@@ -15,7 +15,7 @@ resources:
 - headlamp/application.yaml
 - keda/application.yaml
 - kepler/application.yaml
-- kubelet-serving-cert-approver.yaml
+- kubelet-serving-cert-approver/application.yaml
 - kube-prometheus/application.yaml
 - kube-state-metrics/application.yaml
 - lennox-prometheus-exporter/application.yaml

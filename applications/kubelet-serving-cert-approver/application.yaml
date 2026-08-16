@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gateway-api
+  name: kubelet-serving-cert-approver
   namespace: argocd
   finalizers:
     # The default behaviour is foreground cascading deletion
@@ -10,17 +10,17 @@ metadata:
 spec:
   project: default
   source:
-    path: config/crd/experimental
-    repoURL: https://github.com/kubernetes-sigs/gateway-api.git
-    https://github.com/kubernetes-sigs/kustomize//examples/multibases/dev/?timeout=120&ref=v3.3.1
-    targetRevision: v1.6.1
+    path: applications/kubelet-serving-cert-approver
+    repoURL: 'https://github.com/vinny-sabatini/homelab.git'
+    targetRevision: main
   destination:
-    namespace: default
-    server: https://kubernetes.default.svc
+    server: "https://kubernetes.default.svc"
+    namespace: kubelet-serving-cert-approver
   syncPolicy:
     automated:
       enabled: true
       prune: true
       selfHeal: true
     syncOptions:
+    - CreateNamespace=true
     - ServerSideApply=true
