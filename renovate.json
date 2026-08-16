@@ -6,7 +6,9 @@
     "enabled": true
   },
   "enabledManagers": [
-    "argocd", "custom.regex"
+    "argocd",
+    "custom.regex",
+    "kustomize"
   ],
   "argocd": {
     "managerFilePatterns": [
