@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: kepler
     repo: https://sustainable-computing-io.github.io/kepler-helm-chart
-    version: 0.6.1
+    version: 0.6.2
     valuesFile: values.yaml
     namespace: kepler
     releaseName: kepler
