@@ -13,7 +13,7 @@ resources:
 helmCharts:
   - name: grafana-operator
     repo: https://grafana.github.io/helm-charts
-    version: 5.24.0
+    version: 5.25.0
     valuesFile: values.yaml
     releaseName: grafana-operator
     namespace: grafana
