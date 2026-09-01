@@ -1,6 +1,7 @@
 configReloader:
   image:
-    tag: v0.93.0
+    # renovate: datasource=docker depName=quay.io/prometheus-operator/prometheus-config-reloader
+    tag: v0.93.1
 controller:
   autoscaling:
     vertical:

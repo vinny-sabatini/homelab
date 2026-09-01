@@ -18,9 +18,10 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": ["/.*Upgrade.yaml$/"],
+      "managerFilePatterns": ["/.*Upgrade.yaml$/", "/^values.yaml$/"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>.+?)\n\\s*version: (?<currentValue>.*?)\n"
+        "# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>.+?)\n\\s*version: (?<currentValue>.*?)\n",
+        "# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>.+?)\n\\s*tag: (?<currentValue>.*?)\n"
       ]
     }
   ],
