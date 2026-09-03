@@ -4,8 +4,8 @@ kubeProxy:
 kubeEtcd:
   service:
     enabled: true
-    port: 2379
-    targetPort: 2379
+    port: 2383
+    targetPort: 2383
     selector:
       k8s-app: kube-controller-manager # or any other service like kube-proxy or kube-scheduler
   # TODO: Handle this better, this secret is currently generated using talosctl
