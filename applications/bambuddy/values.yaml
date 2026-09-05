@@ -1,6 +1,6 @@
 image:
   # renovate: datasource=docker depName=ghcr.io/maziggy/bambuddy
-  tag: "1.2.5.3"
+  tag: 1.2.5.3
 hostNetwork: true
 persistence:
   data:
