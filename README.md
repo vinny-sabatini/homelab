@@ -35,13 +35,7 @@ The `cluster-app.yaml` is the [App of apps](https://argo-cd.readthedocs.io/en/st
 In general, if there is a public Helm chart/Kustomize bundle/raw Kubernetes manifests available, those are used directly.
 If those are not available, or if there are additional configurations required (managing `CustomResources` for example), they are defined in the `additional-deployments` directory.
 
-### 04-get-etcd-secret.sh
-
-[kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) is deployed on the cluster for the baseline monitoring.
-Part of that includes monitoring etcd.
-This script configures the Kubernetes `Secret` to allow Prometheus to scrape etcd metrics.
-
-### 05-setup-external-secrets.sh
+### 04-setup-external-secrets.sh
 
 [external-secrets operator](https://github.com/external-secrets/external-secrets) is deployed on the cluster to provide secrets to workloads.
 The secrets are stored in Bitwarden Secrets Manager, and a token required to authenticate.

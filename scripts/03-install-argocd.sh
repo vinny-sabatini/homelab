@@ -10,5 +10,3 @@ echo "Click enter when argocd is ready for the cluster-app"
 read -p ""
 
 kubectl apply -f cluster-app.yaml
-
-./scripts/04-get-etcd-secret.sh
