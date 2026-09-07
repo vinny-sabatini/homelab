@@ -13,6 +13,7 @@ talosctl gen config ${CLUSTER_NAME} https://${NODE_IP}:6443 \
     --install-disk /dev/nvme0n1 \
     --config-patch @talos-patches/control-plane-scheduling.yaml \
     --config-patch @talos-patches/disable-cni-and-kube-proxy.yaml \
+    --config-patch @talos-patches/etcd-metrics-patch.yaml \
     --config-patch @talos-patches/kube-services-bind.yaml \
     --config-patch @talos-patches/local-path-storage.yaml \
     --config-patch @talos-patches/logging-configuration.yaml \
