@@ -21,3 +21,9 @@ spec:
       enabled: true
       prune: true
       selfHeal: true
+  ignoreDifferences:
+    - group: ""
+      kind: Secret
+      name: obico-redis
+      jsonPointers:
+      - /data/redis-password
