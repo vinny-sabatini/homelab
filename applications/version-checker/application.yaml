@@ -13,6 +13,22 @@ spec:
     path: applications/version-checker
     repoURL: 'https://github.com/vinny-sabatini/homelab.git'
     targetRevision: main
+    kustomize:
+      patches:
+      - target:
+          kind: GrafanaDashboard
+          name: version-checker-general
+        patch: |-
+          - op: replace
+            path: /spec/allowCrossNamespaceImport
+            value: true
+      - target:
+          kind: GrafanaDashboard
+          name: version-checker-internal
+        patch: |-
+          - op: replace
+            path: /spec/allowCrossNamespaceImport
+            value: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
