@@ -30,6 +30,7 @@ spec:
             secretKeyRef:
               name: unifi-token
               key: token
+        # renovate: datasource=docker
         image: ghcr.io/unpoller/unpoller:v3.3.4
         name: unpoller
         ports:

@@ -39,6 +39,7 @@ spec:
         - mountPath: /app
           name: config
           subPath: app
+        # renovate: datasource=docker
         image: ghcr.io/theblackbush/bambulab_metrics_exporter:0.1.40
         name: bambulab-metrics-exporter
         ports:
