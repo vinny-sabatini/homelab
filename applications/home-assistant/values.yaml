@@ -1,0 +1,47 @@
+httpRoute:
+  enabled: true
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: cluster-gateway
+      namespace: kube-system
+  hostnames:
+    - home-assistant.vinnysabatini.me
+  matches:
+    - path:
+        type: PathPrefix
+        value: /
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 5Gi
+  storageClass: local-path
+serviceMonitor:
+  enabled: true
+  scrapeInterval: 30s
+  bearerToken:
+    secretName: "home-assistant-prometheus"
+    secretKey: "home_assistant_prometheus"
+configuration:
+  enabled: true
+  forceInit: true
+  templateConfig: |-
+    # Loads default set of integrations. Do not remove.
+    default_config:
+    prometheus:
+
+    {{- if or .Values.ingress.enabled .Values.ingress.external .Values.httpRoute.enabled }}
+    http:
+      use_x_forwarded_for: true
+      trusted_proxies:
+        {{- range .Values.configuration.trusted_proxies }}
+        - {{ . }}
+        {{- end }}
+    {{- end}}
+    # Load frontend themes from the themes folder
+    frontend:
+      themes: !include_dir_merge_named themes
+
+    automation: !include automations.yaml
+    script: !include scripts.yaml
+    scene: !include scenes.yaml

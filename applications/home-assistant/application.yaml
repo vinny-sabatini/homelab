@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-assistant
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    path: applications/home-assistant
+    repoURL: 'https://github.com/vinny-sabatini/homelab.git'
+    targetRevision: home-assistant
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: home-assistant
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
