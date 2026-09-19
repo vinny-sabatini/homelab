@@ -1,0 +1,9 @@
+route:
+  enabled: true
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: cluster-gateway
+      namespace: kube-system
+  hostnames:
+    - matter-server.vinnysabatini.me
