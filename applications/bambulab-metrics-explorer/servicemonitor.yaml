@@ -3,9 +3,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   labels:
-    app.kubernetes.io/instance: bambulab-metrics-exporter
-    app.kubernetes.io/name: bambulab-metrics-exporter
-  name: bambulab-metrics-exporter
+    app.kubernetes.io/instance: bambulab-metrics-explorer
+    app.kubernetes.io/name: bambulab-metrics-explorer
+  name: bambulab-metrics-explorer
 spec:
   endpoints:
   - port: http
@@ -13,8 +13,8 @@ spec:
     path: /metrics
   namespaceSelector:
     matchNames:
-    - bambulab-metrics-exporter
+    - bambulab-metrics-explorer
   selector:
     matchLabels:
-      app.kubernetes.io/instance: bambulab-metrics-exporter
-      app.kubernetes.io/name: bambulab-metrics-exporter
+      app.kubernetes.io/instance: bambulab-metrics-explorer
+      app.kubernetes.io/name: bambulab-metrics-explorer
