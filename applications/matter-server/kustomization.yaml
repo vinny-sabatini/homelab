@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+  - name: home-assistant-matter-server
+    repo: https://charts.derwitt.dev
+    version: 4.2.1
+    valuesFile: values.yaml
+    releaseName: matter-server
+    namespace: matter-server
