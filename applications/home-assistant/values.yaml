@@ -30,14 +30,6 @@ configuration:
     default_config:
     prometheus:
 
-    {{- if or .Values.ingress.enabled .Values.ingress.external .Values.httpRoute.enabled }}
-    http:
-      use_x_forwarded_for: true
-      trusted_proxies:
-        {{- range .Values.configuration.trusted_proxies }}
-        - {{ . }}
-        {{- end }}
-    {{- end}}
     # Load frontend themes from the themes folder
     frontend:
       themes: !include_dir_merge_named themes
