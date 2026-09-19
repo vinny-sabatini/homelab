@@ -1,0 +1,56 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: music-assistant
+  namespace: argocd
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: music-assistant
+    repoURL: oci://ghcr.io/toanju/helm-charts/music-assistant
+    targetRevision: 2.10.4
+    helm:
+      releaseName: music-assistant
+      values: |
+        extraObjects:
+        - apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+          metadata:
+            annotations:
+              external-dns.alpha.kubernetes.io/hostname: music-assistant.vinnysabatini.me
+            labels:
+              app.kubernetes.io/name: music-assistant
+            name: music-assistant
+          spec:
+            hostnames:
+            - music-assistant.vinnysabatini.me
+            parentRefs:
+            - group: gateway.networking.k8s.io
+              kind: Gateway
+              name: cluster-gateway
+              namespace: kube-system
+            rules:
+            - backendRefs:
+              - group: ""
+                kind: Service
+                name: music-assistant
+                port: 80
+                weight: 1
+              matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: music-assistant
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

@@ -24,6 +24,7 @@ resources:
 - loki/application.yaml
 - matter-server/application.yaml
 - metrics-server/application.yaml
+- music-assistant.yaml
 - obico/application.yaml
 - prometheus-blackbox-exporter/application.yaml
 - renovate-operator.yaml

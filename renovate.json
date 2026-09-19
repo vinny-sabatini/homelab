@@ -65,6 +65,15 @@
         "argocd"
       ],
       "matchFileNames": [
+        "applications/music-assistant.yaml"
+      ],
+      "overridePackageName": "ghcr.io/toanju/helm-charts/music-assistant"
+    },
+    {
+      "matchManagers": [
+        "argocd"
+      ],
+      "matchFileNames": [
         "applications/renovate-operator.yaml"
       ],
       "overridePackageName": "ghcr.io/mogenius/helm-charts/renovate-operator"
