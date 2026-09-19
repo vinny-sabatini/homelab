@@ -3,21 +3,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: bambulab-metrics-exporter
-    app.kubernetes.io/name: bambulab-metrics-exporter
+    app.kubernetes.io/instance: bambulab-metrics-explorer
+    app.kubernetes.io/name: bambulab-metrics-explorer
     app.kubernetes.io/version: 0.1.40
-  name: bambulab-metrics-exporter
+  name: bambulab-metrics-explorer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: bambulab-metrics-exporter
-      app.kubernetes.io/name: bambulab-metrics-exporter
+      app.kubernetes.io/instance: bambulab-metrics-explorer
+      app.kubernetes.io/name: bambulab-metrics-explorer
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: bambulab-metrics-exporter
-        app.kubernetes.io/name: bambulab-metrics-exporter
+        app.kubernetes.io/instance: bambulab-metrics-explorer
+        app.kubernetes.io/name: bambulab-metrics-explorer
     spec:
       containers:
       - env:
@@ -41,7 +41,7 @@ spec:
           subPath: app
         # renovate: datasource=docker
         image: ghcr.io/theblackbush/bambulab_metrics_exporter:0.1.40
-        name: bambulab-metrics-exporter
+        name: bambulab-metrics-explorer
         ports:
         - containerPort: 9109
           name: http
@@ -64,8 +64,8 @@ spec:
           runAsGroup: 65532
           runAsNonRoot: true
           runAsUser: 65532
-      serviceAccount: bambulab-metrics-exporter
-      serviceAccountName: bambulab-metrics-exporter
+      serviceAccount: bambulab-metrics-explorer
+      serviceAccountName: bambulab-metrics-explorer
       securityContext:
         fsGroup: 65534
         runAsNonRoot: true
@@ -74,4 +74,4 @@ spec:
       volumes:
       - name: config
         persistentVolumeClaim:
-          claimName: bambulab-metrics-exporter-config
+          claimName: bambulab-metrics-explorer-config

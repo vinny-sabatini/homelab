@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: bambulab-metrics-exporter-config
+  name: bambulab-metrics-explorer-config
 spec:
   storageClassName: local-path
   accessModes:
