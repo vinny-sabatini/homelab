@@ -22,3 +22,6 @@ serviceMonitor:
   bearerToken:
     secretName: "home-assistant-prometheus"
     secretKey: "home_assistant_prometheus"
+configuration:
+  enabled: true
+  forceInit: true
