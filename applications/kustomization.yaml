@@ -13,6 +13,7 @@ resources:
 - gateway-crds/application.yaml
 - grafana/application.yaml
 - headlamp/application.yaml
+- home-assistant/application.yaml
 - keda/application.yaml
 - kepler/application.yaml
 - kubelet-serving-cert-approver/application.yaml
@@ -21,6 +22,7 @@ resources:
 - lennox-prometheus-exporter/application.yaml
 - local-path-provisioner.yaml
 - loki/application.yaml
+- matter-server/application.yaml
 - metrics-server/application.yaml
 - obico/application.yaml
 - prometheus-blackbox-exporter/application.yaml
