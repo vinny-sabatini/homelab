@@ -12,7 +12,7 @@ spec:
   source:
     path: applications/home-assistant
     repoURL: 'https://github.com/vinny-sabatini/homelab.git'
-    targetRevision: home-assistant
+    targetRevision: main
   destination:
     server: "https://kubernetes.default.svc"
     namespace: home-assistant
