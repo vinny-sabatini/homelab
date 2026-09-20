@@ -17,7 +17,10 @@ spec:
       releaseName: music-assistant
       values: |
         # Temporary to bootstrap Spotify
-        # hostNetwork: true
+        hostNetwork: true
+        persistence:
+          enabled: true
+          storageClassName: local-path
         extraObjects:
         - apiVersion: gateway.networking.k8s.io/v1
           kind: HTTPRoute
@@ -57,6 +60,6 @@ spec:
     syncOptions:
     - CreateNamespace=true
     # Temporary to bootstrap Spotify
-    # managedNamespaceMetadata:
-    #   labels:
-    #     pod-security.kubernetes.io/enforce: "privileged"
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: "privileged"
