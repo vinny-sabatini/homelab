@@ -16,6 +16,7 @@ spec:
     helm:
       releaseName: music-assistant
       values: |
+        hostNetwork: true
         extraObjects:
         - apiVersion: gateway.networking.k8s.io/v1
           kind: HTTPRoute
@@ -54,3 +55,6 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: "privileged"
