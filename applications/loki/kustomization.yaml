@@ -5,7 +5,6 @@ resources:
 - vpa-canary.yaml
 - vpa-chunks-cache.yaml
 - vpa-gateway.yaml
-- vpa-minio.yaml
 - vpa-results-cache.yaml
 - vpa.yaml
 

@@ -26,9 +26,6 @@ monitoring:
     alerting: true
   serviceMonitor:
     enabled: true
-minio:
-  enabled: true
-ignoreMinioDeprecation: true
 deploymentMode: SingleBinary
 singleBinary:
   replicas: 1
