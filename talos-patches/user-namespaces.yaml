@@ -1,25 +1,7 @@
 ---
-# TODO: This didn't work on new clusters, kube pods never scheduled
-# https://www.talos.dev/latest/kubernetes-guides/configuration/usernamespace/
-- op: add
-  path: /cluster/apiServer
-  value: {
-    "extraArgs": {
-      "feature-gates": "UserNamespacesSupport=true,UserNamespacesPodSecurityStandards=true"
-    }
-  }
-- op: replace
-  path: /machine/sysctls
-  value: {
+# Support is enabled by default
+# Need to raise kernel limit for user namespaces
+apiVersion: v1alpha1
+kind: SysctlConfig
+params:
     user.max_user_namespaces: "11255"
-  }
-- op: replace
-  path: /machine/kubelet
-  value: {
-    "extraConfig": {
-      "featureGates": {
-        "UserNamespacesSupport": true,
-        "UserNamespacesPodSecurityStandards": true
-      }
-    }
-  }

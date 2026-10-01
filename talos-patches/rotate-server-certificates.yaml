@@ -1,7 +1,6 @@
 ---
 # Required to deploy metrics server
-# https://www.talos.dev/latest/kubernetes-guides/configuration/deploy-metrics-server/
-machine:
-  kubelet:
-    extraArgs:
-      rotate-server-certificates: true
+apiVersion: v1alpha1
+kind: KubeletConfig
+extraArgs:
+  rotate-server-certificates: true

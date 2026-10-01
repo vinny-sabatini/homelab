@@ -16,6 +16,8 @@ spec:
     helm:
       releaseName: cluster
       values: |
+        crd:
+          mode: template
         route:
           enabled: true
           annotations:

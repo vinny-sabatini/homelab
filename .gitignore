@@ -1,3 +1,6 @@
 talosconfig
 controlplane.yaml
+controlplane-minisforum.yaml
+controlplane-nuc.yaml
 worker.yaml
+secrets.yaml

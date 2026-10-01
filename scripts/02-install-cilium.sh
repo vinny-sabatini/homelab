@@ -2,9 +2,7 @@
 
 set -euo
 
-NODE_IP=$1
-
-kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.2.0/experimental-install.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.2/experimental-install.yaml
 
 cilium install \
     --set ipam.mode=kubernetes \

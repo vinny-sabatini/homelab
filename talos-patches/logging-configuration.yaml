@@ -4,15 +4,6 @@ machine:
     destinations:
       - endpoint: tcp://alloy.alloy.svc:12346/
         format: "json_lines"
-  kubelet:
-    extraMounts:
-      - destination: /var/log/pods
-        type: bind
-        source: /var/log/pods
-        options:
-          - bind
-          - rshared
-          - rw
 ---
 apiVersion: v1alpha1
 kind: KmsgLogConfig
