@@ -12,7 +12,7 @@ spec:
   source:
     path: applications/seaweedfs
     repoURL: 'https://github.com/vinny-sabatini/homelab.git'
-    targetRevision: install-seaweedfs
+    targetRevision: main
   destination:
     server: "https://kubernetes.default.svc"
     namespace: seaweedfs
