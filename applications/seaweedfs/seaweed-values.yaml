@@ -1,0 +1,23 @@
+master:
+  data:
+    type: "hostPath"
+    hostPathPrefix: /var/mnt/seaweedfs
+  logs:
+    type: "hostPath"
+    hostPathPrefix: /var/mnt/seaweedfs
+filer:
+  data:
+    type: "hostPath"
+    hostPathPrefix: /var/mnt/seaweedfs
+  logs:
+    type: "hostPath"
+    hostPathPrefix: /var/mnt/seaweedfs
+volume:
+  dataDirs:
+    - name: data1
+      type: "hostPath"
+      hostPathPrefix: /var/mnt/seaweedfs
+      maxVolumes: 0
+  logs:
+    type: "hostPath"
+    hostPathPrefix: /var/mnt/seaweedfs
