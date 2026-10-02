@@ -8,9 +8,3 @@ helmCharts:
     valuesFile: seaweed-values.yaml
     releaseName: seaweedfs
     namespace: seaweedfs
-  - name: seaweedfs-csi-driver
-    repo: https://seaweedfs.github.io/seaweedfs/helm
-    version: 0.2.40
-    valuesFile: csi-values.yaml
-    releaseName: seaweedfs-csi-driver
-    namespace: seaweedfs
