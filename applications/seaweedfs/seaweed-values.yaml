@@ -1,3 +1,8 @@
+global:
+  seaweedfs:
+    monitoring:
+      enabled: true
+
 master:
   data:
     type: "hostPath"
@@ -5,6 +10,7 @@ master:
   logs:
     type: "hostPath"
     hostPathPrefix: /var/mnt/seaweedfs
+
 filer:
   data:
     type: "hostPath"
@@ -12,6 +18,7 @@ filer:
   logs:
     type: "hostPath"
     hostPathPrefix: /var/mnt/seaweedfs
+
 volume:
   dataDirs:
     - name: data1
@@ -21,3 +28,15 @@ volume:
   logs:
     type: "hostPath"
     hostPathPrefix: /var/mnt/seaweedfs
+
+s3:
+  enabled: true
+  logs:
+    type: "hostPath"
+    hostPathPrefix: /var/mnt/seaweedfs
+
+admin:
+  enabled: true
+
+cosi:
+  enabled: true

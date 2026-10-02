@@ -8,6 +8,7 @@ resources:
 - bambulab-metrics-explorer/application.yaml
 - cert-manager/application.yaml
 - cilium/application.yaml
+- cosi-crds/application.yaml
 - external-dns/application.yaml
 - external-secrets/application.yaml
 - gateway-crds/application.yaml
