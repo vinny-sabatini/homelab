@@ -37,6 +37,10 @@ s3:
 
 admin:
   enabled: true
+  secret:
+    existingSecret: seaweed-admin
+    userKey: seaweed-admin-user
+    pwKey: seaweed-admin-password
 
 cosi:
   enabled: true

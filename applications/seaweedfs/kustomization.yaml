@@ -1,6 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+resources:
+- ExternalSecret-seaweed-admin.yaml
+
 helmCharts:
   - name: seaweedfs
     repo: https://seaweedfs.github.io/seaweedfs/helm
