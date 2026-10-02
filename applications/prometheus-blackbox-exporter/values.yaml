@@ -6,16 +6,6 @@ verticalPodAutoscaler:
   enabled: true
   updatePolicy:
     updateMode: "Off"
-route:
-  main:
-    enabled: true
-    parentRefs:
-      - group: gateway.networking.k8s.io
-        kind: Gateway
-        name: cluster-gateway
-        namespace: kube-system
-    hostnames:
-      - blackbox-exporter.vinnysabatini.me
 extraManifests:
 - kind: Probe
   apiVersion: monitoring.coreos.com/v1
@@ -33,7 +23,6 @@ extraManifests:
         - https://alloy.vinnysabatini.me/-/ready
         - https://argocd.vinnysabatini.me/healthz
         - https://bambuddy.vinnysabatini.me/health
-        - https://blackbox-exporter.vinnysabatini.me
         - https://grafana.vinnysabatini.me/api/health
         - https://headlamp.vinnysabatini.me/
         - https://home-assistant.vinnysabatini.me/

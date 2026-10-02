@@ -24,10 +24,3 @@ spec:
     syncOptions:
     - CreateNamespace=true
     - ServerSideApply=true
-  ignoreDifferences:
-    - kind: HTTPRoute
-      name: cluster-prometheus-blackbox-exporter
-      jsonPointers:
-      - /spec/rules/0/backendRefs/0/group
-      - /spec/rules/0/backendRefs/0/kind
-      - /spec/rules/0/backendRefs/0/weight
