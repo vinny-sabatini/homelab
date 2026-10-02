@@ -25,5 +25,10 @@ extraManifests:
         - https://bambuddy.vinnysabatini.me/health
         - https://grafana.vinnysabatini.me/api/health
         - https://headlamp.vinnysabatini.me/
+        - https://home-assistant.vinnysabatini.me/
+        - https://kube.vinnysabatini.me:6443/healthz
+        - https://matter-server.vinnysabatini.me/
+        - https://music-assistant.vinnysabatini.me/
         - https://prometheus.vinnysabatini.me/-/healthy
         - https://renovate.vinnysabatini.me/health
+        - https://seaweedfs.vinnysabatini.me/health
