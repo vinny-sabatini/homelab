@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
 - ExternalSecret-seaweed-admin.yaml
+- HttpRoute-seaweed-admin.yaml
 
 helmCharts:
   - name: seaweedfs
