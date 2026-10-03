@@ -12,7 +12,7 @@ spec:
   source:
     chart: music-assistant
     repoURL: oci://ghcr.io/toanju/helm-charts/music-assistant
-    targetRevision: 2.10.4
+    targetRevision: 2.10.5
     helm:
       releaseName: music-assistant
       values: |
