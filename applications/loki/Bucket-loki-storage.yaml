@@ -1,0 +1,11 @@
+---
+apiVersion: objectstorage.k8s.io/v1alpha1
+kind: Bucket
+metadata:
+  name: loki-storage
+spec:
+  bucketClassName: seaweedfs
+  deletionPolicy: Delete
+  driverName: seaweedfs.objectstorage.k8s.io
+  protocols:
+  - s3
