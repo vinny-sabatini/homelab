@@ -4,6 +4,9 @@ kind: Bucket
 metadata:
   name: loki-storage
 spec:
+  bucketClaim:
+    name: loki-storage
+    namespace: loki
   bucketClassName: seaweedfs
   deletionPolicy: Delete
   driverName: seaweedfs.objectstorage.k8s.io
