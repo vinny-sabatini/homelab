@@ -11,6 +11,14 @@ loki:
         index:
           prefix: loki_index_
           period: 24h
+  storage:
+    bucketNames:
+      ruler: loki-storage
+  storage_config:
+    aws:
+      s3: http://seaweedfs-s3.seaweedfs.svc.cluster.local:8333/loki-storage
+      s3forcepathstyle: true
+      bucketnames: loki-data
   pattern_ingester:
     enabled: true
   limits_config:
