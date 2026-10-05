@@ -20,3 +20,18 @@ httpRoute:
 env:
 - name: HEADLAMP_CONFIG_METRICS_ENABLED
   value: "true"
+replicaCount: 3
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - podAffinityTerm:
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: headlamp
+        topologyKey: topology.kubernetes.io/zone
+      weight: 100
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: headlamp
+      topologyKey: kubernetes.io/hostname
