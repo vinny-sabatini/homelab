@@ -33,6 +33,7 @@ affinity:
 config:
   watchPlugins: true
   podDebugImage: docker.io/nicolaka/netshoot:latest
+  nodeShellImage: docker.io/nicolaka/netshoot:latest
 pluginsManager:
   enabled: true
   configContent: |
