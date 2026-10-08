@@ -42,6 +42,9 @@ pluginsManager:
       - name: cert-manager
         source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_cert-manager
         version: 0.1.1
+      - name: external-secrets
+        source: https://artifacthub.io/packages/headlamp/external-secrets-operator-headlamp-plugin/external-secrets-operator
+        version: 0.1.0-beta7
       - name: keda
         source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_keda
         version: 0.1.2
