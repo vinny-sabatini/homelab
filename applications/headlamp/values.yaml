@@ -32,6 +32,7 @@ affinity:
       weight: 100
 config:
   watchPlugins: true
+  podDebugImage: docker.io/nicolaka/netshoot:latest
 pluginsManager:
   enabled: true
   configContent: |
