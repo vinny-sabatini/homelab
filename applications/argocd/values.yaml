@@ -1,3 +1,6 @@
+global:
+  affinity:
+    podAntiAffinity: soft
 configs:
   cm:
     kustomize.buildOptions: --enable-helm
