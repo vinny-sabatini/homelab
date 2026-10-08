@@ -40,7 +40,7 @@ spec:
           name: config
           subPath: app
         # renovate: datasource=docker
-        image: ghcr.io/theblackbush/bambulab_metrics_exporter:0.1.40
+        image: ghcr.io/theblackbush/bambulab_metrics_exporter:0.2.0
         name: bambulab-metrics-explorer
         ports:
         - containerPort: 9109
