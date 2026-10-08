@@ -35,3 +35,24 @@ affinity:
         matchLabels:
           app.kubernetes.io/name: headlamp
       topologyKey: kubernetes.io/hostname
+config:
+  watchPlugins: true
+pluginsManager:
+  enabled: true
+  configContent: |
+    plugins:
+      - name: argocd
+        source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_argocd
+        version: 0.1.0-alpha
+      - name: cert-manager
+        source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_cert-manager
+        version: 0.1.1
+      - name: keda
+        source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_keda
+        version: 0.1.2
+      - name: theme-builder
+        source: https://artifacthub.io/packages/headlamp/headlamp-theme-builder/headlamp-theme-builder
+        version: 1.3.0
+    installOptions:
+      parallel: true
+      maxConcurrent: 2
