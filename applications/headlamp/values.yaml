@@ -28,13 +28,8 @@ affinity:
         labelSelector:
           matchLabels:
             app.kubernetes.io/name: headlamp
-        topologyKey: topology.kubernetes.io/zone
+        topologyKey: topology.kubernetes.io/hostname
       weight: 100
-    requiredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-        matchLabels:
-          app.kubernetes.io/name: headlamp
-      topologyKey: kubernetes.io/hostname
 config:
   watchPlugins: true
 pluginsManager:
