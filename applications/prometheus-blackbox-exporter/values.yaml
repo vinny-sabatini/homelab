@@ -31,4 +31,3 @@ extraManifests:
         - https://music-assistant.vinnysabatini.me/
         - https://prometheus.vinnysabatini.me/-/healthy
         - https://renovate.vinnysabatini.me/health
-        - https://seaweedfs.vinnysabatini.me/health

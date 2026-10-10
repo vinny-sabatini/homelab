@@ -28,7 +28,6 @@ resources:
 - obico/application.yaml
 - prometheus-blackbox-exporter/application.yaml
 - renovate-operator.yaml
-- seaweedfs/application.yaml
 - tuppr.yaml
 - unpoller/application.yaml
 - version-checker/application.yaml
