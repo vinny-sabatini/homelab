@@ -25,6 +25,3 @@ serviceMonitor:
 configuration:
   enabled: true
   forceInit: true
-addons:
-  codeserver:
-    enabled: true
