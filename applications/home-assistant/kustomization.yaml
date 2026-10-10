@@ -7,7 +7,7 @@ resources:
 helmCharts:
   - name: home-assistant
     repo: http://pajikos.github.io/home-assistant-helm-chart/
-    version: 0.3.85
+    version: 0.3.86
     valuesFile: values.yaml
     releaseName: home-assistant
     namespace: home-assistant
