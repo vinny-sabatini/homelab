@@ -22,7 +22,6 @@ resources:
 - kube-state-metrics/application.yaml
 - lennox-prometheus-exporter/application.yaml
 - local-path-provisioner.yaml
-- loki/application.yaml
 - matter-server/application.yaml
 - metrics-server/application.yaml
 - music-assistant.yaml
