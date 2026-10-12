@@ -1,9 +1,19 @@
 image:
   # renovate: datasource=docker depName=ghcr.io/maziggy/bambuddy
   tag: 1.2.5.7
+config:
+  slicerApiUrl: http://localhost:3003
 hostNetwork: true
 persistence:
   data:
     storageClass: "local-path"
   logs:
     storageClass: "local-path"
+initContainers:
+  - name: orca-slicer
+    image: ghcr.io/maziggy/orca-slicer-api:latest
+    restartPolicy: Always
+    ports:
+    - name: slicer
+      containerPort: 3003
+      protocol: TCP
