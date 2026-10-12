@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: bambulab-metrics-explorer-config
 spec:
-  storageClassName: local-path
+  storageClassName: seaweedfs
   accessModes:
     - ReadWriteOnce
   resources:

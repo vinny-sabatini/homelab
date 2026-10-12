@@ -7,3 +7,5 @@ route:
       namespace: kube-system
   hostnames:
     - matter-server.vinnysabatini.me
+persistence:
+  storageClassName: seaweedfs

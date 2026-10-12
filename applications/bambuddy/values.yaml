@@ -6,9 +6,9 @@ config:
 hostNetwork: true
 persistence:
   data:
-    storageClass: "local-path"
+    storageClass: "seaweedfs"
   logs:
-    storageClass: "local-path"
+    storageClass: "seaweedfs"
 initContainers:
   - name: orca-slicer
     image: ghcr.io/maziggy/orca-slicer-api:latest

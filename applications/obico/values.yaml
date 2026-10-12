@@ -6,7 +6,7 @@ server:
     data:
       enabled: true
       retain: false
-      storageClass: local-path
+      storageClass: seaweedfs
       accessMode: ReadWriteOnce
       size: 5Gi
 redis:

@@ -58,7 +58,7 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: local-path
+          storageClassName: seaweedfs
           resources:
             requests:
               storage: 40Gi

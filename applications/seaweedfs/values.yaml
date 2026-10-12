@@ -5,7 +5,6 @@ webhook:
   certManager:
     enabled: true
 
-# TODO: Delete local path and replace with seaweed
 # TODO: Add loki back in with S3
 
 # TODO: Add COSI https://github.com/seaweedfs/seaweedfs-operator/issues/212
