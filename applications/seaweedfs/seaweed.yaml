@@ -1,0 +1,31 @@
+---
+apiVersion: seaweed.seaweedfs.com/v1
+kind: Seaweed
+metadata:
+  name: seaweed
+  namespace: seaweedfs
+spec:
+  image: ghcr.io/chrislusf/seaweedfs:4.48
+
+  master:
+    replicas: 3
+    volumeSizeLimitMB: 1024
+
+  volume:
+    replicas: 0
+    kind: DaemonSet
+
+    hostPath:
+      - path: /var/mnt/seaweedfs
+
+    nodeSelector:
+      kubernetes.io/os: linux
+
+  filer:
+    replicas: 1
+    s3:
+      enabled: true
+    config: |
+      [leveldb2]
+      enabled = true
+      dir = "/data/filerldb2"
