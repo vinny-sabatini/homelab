@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
 - seaweed.yaml
+- seaweed-csi-driver.yaml
 # - ExternalSecret-seaweed-admin.yaml
 # - HttpRoute-seaweed-admin.yaml
 
