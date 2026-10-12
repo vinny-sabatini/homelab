@@ -5,49 +5,15 @@ webhook:
   certManager:
     enabled: true
 
+# TODO: Delete local path and replace with seaweed
+# TODO: Add loki back in with S3
+
+# TODO: Add monitoring
 # global:
 #   seaweedfs:
 #     monitoring:
 #       enabled: true
 
-# master:
-#   data:
-#     type: "hostPath"
-#     hostPathPrefix: /var/mnt/seaweedfs
-#   logs:
-#     type: "hostPath"
-#     hostPathPrefix: /var/mnt/seaweedfs
-
-# filer:
-#   data:
-#     type: "hostPath"
-#     hostPathPrefix: /var/mnt/seaweedfs
-#   logs:
-#     type: "hostPath"
-#     hostPathPrefix: /var/mnt/seaweedfs
-
-# volume:
-#   dataDirs:
-#     - name: data1
-#       type: "hostPath"
-#       hostPathPrefix: /var/mnt/seaweedfs
-#       maxVolumes: 0
-#   logs:
-#     type: "hostPath"
-#     hostPathPrefix: /var/mnt/seaweedfs
-
-# s3:
-#   enabled: true
-#   logs:
-#     type: "hostPath"
-#     hostPathPrefix: /var/mnt/seaweedfs
-
-# admin:
-#   enabled: true
-#   secret:
-#     existingSecret: seaweed-admin
-#     userKey: seaweed-admin-user
-#     pwKey: seaweed-admin-password
-
+# TODO: Add COSI https://github.com/seaweedfs/seaweedfs-operator/issues/212
 # cosi:
 #   enabled: true

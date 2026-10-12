@@ -6,7 +6,6 @@ metadata:
   namespace: seaweedfs
 spec:
   image: ghcr.io/chrislusf/seaweedfs:4.48
-  admin: {}
   master:
     replicas: 3
     volumeSizeLimitMB: 1024
