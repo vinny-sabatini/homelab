@@ -21,7 +21,7 @@ spec:
   - backendRefs:
     - group: ""
       kind: Service
-      name: seaweedfs-admin
+      name: seaweed-admin
       port: 23646
       weight: 1
     matches:

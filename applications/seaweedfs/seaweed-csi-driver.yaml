@@ -3,9 +3,7 @@ apiVersion: seaweed.seaweedfs.com/v1
 kind: SeaweedCSIDriver
 metadata:
   name: seaweedfs
-  namespace: seaweedfs
 spec:
-  # Mount an operator-managed Seaweed cluster in the same namespace.
   seaweedRef:
     name: seaweed
   driverName: seaweedfs-csi-driver
