@@ -3,7 +3,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: generic-alerts
-  namespace: monitoring
 spec:
   groups:
     - name: generic-alerts

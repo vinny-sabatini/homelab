@@ -6,28 +6,37 @@ verticalPodAutoscaler:
   enabled: true
   updatePolicy:
     updateMode: "Off"
-extraManifests:
-- kind: Probe
-  apiVersion: monitoring.coreos.com/v1
-  metadata:
-    name: cluster-probes
-  spec:
-    interval: 60s
-    module: http_2xx
-    prober:
-      url: cluster-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
-    targets:
-      staticConfig:
-        static:
-        - https://alertmanager.vinnysabatini.me/-/healthy
-        - https://alloy.vinnysabatini.me/-/ready
-        - https://argocd.vinnysabatini.me/healthz
-        - https://bambuddy.vinnysabatini.me/health
-        - https://grafana.vinnysabatini.me/api/health
-        - https://headlamp.vinnysabatini.me/
-        - https://home-assistant.vinnysabatini.me/
-        - https://kube.vinnysabatini.me:6443/healthz
-        - https://matter-server.vinnysabatini.me/
-        - https://music-assistant.vinnysabatini.me/
-        - https://prometheus.vinnysabatini.me/-/healthy
-        - https://renovate.vinnysabatini.me/health
+config:
+  modules:
+    http_2xx:
+      prober: http
+      timeout: 5s
+      http:
+        valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+        follow_redirects: true
+        preferred_ip_protocol: "ip4"
+# TODO: Use trust-manager for ca cluster bundles
+        tls_config:
+          insecure_skip_verify: true
+# extraConfigmapMounts:
+#   - name: kube-root-ca
+#     mountPath: /etc/secrets/ssl/
+#     subPath: ca.crt
+#     configMap: kube-root-ca.crt
+#     readOnly: true
+#     defaultMode: 420
+# extraVolumeMounts:
+#   - name: kube-root-ca
+#     mountPath: /etc/ssl/certs/kube-root-ca.crt
+route:
+  main:
+    enabled: true
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: blackbox-exporter.vinnysabatini.me
+    hostnames:
+    - blackbox-exporter.vinnysabatini.me
+    parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: cluster-gateway
+      namespace: kube-system
