@@ -24,3 +24,10 @@ spec:
     syncOptions:
     - CreateNamespace=true
     - ServerSideApply=true
+  ignoreDifferences:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      jqPathExpressions:
+        - .spec.rules[0].backendRefs[0].group
+        - .spec.rules[0].backendRefs[0].kind
+        - .spec.rules[0].backendRefs[0].weight
