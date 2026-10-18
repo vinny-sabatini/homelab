@@ -1,3 +1,13 @@
+replicas: 2
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - podAffinityTerm:
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: prometheus-blackbox-exporter
+        topologyKey: topology.kubernetes.io/hostname
+      weight: 100
 serviceMonitor:
   enabled: true
   selfMonitor:
