@@ -8,6 +8,8 @@ verticalPodAutoscaler:
     updateMode: "Off"
 config:
   modules:
+    tcp_connect:
+      prober: tcp
     http_2xx:
       prober: http
       timeout: 5s

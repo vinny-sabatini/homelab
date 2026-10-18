@@ -1,0 +1,16 @@
+---
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: tcp-probes
+spec:
+  interval: 30s
+  module: tcp_connect
+  prober:
+    url: cluster-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+      - 192.168.3.3:50000
+      - 192.168.3.4:50000
+      - 192.168.3.5:50000

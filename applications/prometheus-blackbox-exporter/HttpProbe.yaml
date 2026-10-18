@@ -2,9 +2,9 @@
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
 metadata:
-  name: cluster-probes
+  name: http-probes
 spec:
-  interval: 60s
+  interval: 30s
   module: http_2xx
   prober:
     url: cluster-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
