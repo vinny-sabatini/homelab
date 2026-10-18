@@ -34,7 +34,7 @@ redis:
     clusterRoleRules:
       enabled: true
 server:
-  replicas: 3
+  replicas: 2
   vpa:
     enabled: true
     updateMode: "Off"

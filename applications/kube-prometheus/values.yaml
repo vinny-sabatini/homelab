@@ -41,7 +41,7 @@ prometheus:
     updatePolicy:
       updateMode: "Off"
   prometheusSpec:
-    replicas: 3
+    replicas: 2
     podMetadata:
       annotations:
         match-regex.version-checker.io/prometheus: "v(\\d+)\\.(\\d+)\\.(\\d+)"
