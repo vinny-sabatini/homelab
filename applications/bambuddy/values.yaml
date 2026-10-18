@@ -7,8 +7,12 @@ hostNetwork: true
 persistence:
   data:
     storageClass: "seaweedfs"
+    accessModes:
+    - ReadWriteMany
   logs:
     storageClass: "seaweedfs"
+    accessModes:
+    - ReadWriteMany
 initContainers:
   - name: orca-slicer
     image: ghcr.io/maziggy/orca-slicer-api:latest

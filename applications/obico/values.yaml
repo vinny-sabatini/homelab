@@ -7,7 +7,7 @@ server:
       enabled: true
       retain: false
       storageClass: seaweedfs
-      accessMode: ReadWriteOnce
+      accessMode: ReadWriteMany
       size: 5Gi
 redis:
   image:

@@ -8,3 +8,12 @@ helmCharts:
     valuesFile: values.yaml
     releaseName: matter-server
     namespace: matter-server
+
+patches:
+  - target:
+      kind: StatefulSet
+      name: matter-server-home-assistant-matter-server
+    patch: |-
+      - op: replace
+        path: /spec/volumeClaimTemplates/0/spec/accessModes/0
+        value: "ReadWriteMany"

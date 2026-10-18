@@ -62,6 +62,8 @@ prometheus:
           resources:
             requests:
               storage: 40Gi
+          accessModes:
+          - ReadWriteMany
 grafana:
   enabled: false
   forceDeployDashboards: true

@@ -21,6 +21,8 @@ spec:
         persistence:
           enabled: true
           storageClassName: seaweedfs
+          accessModes:
+          - ReadWriteMany
         extraObjects:
         - apiVersion: gateway.networking.k8s.io/v1
           kind: HTTPRoute
