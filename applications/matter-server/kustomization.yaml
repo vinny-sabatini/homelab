@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: home-assistant-matter-server
     repo: https://charts.derwitt.dev
-    version: 4.3.0
+    version: 4.4.0
     valuesFile: values.yaml
     releaseName: matter-server
     namespace: matter-server
