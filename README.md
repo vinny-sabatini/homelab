@@ -2,11 +2,10 @@
 
 ## Hardware
 
-I am currently just running a single node cluster:
+I am running a three node cluster:
 
-- NUC 13 with 13th generation i7
-- 2TB Kingston M.2 SSD
-- 2x32GB Kingston Impact
+- 1 x NUC 13 with 13th generation i7
+- 2 x Minisforum UM760 Slim with AMD Ryzen 5
 
 ## Setup
 
@@ -50,16 +49,10 @@ There are additional scripts that could be useful post-installation.
 This will wipe the cluster and the nodes will reboot into maintenance mode.
 This requires the node to have the Talos ISO available to boot.
 
-### XX-test-manifests.sh
-
-This will apply or delete some manifests to test out the software installed on the cluster.
-Validation of those test manifests are manual.
-
 ## Remaining VPA
 
 kepler
 kube-system (cilium, coredns, metrics-server)
 kubelet-serving-cert-approver
 lennox-prometheus-exporter
-local-path-storage
 vertical-pod-autoscaler

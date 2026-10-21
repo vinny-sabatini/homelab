@@ -9,15 +9,6 @@ provisioning:
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
-name: local-path-provisioner
-provisioning:
-  diskSelector:
-    match: disk.dev_path == '/dev/nvme0n1'
-  minSize: 200GB
-  maxSize: 200GB
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
 name: seaweedfs
 provisioning:
   diskSelector:

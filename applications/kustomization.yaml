@@ -21,7 +21,6 @@ resources:
 - kube-prometheus/application.yaml
 - kube-state-metrics/application.yaml
 - lennox-prometheus-exporter/application.yaml
-- local-path-provisioner.yaml
 - matter-server/application.yaml
 - metrics-server/application.yaml
 - music-assistant.yaml
