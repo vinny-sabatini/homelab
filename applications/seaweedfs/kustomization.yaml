@@ -8,7 +8,7 @@ resources:
 helmCharts:
   - name: seaweedfs-operator
     repo: https://seaweedfs.github.io/seaweedfs-operator/
-    version: 0.1.43
+    version: 0.1.45
     valuesFile: values.yaml
     releaseName: seaweedfs-operator
     namespace: seaweedfs
