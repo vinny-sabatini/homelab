@@ -58,7 +58,7 @@ spec:
               name: github
             extraEnv: []
             # renovate: datasource=docker
-            image: renovate/renovate:44.198.3
+            image: renovate/renovate:44.199.2
             parallelism: 5
             resources:
               requests:
