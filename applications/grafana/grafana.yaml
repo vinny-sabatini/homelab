@@ -76,4 +76,5 @@ spec:
   config:
     log:
       mode: "console"
-  version: 12.4.2
+  # renovate: datasource=docker depName=docker.io/grafana/grafana
+  version: 13.3.1
