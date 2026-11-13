@@ -22,6 +22,7 @@
         "/.*deployment.yaml$/",
         "/.*grafana.yaml$/",
         "/.*renovate-operator.yaml$/",
+        "/.*seaweed.yaml$/",
         "/.*values.yaml$/",
         "/.*Upgrade.yaml$/"
       ],
