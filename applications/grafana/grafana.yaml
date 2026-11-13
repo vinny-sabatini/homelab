@@ -46,6 +46,12 @@ spec:
               volumeMounts:
                 - mountPath: /var/lib/grafana/dashboards
                   name: dashboards
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                capabilities:
+                  drop:
+                  - ALL
   httpRoute:
     metadata:
       annotations:
