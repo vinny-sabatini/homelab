@@ -12,3 +12,4 @@ env:
       secretKeyRef:
         name: version-checker
         key: docker-token
+replicas: 0
