@@ -23,13 +23,15 @@
         "/.*grafana.yaml$/",
         "/.*renovate-operator.yaml$/",
         "/.*seaweed.yaml$/",
+        "/.*seaweed-csi-driver.yaml$/",
         "/.*values.yaml$/",
         "/.*Upgrade.yaml$/"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>.+?)\n\\s*version: (?<currentValue>.*?)\n",
         "# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>.+?)\n\\s*tag: (?<currentValue>.*?)\n",
-        "# renovate: datasource=(?<datasource>[a-z-]+?)\n\\s*.*image: (?<depName>.*?):(?<currentValue>.*?)\n"
+        "# renovate: datasource=(?<datasource>[a-z-]+?)\n\\s*.*image: (?<depName>.*?):(?<currentValue>.*?)\n",
+        "# renovate: datasource=(?<datasource>[a-z-]+?)\n\\s*.*\\w: (?<depName>.*?):(?<currentValue>.*?)\n"
       ]
     }
   ],
