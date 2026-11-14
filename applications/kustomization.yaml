@@ -23,12 +23,12 @@ resources:
 - lennox-prometheus-exporter/application.yaml
 - matter-server/application.yaml
 - metrics-server/application.yaml
-- music-assistant/application.yaml
+- music-assistant.yaml
 - obico/application.yaml
 - prometheus-blackbox-exporter/application.yaml
-- renovate-operator/application.yaml
+- renovate-operator.yaml
 - seaweedfs/application.yaml
-- tuppr/application.yaml
+- tuppr.yaml
 - unpoller/application.yaml
 - version-checker/application.yaml
 - vertical-pod-autoscaler/application.yaml
