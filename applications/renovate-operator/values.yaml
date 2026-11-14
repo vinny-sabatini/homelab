@@ -1,0 +1,28 @@
+crd:
+  mode: template
+route:
+  enabled: true
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: renovate.vinnysabatini.me
+  hostnames:
+  - renovate.vinnysabatini.me
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: cluster-gateway
+    namespace: kube-system
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+  dashboard:
+    enabled: true
+    labels:
+      grafana_dashboard: "0"
+    grafanaDashboard:
+      allowCrossNamespaceImport: true
+      instanceSelector:
+        matchLabels:
+          dashboards: grafana
+telemetry:
+  enabled: false

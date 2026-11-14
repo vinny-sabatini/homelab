@@ -1,0 +1,7 @@
+# Temporary to bootstrap Spotify
+# hostNetwork: true
+persistence:
+  enabled: true
+  storageClassName: seaweedfs
+  accessModes:
+  - ReadWriteMany
