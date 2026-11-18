@@ -34,3 +34,13 @@ configuration:
     automation: !include automations.yaml
     script: !include scripts.yaml
     scene: !include scenes.yaml
+startupProbe:
+  initialDelaySeconds: 120
+  failureThreshold: 3
+  httpGet:
+    path: /
+    port: http
+    scheme: HTTP
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
