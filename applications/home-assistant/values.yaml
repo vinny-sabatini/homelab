@@ -25,12 +25,12 @@ configuration:
   forceInit: true
   templateConfig: |-
     default_config:
-      prometheus:
-        requires_auth: false
-      frontend:
-        themes: !include_dir_merge_named themes
-      logger:
-        default: debug
-      automation: !include automations.yaml
-      script: !include scripts.yaml
-      scene: !include scenes.yaml
+    prometheus:
+      requires_auth: false
+    frontend:
+      themes: !include_dir_merge_named themes
+    logger:
+      default: debug
+    automation: !include automations.yaml
+    script: !include scripts.yaml
+    scene: !include scenes.yaml
