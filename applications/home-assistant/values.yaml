@@ -23,3 +23,5 @@ serviceMonitor:
 configuration:
   enabled: true
   forceInit: true
+  logger:
+    default: debug
