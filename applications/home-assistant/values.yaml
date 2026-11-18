@@ -18,10 +18,8 @@ persistence:
   storageClass: seaweedfs
 serviceMonitor:
   enabled: true
+  requiresAuth: false
   scrapeInterval: 30s
-  bearerToken:
-    secretName: "home-assistant-prometheus"
-    secretKey: "home_assistant_prometheus"
 configuration:
   enabled: true
   forceInit: true
