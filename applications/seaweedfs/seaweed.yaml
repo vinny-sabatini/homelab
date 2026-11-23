@@ -6,7 +6,7 @@ metadata:
   namespace: seaweedfs
 spec:
   # renovate: datasource=docker
-  image: ghcr.io/chrislusf/seaweedfs:4.54
+  image: ghcr.io/chrislusf/seaweedfs:4.55
   master:
     replicas: 3
     volumeSizeLimitMB: 1024
