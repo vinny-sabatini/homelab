@@ -2,7 +2,7 @@
 
 set -euo
 
-kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.2/experimental-install.yaml
+kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.7.0/experimental-install.yaml
 
 cilium install \
     --set ipam.mode=kubernetes \
