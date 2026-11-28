@@ -13,7 +13,7 @@ resources:
 helmCharts:
   - name: loki
     repo: https://grafana-community.github.io/helm-charts
-    version: 21.6.3
+    version: 21.6.4
     valuesFile: values.yaml
     namespace: loki
     releaseName: loki
